@@ -8,7 +8,7 @@ import { Mail } from "./Mail";
 import { Password } from "./Password";
 import AspectRatioIcon from '@mui/icons-material/AspectRatio';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import CustomArrow from "../Customs/CustomArrow.js";
+import CustomArrow from "../Personnal/CustomArrow.js";
 import ContainerPageComponent from "../Containers/ContainerPageComponent.js";
 import { useTranslation } from "next-i18next";
 import { NAMESPACE_LANGAGE_HOME } from "@/constants.js";

@@ -4,7 +4,7 @@ import { getRandomNumber } from "@/lib/func/func.js";
 import { Container, MenuItem } from "@mui/material";
 import { updateLangageStorage } from "@/lib/storage/UserStorageFunctions.js";
 import { useTranslation } from "next-i18next";
-import DropdownCustom from "../Customs/Dropdown.js";
+import DropdownCustom from "../Personnal/Dropdown.js";
 import { NAMESPACE_LANGAGE_COMMON, PAGE_LINK_GALLERY, PAGE_LINK_HOME, PAGE_LINK_TUTORIAL, WEBSITE_NAME } from "@/constants.js";
 import { useRouter } from "next/router.js";
 import { Layout } from "../Containers/Layout.js";

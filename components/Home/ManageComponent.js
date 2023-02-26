@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Layout } from "../Containers/Layout.js";
 import NavbarComponent from "../Navbar/NavbarComponent.js";
 import { Container, Card, Text, Link, Grid, Avatar, useTheme, Input, Button } from "@nextui-org/react";
-import ImageMasonry from "../Customs/ImageMasonry.js";
+import ImageMasonry from "../Personnal/ImageMasonry.js";
 import ContainerPageComponent from "../Containers/ContainerPageComponent.js";
 import SearchIcon from '@mui/icons-material/Search';
 import Image from "next/image.js";

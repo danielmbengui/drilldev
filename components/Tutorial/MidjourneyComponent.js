@@ -17,7 +17,7 @@ import Script from 'next/script';
 import ContainerPageWithoutHeaderComponent from '@/components/Containers/ContainerPageWithoutHeaderComponent';
 import { Pagination } from "@nextui-org/react";
 import { myLoader } from '@/lib/ImageLoader';
-import VideoCardCustom from '../Customs/VideoCardCustom';
+import VideoCardCustom from '../Personnal/VideoCardCustom';
 
 
 

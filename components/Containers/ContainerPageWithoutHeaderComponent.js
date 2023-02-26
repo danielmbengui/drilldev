@@ -5,11 +5,11 @@ import { Button, changeTheme, Popover, Switch, Text, useTheme, TriggerTypes, Car
 import { getRandomNumber } from "@/lib/func/func.js";
 import { Container, Grid, MenuItem } from "@mui/material";
 import ResponsiveAppBar from "../Navbar/ResponsiveAppBar.js";
-import { SunIcon } from "../Customs/SunIcon.js";
-import { MoonIcon } from "../Customs/MoonIcon.js";
+import { SunIcon } from "../Personnal/SunIcon.js";
+import { MoonIcon } from "../Personnal/MoonIcon.js";
 import { updateLangageStorage } from "@/lib/storage/UserStorageFunctions.js";
 import { useTranslation } from "next-i18next";
-import DropdownCustom from "../Customs/Dropdown.js";
+import DropdownCustom from "../Personnal/Dropdown.js";
 import { NAMESPACE_LANGAGE_COMMON, PAGE_LINK_GALLERY, PAGE_LINK_HOME, PAGE_LINK_TUTORIAL } from "@/constants.js";
 import { useRouter } from "next/router.js";
 import MenuMobile from "../Navbar/MenuMobile.js";

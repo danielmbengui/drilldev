@@ -3,7 +3,7 @@ import { Layout } from "../Containers/Layout.js";
 import NavbarComponent from "../Navbar/NavbarComponent.js";
 import { Card, Text, Link, Avatar, useTheme, Input, Pagination } from "@nextui-org/react";
 import { Image } from "@nextui-org/react";
-import ImageMasonry from "../Customs/ImageMasonry.js";
+import ImageMasonry from "../Personnal/ImageMasonry.js";
 import ContainerPageComponent from "../Containers/ContainerPageComponent.js";
 import SearchIcon from '@mui/icons-material/Search';
 import { Container, Grid } from "@mui/material";
