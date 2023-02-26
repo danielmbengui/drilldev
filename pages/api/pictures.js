@@ -13,8 +13,8 @@ const publicDirectoryPath = path.join(__dirname, 'public');
 const rootDirectoryPath = path.resolve(process.cwd());
 //const DIR_MIDJOURNEY_DRAFTS = `${rootDirectoryPath}/public/images/midjourney/drafts`;
 const DIR_MIDJOURNEY_DRAFTS = path.join(rootDirectoryPath, 'public', 'images', 'midjourney', 'drafts');
-const DIR_WEBP = path.join(rootDirectoryPath, 'public', 'images', 'midjourney', 'webp');
-//const DIR_WEBP = `${rootDirectoryPath}/public/images/midjourney/webp`;
+//const DIR_WEBP = path.join(rootDirectoryPath, 'public', 'images', 'midjourney', 'webp');
+const DIR_WEBP = `${rootDirectoryPath}/public/images/midjourney/webp`;
 const PATH_PICTURES = `${process.cwd()}/public/datas/images/`;
 const sharp = require('sharp');
 
