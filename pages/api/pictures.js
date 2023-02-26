@@ -9,7 +9,9 @@ import getConfig from 'next/config';
 const { serverRuntimeConfig, publicRuntimeConfig } = getConfig();
 
 //const DIR_MIDJOURNEY_DRAFTS = `${serverRuntimeConfig.publicPath}/images/midjourney/drafts`;
-const DIR_MIDJOURNEY_DRAFTS = `${cwd()}/public/images/midjourney/drafts`;
+const publicDirectoryPath = path.join(__dirname, 'public');
+const rootDirectoryPath = path.resolve(process.cwd());
+const DIR_MIDJOURNEY_DRAFTS = `${rootDirectoryPath}/public/images/midjourney/drafts`;
 
 const PATH_PICTURES = `${process.cwd()}/public/datas/images/`;
 const sharp = require('sharp');
