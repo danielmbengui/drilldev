@@ -8,7 +8,8 @@ import {  DIR_MIDJOURNEY_DATAS, DIR_WEBP, GALLERY_MAX_PICTURES_PER_PAGE, METHOD_
 import getConfig from 'next/config';
 const { serverRuntimeConfig, publicRuntimeConfig } = getConfig();
 
-const DIR_MIDJOURNEY_DRAFTS = `${serverRuntimeConfig.publicPath}/images/midjourney/drafts`;
+//const DIR_MIDJOURNEY_DRAFTS = `${serverRuntimeConfig.publicPath}/images/midjourney/drafts`;
+const DIR_MIDJOURNEY_DRAFTS = `${cwd()}/public/images/midjourney/drafts`;
 
 const PATH_PICTURES = `${process.cwd()}/public/datas/images/`;
 const sharp = require('sharp');
@@ -190,9 +191,7 @@ console.log("size tab", pictures_absolute.length)
     //lossless: true 
 })
   .toFile(`${DIR_WEBP}/${output}.webp`);
-    }
-    
-  
+    }  
 }
 
 export default async function handler(req, res) {

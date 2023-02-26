@@ -3,7 +3,7 @@ import { Box } from "./Box.js";
 import { useTheme } from "@nextui-org/react";
 import { getRandomNumber } from "@/lib/func/func.js";
 import { Container, Grid } from "@mui/material";
-import FooterComponent from "../Home/FooterComponent.js";
+import FooterComponent from "../All/FooterComponent.js";
 
 export const Layout = ({ children, padding=0 }) => {
   const { isDark } = useTheme();

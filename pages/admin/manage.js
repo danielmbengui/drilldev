@@ -4,7 +4,7 @@ import { NAMESPACE_LANGAGE_COMMON, TAB_LANGAGES, TAB_NAMEPACES } from '@/constan
 import { useTranslation } from 'next-i18next';
 import ContainerPageComponent from '@/components/Containers/ContainerPageComponent';
 import { Text, useTheme } from '@nextui-org/react';
-import ManageComponent from '@/components/Home/ManageComponent';
+import ManageComponent from '@/components/All/ManageComponent';
 
 export default function ManagePage(props) {
   const {isDark} = useTheme();

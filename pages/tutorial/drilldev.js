@@ -5,7 +5,7 @@ import { NAMESPACE_LANGAGE_COMMON, NAMESPACE_LANGAGE_HOME, TAB_LANGAGES, TAB_NAM
 import { useTranslation } from 'next-i18next';
 import ContainerPageComponent from '@/components/Containers/ContainerPageComponent';
 import { Button, Card, Collapse, Grid, Link, Modal, Text, useTheme } from '@nextui-org/react';
-import TutorialComponent from '@/components/Home/TutorialComponent';
+import TutorialComponent from '@/components/All/TutorialComponent';
 import { useEffect, useState } from 'react';
 import fs from 'fs';
 import path from 'path';

@@ -16,7 +16,7 @@ import MenuMobile from "../Navbar/MenuMobile.js";
 import MenuIcon from '@mui/icons-material/Menu';
 import Image from "next/image.js";
 import { myLoader } from "@/lib/ImageLoader.js";
-import FooterComponent from "../Home/FooterComponent.js";
+import FooterComponent from "../All/FooterComponent.js";
 const logoLightTheme = "/images/logos/logo_orange_complete_no_back.png";
 const logoDarkTheme = "/images/logos/logo_orange_complete_no_back.png";
 const logoMobileTheme = "/images/logos/logo_orange_pic_no_back.png";

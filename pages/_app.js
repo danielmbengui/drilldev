@@ -11,7 +11,7 @@ import { useMediaQuery } from "@/styles/useMediaQuery";
 import { getLangageStorage } from '@/lib/storage/UserStorageFunctions';
 import { appWithTranslation, useTranslation } from 'next-i18next';
 import Script from 'next/script';
-import FooterComponent from '@/components/Home/FooterComponent';
+import FooterComponent from '@/components/All/FooterComponent';
 import Head from 'next/head';
 
 const MyApp = ({ Component, pageProps }) => {
