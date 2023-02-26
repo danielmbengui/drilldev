@@ -11,7 +11,6 @@ import CustomArrow from "../Personnal/CustomArrow.js";
 import ContainerPageComponent from "../Containers/ContainerPageComponent.js";
 import { useTranslation } from "next-i18next";
 import { NAMESPACE_LANGAGE_HOME } from "@/constants.js";
-import { PICTURES_HOME } from "@/__mocks__/_pictures_.js";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CollectionsIcon from '@mui/icons-material/Collections';
 import DownloadIcon from '@mui/icons-material/Download';
@@ -19,6 +18,8 @@ import CustomImageList from "../Personnal/CustomImageList.js";
 import { Container, Grid } from "@mui/material";
 import Image from "next/image.js";
 import { myLoader } from "@/lib/ImageLoader.js";
+import { _PICTURES_HOME_ } from "@/__mocks__/home/_pictures_home_.js";
+import UndownloadableImage from "../Customs/UndownloadableImage.js";
 
 const logoLightTheme = "/images/logos/logo_orange_complete_no_back.png";
 const logoDarkTheme = "/images/logos/logo_orange_complete_no_back.png";
@@ -34,13 +35,13 @@ function getRandomSortPictures() {
   const randomOrder = [];
   const randomPictures = [];
   const min = 0;
-  const max = PICTURES_HOME.length;
+  const max = _PICTURES_HOME_.length;
   for (let i = 0; i < max; i++) {
     let random = Math.floor(Math.random() * (max - min) + min);
     while (randomOrder.includes(random)) {
       random = Math.floor(Math.random() * (max - min) + min);
     }
-    const element = PICTURES_HOME[random];
+    const element = _PICTURES_HOME_[random];
     randomOrder.push(random);
     randomPictures.push(element);
   }
@@ -58,7 +59,7 @@ export default function HomeComponent(props) {
   const [titleModal, setTitleModal] = useState("");
   const [typesModal, setTypesModal] = useState([]);
   const [picture, setPicture] = useState(null);
-  const [pictures, setPictures] = useState(PICTURES_HOME);
+  const [pictures, setPictures] = useState(_PICTURES_HOME_);
 
   const variants = ["static", "floating", "sticky"];
   const [visible, setVisible] = useState(false);
@@ -120,19 +121,13 @@ setPictures(getRandomSortPictures());
                       sm={4}
                      md={2}
                     >
-                       <Image
+                       <UndownloadableImage
                         //showSkeleton
-                        style={{
-                          //cursor:'pointer',
-                          borderRadius:10
-                        }}
-                        width={150}
-                        height={150}
+                        borderRadius={10}
+                        width={1024}
+                        height={1024}
                         src={picture.src}
                         alt={`${picture.src} - ${index}`}
-                        loader={myLoader}
-                        priority
-                        quality={100}
                         //objectFit="cover"
                       />
                     </Grid>

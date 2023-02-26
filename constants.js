@@ -5,6 +5,7 @@ export const WEBSITE_NAME = 'Drill Dev';
 export const APP_NAME = 'Drill Dev';
 export const DEFAULT_SCREEN_MODE = 'light';
 export const DEFAULT_LANGAGE = 'fr';
+export const WEBSITE_PICTURES_ADDRESS = "https://pictures.dandela.com";
 export const GALLERY_MAX_PICTURES_PER_PAGE = 100;
 
 /* --------------- API'S -------------- */

@@ -28,6 +28,7 @@ import Video from "yet-another-react-lightbox/plugins/video";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import "yet-another-react-lightbox/plugins/captions.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
+import UndownloadableImage from '../Customs/UndownloadableImage';
 
 const Label = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -111,20 +112,21 @@ export default function ImageMasonry(props) {
         alt={item.title}
         //loading="lazy"
         width={500}
-        height={400}
+        height={500}
+        borderRadius={10}
         style={{
-          display: 'flex',
-          width: 'auto',
-          maxWidth: '100%',
-          height:'auto',
-          maxHeight:'100%',
-          borderRadius:10
+          //display: 'flex',
+          //width: '100%',
+          //maxWidth: '100%',
+          //height:'100%',
+          //maxHeight:'100%',
+          //borderRadius:10
         }}
-        loader={myLoader}
-        priority
+        //loader={myLoader}
+        //priority
         //priority={index < 4 ? true : false}
         //loading={index < 4 ? 'eager' : 'lazy'}
-        quality={100}
+        //quality={100}
       />
       <ImageListItemBar
       title={item.title}
@@ -157,7 +159,7 @@ export default function ImageMasonry(props) {
     }} />
         </IconButton>
           </Grid>
-          <Grid gap={0}>
+          <Grid gap={0} css={{display:'none'}}>
         <IconButton
           sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
           aria-label={`info about ${item.title}`}

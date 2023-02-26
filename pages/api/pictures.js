@@ -4,7 +4,7 @@ import initMiddleware from '@/lib/init-middleware';
 import { cwd } from 'process';
 import path from 'path';
 import { getFirstLetterUpperCase, getOnePictureFromList, getRelativePath, getListPictures } from './constants';
-import { DIR_MIDJOURNEY_DATAS, GALLERY_MAX_PICTURES_PER_PAGE, METHOD_GET, METHOD_POST, QUERY_ACTION_GET_LIST_PICTURES, QUERY_PAGE, QUERY_PER_PAGE, QUERY_SEARCH, } from '@/constants';
+import { DIR_MIDJOURNEY_DATAS, GALLERY_MAX_PICTURES_PER_PAGE, METHOD_GET, METHOD_POST, QUERY_ACTION_GET_LIST_PICTURES, QUERY_PAGE, QUERY_PER_PAGE, QUERY_SEARCH, WEBSITE_PICTURES_ADDRESS, } from '@/constants';
 import getConfig from 'next/config';
 const { serverRuntimeConfig, publicRuntimeConfig } = getConfig();
 
@@ -31,7 +31,7 @@ function writeFile(data) {
     if (!fs.existsSync(DIR_MIDJOURNEY_DATAS)) {
         fs.mkdirSync(DIR_MIDJOURNEY_DATAS, { recursive: true });
     }
-    fs.writeFileSync(DIR_MIDJOURNEY_DATAS + "/data3.json", JSON.stringify(data, null, 2));
+    fs.writeFileSync(DIR_MIDJOURNEY_DATAS + "/data.json", JSON.stringify(data, null, 2));
 }
 
 
@@ -48,13 +48,13 @@ function updateFile() {
 }
 
 function getDataFile() {
-    /*
+    
     if (!fs.existsSync(DIR_MIDJOURNEY_DATAS)) {
         fs.mkdirSync(DIR_MIDJOURNEY_DATAS, { recursive: true });
         fs.writeFileSync(DIR_MIDJOURNEY_DATAS + "/data.json", JSON.stringify([], null, 2));
     }
-    */
-    const array = require("../../public/pictures/datas/data.json")
+    
+    const array = require("../../public/images/midjourney/datas/data.json")
     //return JSON.parse(fs.readFileSync(DIR_MIDJOURNEY_DATAS + "/data.json"));
     return (array);
 }
@@ -69,7 +69,10 @@ function formatTitle(link) {
     last = word.lastIndexOf("_");
     word = word.slice(0, last);
     const result = word
+        .replaceAll("dambengu__", "")
         .replaceAll("dambengu_", "")
+        .replaceAll("Drill_Dev__", "")
+        .replaceAll("Drill_Dev_", "")
         .replaceAll("/", " ")
         .replaceAll("_", " ")
         .replaceAll("-", " ")
@@ -96,7 +99,13 @@ function getAllPictures() {
                 {
                     title: formatTitle(item),
                     src: item,
-                    src: `https://pictures.drilldev.com/images/midjourney/${path.basename(item).replaceAll("dambengu_", "")}`,
+                    src: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/PNG/high_resolution/${path.basename(item).replaceAll("dambengu_", "").replaceAll("Drill_Dev_", "")}`,
+                    src_png_high_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/PNG/high_resolution/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
+                    src_png_low_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/PNG/high_resolution/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
+                    src_jpg_high_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/JPG/high_resolution/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
+                    src_jpg_low_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/JPG/high_resolution/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
+                    src_webp_high_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/WEBP/high_resolution/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
+                    src_webp_low_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/WEBP/high_resolution/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
                     //src:`https://ipfs.io/ipfs/Qmc8Pvj2hU7syTZVZWNHFT8dNhZypboTon2ioL6b7V6TXf/mid-journey/${path.basename(item).replaceAll("dambengu_", "")}`,
                     types: ["illustration"],
                     description: formatTitle(item).toLowerCase(),
@@ -105,7 +114,7 @@ function getAllPictures() {
                 }
             )
         })
-        //writeFile(array);
+        writeFile(array);
         //updateFile();
         return (array);
     }

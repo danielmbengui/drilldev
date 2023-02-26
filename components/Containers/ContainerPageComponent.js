@@ -17,6 +17,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Image from "next/image.js";
 import { myLoader } from "@/lib/ImageLoader.js";
 import FooterComponent from "../All/FooterComponent.js";
+import UndownloadableImage from "../Customs/UndownloadableImage.js";
 const logoLightTheme = "/images/logos/logo_orange_complete_no_back.png";
 const logoDarkTheme = "/images/logos/logo_orange_complete_no_back.png";
 const logoMobileTheme = "/images/logos/logo_orange_pic_no_back.png";
@@ -36,7 +37,7 @@ export default function ContainerPageComponent(props) {
   const [src, setSrc] = useState(null);
   useEffect(() => {
     if (picturesTitle && picturesTitle.length > 0) {
-      setSrc(getRandomPicture(picturesTitle).src);
+      setSrc(getRandomPicture(picturesTitle));
     } else {
       setSrc(getRandomPicture(PICTURES).src)
     }
@@ -107,7 +108,7 @@ export default function ContainerPageComponent(props) {
             display:{xs:'none', sm:'flex'}
           }}>
             {
-              src && <Image
+              src && <UndownloadableImage
                 //showSkeleton
                 //maxDelay={10000}
                 //autoResize={true}
@@ -116,13 +117,7 @@ export default function ContainerPageComponent(props) {
                 src={src}
                 alt="logo drill-dev"
                 loader={myLoader}
-                style={{
-                  //maxWidth:'100%',
-                  textAlign:'center',
-                  borderRadius:10
-                  //maxHeight:'100%'
-                }}
-              
+                borderRadius={10}              
               />
             }
           </Grid>

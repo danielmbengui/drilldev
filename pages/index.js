@@ -7,16 +7,10 @@ import { useTranslation } from 'next-i18next';
 import ContainerPageComponent from '@/components/Containers/ContainerPageComponent';
 import { Text, useTheme } from '@nextui-org/react';
 import { PICTURES_HOME } from '@/__mocks__/_pictures_';
+import { _PICTURE_HEADER_HOME_ } from '@/__mocks__/home/_pictures_home_';
 
 const homePictures = [
-  PICTURES_HOME[180],
-  PICTURES_HOME[181],
-  PICTURES_HOME[182],
-  PICTURES_HOME[183],
-  PICTURES_HOME[184],
-  PICTURES_HOME[185],
-  PICTURES_HOME[186],
-  PICTURES_HOME[187],
+  _PICTURE_HEADER_HOME_
   /*
 PICTURES_HOME[16], //moon
   PICTURES_HOME[40], //indian

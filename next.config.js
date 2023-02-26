@@ -38,6 +38,9 @@ module.exports = withPWA({
   env: {
     domain: process.env.NODE_ENV === "production" ? 'https://www.drill-dev.com' : 'http://localhost:3000',
   },
+  images: {
+    domains: ['pictures.dandela.com'],
+  },
   async headers() {
     return [
       {
