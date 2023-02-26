@@ -189,6 +189,8 @@ async function convertToWebp() {
             .replaceAll("Drill_Dev_", "")
             .trim()
 
+        fs.mkdirSync(DIR_WEBP, { recursive: true });
+        
         await sharp(element)
             //.resize(320, 240)
             .webp({
