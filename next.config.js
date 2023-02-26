@@ -35,6 +35,10 @@ module.exports = withPWA({
     // Chemin d'accès absolu vers le dossier public
     publicPath: `${process.cwd()}/public`,
   },
+  publicRuntimeConfig: {
+    // Chemin d'accès absolu vers le dossier public
+    publicPath: `${process.cwd()}/public`,
+  },
   env: {
     domain: process.env.NODE_ENV === "production" ? 'https://www.drill-dev.com' : 'http://localhost:3000',
   },
