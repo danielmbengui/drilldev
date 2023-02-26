@@ -192,13 +192,14 @@ async function convertToWebp() {
         if (!fs.existsSync(DIR_WEBP)) {
             fs.mkdirSync(DIR_WEBP, { recursive: true });
         }
+        
         await sharp(element)
             //.resize(320, 240)
             .webp({
                 quality: 40,
                 //lossless: true 
             })
-            .toFile(`${DIR_WEBP}/${output}.webp`);
+            .toFile(path.join(DIR_WEBP, `${output}.webp`));
     }
 }
 
