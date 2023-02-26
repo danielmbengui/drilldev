@@ -4,15 +4,17 @@ import initMiddleware from '@/lib/init-middleware';
 import { cwd } from 'process';
 import path from 'path';
 import { getFirstLetterUpperCase, getOnePictureFromList, getRelativePath, getListPictures } from './constants';
-import {  DIR_MIDJOURNEY_DATAS, GALLERY_MAX_PICTURES_PER_PAGE, METHOD_GET, METHOD_POST, QUERY_ACTION_GET_LIST_PICTURES, QUERY_PAGE, QUERY_PER_PAGE, QUERY_SEARCH, } from '@/constants';
+import { DIR_MIDJOURNEY_DATAS, GALLERY_MAX_PICTURES_PER_PAGE, METHOD_GET, METHOD_POST, QUERY_ACTION_GET_LIST_PICTURES, QUERY_PAGE, QUERY_PER_PAGE, QUERY_SEARCH, } from '@/constants';
 import getConfig from 'next/config';
 const { serverRuntimeConfig, publicRuntimeConfig } = getConfig();
 
 //const DIR_MIDJOURNEY_DRAFTS = `${serverRuntimeConfig.publicPath}/images/midjourney/drafts`;
 const publicDirectoryPath = path.join(__dirname, 'public');
 const rootDirectoryPath = path.resolve(process.cwd());
-const DIR_MIDJOURNEY_DRAFTS = `${rootDirectoryPath}/public/images/midjourney/drafts`;
-const DIR_WEBP = `${rootDirectoryPath}/public/images/midjourney/webp`;
+//const DIR_MIDJOURNEY_DRAFTS = `${rootDirectoryPath}/public/images/midjourney/drafts`;
+const DIR_MIDJOURNEY_DRAFTS = path.join(rootDirectoryPath, 'public', 'images', 'midjourney', 'drafts');
+const DIR_WEBP = path.join(rootDirectoryPath, 'public', 'images', 'midjourney', 'webp');
+//const DIR_WEBP = `${rootDirectoryPath}/public/images/midjourney/webp`;
 const PATH_PICTURES = `${process.cwd()}/public/datas/images/`;
 const sharp = require('sharp');
 
@@ -122,17 +124,17 @@ function getRandomSortPictures(_pictures = []) {
     const min = 0;
     const max = _pictures.length;
     for (let i = 0; i < max; i++) {
-      let random = Math.floor(Math.random() * (max - min) + min);
-      while (randomOrder.includes(random)) {
-        random = Math.floor(Math.random() * (max - min) + min);
-      }
-      const element = _pictures[random];
-      randomOrder.push(random);
-      randomPictures.push(element);
+        let random = Math.floor(Math.random() * (max - min) + min);
+        while (randomOrder.includes(random)) {
+            random = Math.floor(Math.random() * (max - min) + min);
+        }
+        const element = _pictures[random];
+        randomOrder.push(random);
+        randomPictures.push(element);
     }
-  
+
     return randomPictures; // The maximum is exclusive and the minimum is inclusive
-  }
+}
 
 /*
 function getPicturesFile() {
@@ -174,26 +176,27 @@ function getListPicturesBySearch(search, page, per_page) {
     });
 }
 
-function convertToWebp() {
+async function convertToWebp() {
     const pictures_absolute = getListPictures([], DIR_MIDJOURNEY_DRAFTS).array;
-console.log("size tab", pictures_absolute.length)
+    console.log("size tab", pictures_absolute.length)
     for (let i = 0; i < pictures_absolute.length; i++) {
         const element = pictures_absolute[i];
-        
+
         const output = path.basename(element, ".png")
-        .replaceAll("dambengu__", "")
-        .replaceAll("dambengu_", "")
-        .replaceAll("Drill_Dev__", "")
-        .replaceAll("Drill_Dev_", "")
-        .trim()
-        sharp(element)
-  //.resize(320, 240)
-  .webp({ 
-    quality:40,
-    //lossless: true 
-})
-  .toFile(`${DIR_WEBP}/${output}.webp`);
-    }  
+            .replaceAll("dambengu__", "")
+            .replaceAll("dambengu_", "")
+            .replaceAll("Drill_Dev__", "")
+            .replaceAll("Drill_Dev_", "")
+            .trim()
+
+        await sharp(element)
+            //.resize(320, 240)
+            .webp({
+                quality: 40,
+                //lossless: true 
+            })
+            .toFile(`${DIR_WEBP}/${output}.webp`);
+    }
 }
 
 export default async function handler(req, res) {
@@ -216,22 +219,22 @@ export default async function handler(req, res) {
                 const array = getListPicturesBySearch(search, page, per_page);
                 return res.status(200).json({
                     msg: array.length ? "Success" : "Error",
-                    result:array,
+                    result: array,
                 });
             } else if (req.query.action === "update_file") {
                 updateFile();
-                return res.status(200).json({ msg: "Success"});
+                return res.status(200).json({ msg: "Success" });
             }
             else if (req.query.action === "get_one" && req.query.name) {
                 const one = getOnePicture(req.query.name);
                 return res.status(200).json({ msg: one ? "Success" : "Error", file: one, });
-            }else if (req.query.action === "convert" ) {
+            } else if (req.query.action === "convert") {
                 //const one = getOnePicture(req.query.name);
-                convertToWebp();
-                return res.status(200).json({ msg: "Success"});
+                await convertToWebp();
+                return res.status(200).json({ msg: "Success" });
             }
 
-            
+
         }
 
         //const array_relative = getListDraftPictures().array_relative;
