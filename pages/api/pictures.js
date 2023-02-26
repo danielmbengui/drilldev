@@ -176,7 +176,7 @@ function getListPicturesBySearch(search, page, per_page) {
     });
 }
 
-async function convertToWebp() {
+function convertToWebp() {
     const pictures_absolute = getListPictures([], DIR_MIDJOURNEY_DRAFTS).array;
     console.log("size tab", pictures_absolute.length)
     for (let i = 0; i < pictures_absolute.length; i++) {
@@ -194,7 +194,7 @@ async function convertToWebp() {
         }
         */
         
-        await sharp(element)
+        sharp(element)
             //.resize(320, 240)
             .webp({
                 quality: 40,
@@ -235,7 +235,7 @@ export default async function handler(req, res) {
                 return res.status(200).json({ msg: one ? "Success" : "Error", file: one, });
             } else if (req.query.action === "convert") {
                 //const one = getOnePicture(req.query.name);
-                await convertToWebp();
+                convertToWebp();
                 return res.status(200).json({ msg: "Success" });
             }
 
