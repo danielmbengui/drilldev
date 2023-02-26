@@ -199,7 +199,7 @@ async function convertToWebp() {
                 quality: 40,
                 //lossless: true 
             })
-            .toFile(path.join(DIR_WEBP, `${output}.webp`));
+            .toFile(`${DIR_WEBP}/${output}.webp`);
     }
 }
 
