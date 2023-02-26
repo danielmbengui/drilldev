@@ -31,6 +31,10 @@ module.exports = withPWA({
   
   //nextConfig,
   i18n,
+  serverRuntimeConfig: {
+    // Chemin d'accès absolu vers le dossier public
+    publicPath: `${__dirname}/public`,
+  },
   env: {
     domain: process.env.NODE_ENV === "production" ? 'https://www.drill-dev.com' : 'http://localhost:3000',
   },
