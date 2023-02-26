@@ -4,9 +4,9 @@ import initMiddleware from '@/lib/init-middleware';
 import { cwd } from 'process';
 import path from 'path';
 import { getFirstLetterUpperCase, getOnePictureFromList, getRelativePath, getListPictures } from './constants';
-import { DIR_MIDJOURNEY_DATAS, DIR_MIDJOURNEY_DRAFTS, GALLERY_MAX_PICTURES_PER_PAGE, METHOD_GET, METHOD_POST, QUERY_ACTION_GET_LIST_PICTURES, QUERY_PAGE, QUERY_PER_PAGE, QUERY_SEARCH, } from '@/constants';
+import { DIR_MIDJOURNEY_DATAS, DIR_MIDJOURNEY_DRAFTS, DIR_WEBP, GALLERY_MAX_PICTURES_PER_PAGE, METHOD_GET, METHOD_POST, QUERY_ACTION_GET_LIST_PICTURES, QUERY_PAGE, QUERY_PER_PAGE, QUERY_SEARCH, } from '@/constants';
 const PATH_PICTURES = `${process.cwd()}/public/datas/images/`;
-
+const sharp = require('sharp');
 
 const cors = initMiddleware(
     // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
@@ -166,6 +166,30 @@ function getListPicturesBySearch(search, page, per_page) {
     });
 }
 
+function convertToWebp() {
+    const pictures_absolute = getListPictures([], DIR_MIDJOURNEY_DRAFTS).array;
+console.log("size tab", pictures_absolute.length)
+    for (let i = 0; i < pictures_absolute.length; i++) {
+        const element = pictures_absolute[i];
+        
+        const output = path.basename(element, ".png")
+        .replaceAll("dambengu__", "")
+        .replaceAll("dambengu_", "")
+        .replaceAll("Drill_Dev__", "")
+        .replaceAll("Drill_Dev_", "")
+        .trim()
+        sharp(element)
+  //.resize(320, 240)
+  .webp({ 
+    quality:40,
+    //lossless: true 
+})
+  .toFile(`${DIR_WEBP}/${output}.webp`);
+    }
+    
+  
+}
+
 export default async function handler(req, res) {
     // Run cors
     await cors(req, res);
@@ -195,7 +219,13 @@ export default async function handler(req, res) {
             else if (req.query.action === "get_one" && req.query.name) {
                 const one = getOnePicture(req.query.name);
                 return res.status(200).json({ msg: one ? "Success" : "Error", file: one, });
+            }else if (req.query.action === "convert" ) {
+                //const one = getOnePicture(req.query.name);
+                convertToWebp();
+                return res.status(200).json({ msg: "Success"});
             }
+
+            
         }
 
         //const array_relative = getListDraftPictures().array_relative;
