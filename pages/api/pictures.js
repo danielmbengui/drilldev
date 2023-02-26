@@ -4,7 +4,7 @@ import initMiddleware from '@/lib/init-middleware';
 import { cwd } from 'process';
 import path from 'path';
 import { getFirstLetterUpperCase, getOnePictureFromList, getRelativePath, getListPictures } from './constants';
-import {  DIR_MIDJOURNEY_DATAS, DIR_WEBP, GALLERY_MAX_PICTURES_PER_PAGE, METHOD_GET, METHOD_POST, QUERY_ACTION_GET_LIST_PICTURES, QUERY_PAGE, QUERY_PER_PAGE, QUERY_SEARCH, } from '@/constants';
+import {  DIR_MIDJOURNEY_DATAS, GALLERY_MAX_PICTURES_PER_PAGE, METHOD_GET, METHOD_POST, QUERY_ACTION_GET_LIST_PICTURES, QUERY_PAGE, QUERY_PER_PAGE, QUERY_SEARCH, } from '@/constants';
 import getConfig from 'next/config';
 const { serverRuntimeConfig, publicRuntimeConfig } = getConfig();
 
@@ -12,7 +12,7 @@ const { serverRuntimeConfig, publicRuntimeConfig } = getConfig();
 const publicDirectoryPath = path.join(__dirname, 'public');
 const rootDirectoryPath = path.resolve(process.cwd());
 const DIR_MIDJOURNEY_DRAFTS = `${rootDirectoryPath}/public/images/midjourney/drafts`;
-
+const DIR_WEBP = `${rootDirectoryPath}/public/images/midjourney/webp`;
 const PATH_PICTURES = `${process.cwd()}/public/datas/images/`;
 const sharp = require('sharp');
 
