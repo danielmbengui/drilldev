@@ -17,6 +17,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Image from "next/image.js";
 import { myLoader } from "@/lib/ImageLoader.js";
 import FooterComponent from "../All/FooterComponent.js";
+import MenuComponent from "../Menu/MenuComponent.js";
 const logoLightTheme = "/images/logos/logo_orange_complete_no_back.png";
 const logoDarkTheme = "/images/logos/logo_orange_complete_no_back.png";
 const logoMobileTheme = "/images/logos/logo_orange_pic_no_back.png";
@@ -33,15 +34,8 @@ export default function ContainerPageWithoutHeaderComponent(props) {
 
 
   return (
-    <Layout padding={20}>
-      <NavbarComponent
-        lang={lang} setLang={setLang}
-        variant={"floating"}
-        activeColorContent={"primary"}
-        variantContent={"highlight-rounded"}
-        pages={pages}
-        sizes={sizes}        
-      />
+    <Layout padding={20} lang={lang} setLang={setLang}  >
+      
       <Container>
       {children}
       </Container>

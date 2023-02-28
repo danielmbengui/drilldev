@@ -8,24 +8,27 @@ export default function UndownloadableImage(props) {
         alt = '',
         width = 1024,
         height = 1024,
-        borderRadius = 0
+        borderRadius = 0,
+        onClick = null,
+        widthAuto = false
     } = props;
     return (
         <Image
             src={src}
+            srcSet={src}
             alt={alt}
             //showSkeleton
-            
+            onClick={onClick}
             width={width}
             height={height}
             style={{
                 //cursor:'pointer',
-                objectFit:'cover',
+                objectFit:'contain',
                 borderRadius: borderRadius,
-                width:'auto',
+                width:widthAuto ? 'auto' : width,
                 height:'auto',
                 maxWidth:'100%',
-                maxHeight:'100%'
+                maxHeight:'100%',
             }}
             loader={myLoader}
             priority

@@ -101,7 +101,7 @@ export default function ImageMasonry(props) {
       cursor:'pointer'
     }}>
       <ImageListItem>
-       <Image
+       <UndownloadableImage
        onClick={() => {
         //setPicture(item);
         //setVisible(true);
@@ -114,14 +114,7 @@ export default function ImageMasonry(props) {
         width={500}
         height={500}
         borderRadius={10}
-        style={{
-          //display: 'flex',
-          //width: '100%',
-          //maxWidth: '100%',
-          //height:'100%',
-          //maxHeight:'100%',
-          //borderRadius:10
-        }}
+        
         //loader={myLoader}
         //priority
         //priority={index < 4 ? true : false}

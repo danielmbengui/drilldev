@@ -1,7 +1,7 @@
 {
-  "name": "Drill Dev",
+  "name": "Drill Dev App",
   "short_name": "Drill Dev App",
-  "description": "See, download and share.",
+  "description": "Rejoignez la vague de l'IA dans la création artistique avec des images uniques à télécharger.",
   "icons": [
     {
       "src": "/images/logos/logo_orange_pic_no_back.png",
@@ -34,7 +34,7 @@
   "scope": "/",
   "related_applications": [{
     "platform": "webapp",
-    "url": "https://drill-dev.com/manifest.json"
+    "url": "https://drilldev.com/manifest.json"
   }],
   "display": "standalone",
   "orientation": "portrait"

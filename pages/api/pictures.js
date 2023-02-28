@@ -39,12 +39,15 @@ function updateFile() {
     const array = getDataFile();
     const _array = array.map((item,) => {
         const _item = item;
-        _item.description = item.title.toLowerCase();
-        _item.width = 1024;
-        _item.height = 1024;
+        //_item.src = item.title.toLowerCase();
+        _item.src = `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/WEBP/low_resolution/${path.basename(item.src, '.png').replaceAll("dambengu_", "").replaceAll("Drill_Dev_", "")}.webp`;
+
+        //_item.width = 1024;
+        //_item.height = 1024;
         return (_item);
     })
-    fs.writeFileSync(DIR_MIDJOURNEY_DATAS + "/data.json", JSON.stringify(getRandomSortPictures(_array), null, 2));
+    //fs.writeFileSync(DIR_MIDJOURNEY_DATAS + "/data.json", JSON.stringify(getRandomSortPictures(_array), null, 2));
+    writeFile(_array);
 }
 
 function getDataFile() {
@@ -87,6 +90,16 @@ function formatTitle(link) {
     )
 }
 
+function formatExtensionImage(imagePath, toExtension = 'webp', resolution = 'high_resolution') {
+    const actualExtension = path.extname(imagePath);
+    const srcImage = `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/${toExtension.toString().toUpperCase()}/${resolution.toString().toLowerCase()}`;
+    return `${srcImage}/${path.basename(imagePath, `${actualExtension}`)
+    .replaceAll("dambengu__", "")
+    .replaceAll("dambengu_", "")
+    .replaceAll("Drill_Dev__", "")
+    .replaceAll("Drill_Dev_", "")}.${toExtension}`;
+}
+
 
 function getAllPictures() {
     const pictures_absolute = getListPictures([], DIR_MIDJOURNEY_DRAFTS).array;
@@ -97,15 +110,16 @@ function getAllPictures() {
             //fs.renameSync(pictures_absolute[index], pictures_absolute[index].replaceAll("dambengu_", ""));
             return (
                 {
+                    id: index,
                     title: formatTitle(item),
-                    src: item,
-                    src: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/PNG/high_resolution/${path.basename(item).replaceAll("dambengu_", "").replaceAll("Drill_Dev_", "")}`,
+                    //src: item,
+                    src: formatExtensionImage(item, 'webp', 'high_resolution'),
                     src_png_high_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/PNG/high_resolution/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
                     src_png_low_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/PNG/high_resolution/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
                     src_jpg_high_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/JPG/high_resolution/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
-                    src_jpg_low_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/JPG/high_resolution/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
+                    src_jpg_low_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/JPG/low_resolution/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
                     src_webp_high_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/WEBP/high_resolution/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
-                    src_webp_low_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/WEBP/high_resolution/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
+                    src_webp_low_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/WEBP/low_resolution/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
                     //src:`https://ipfs.io/ipfs/Qmc8Pvj2hU7syTZVZWNHFT8dNhZypboTon2ioL6b7V6TXf/mid-journey/${path.basename(item).replaceAll("dambengu_", "")}`,
                     types: ["illustration"],
                     description: formatTitle(item).toLowerCase(),
@@ -119,6 +133,18 @@ function getAllPictures() {
         return (array);
     }
     return ([]);
+}
+
+function updateAllPictures() {
+    
+    const array = getDataFile();
+        array.map((item, index) => {
+            //fs.renameSync(pictures_absolute[index], pictures_absolute[index].replaceAll("dambengu_", ""));
+            item.src = formatExtensionImage(item.src, 'png', 'high_resolution');
+        })
+        writeFile(array);
+        //updateFile();
+    return (array);
 }
 
 
@@ -226,7 +252,18 @@ export default async function handler(req, res) {
                 //console.log("ARRAY", `${array.length}\n`);
                 return res.status(200).json({ msg: array.length ? "Success" : "Error", files: array, length: array.length, });
                 //return res.status(200).json({ msg: "Success", files: [], length: 0, });
-            } else if (req.query.action === QUERY_ACTION_GET_LIST_PICTURES) {
+            } else if (req.query.action === "update_all") {
+                //console.log("GET_ALL", `${req.query.action}\n`);
+                const array = updateAllPictures();
+                //console.log("ARRAY", `${array.length}\n`);
+                return res.status(200).json({ msg: array.length ? "Success" : "Error", files: array, length: array.length, });
+                //return res.status(200).json({ msg: "Success", files: [], length: 0, });
+            } 
+            
+            
+            
+            
+            else if (req.query.action === QUERY_ACTION_GET_LIST_PICTURES) {
                 const search = req.query[QUERY_SEARCH] ? req.query[QUERY_SEARCH] : '';
                 const page = req.query[QUERY_PAGE] ? req.query[QUERY_PAGE] : 1;
                 const per_page = req.query[QUERY_PER_PAGE] ? req.query[QUERY_PER_PAGE] : GALLERY_MAX_PICTURES_PER_PAGE;

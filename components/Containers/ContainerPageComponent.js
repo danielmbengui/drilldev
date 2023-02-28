@@ -70,15 +70,8 @@ export default function ContainerPageComponent(props) {
   ];
 
   return (
-    <Layout >
-      <NavbarComponent
-        lang={lang} setLang={setLang}
-        variant={"floating"}
-        activeColorContent={"primary"}
-        variantContent={"highlight-rounded"}
-        pages={pages}a
-        sizes={sizes}        
-      />
+    <Layout lang={lang} setLang={setLang}>
+      
       <Container maxWidth={'5000px'} sx={{
         //p:30,
         mb: 5,
@@ -115,7 +108,7 @@ export default function ContainerPageComponent(props) {
                 width={500}
                 height={500}
                 src={src}
-                alt="logo drill-dev"
+                alt="image header"
                 loader={myLoader}
                 borderRadius={10}              
               />
@@ -128,15 +121,13 @@ export default function ContainerPageComponent(props) {
               height:'100%',
             }}>
               <Grid item >
-                <Image
+                <UndownloadableImage
                   width={320}
                   height={120}
                   src={isDark ? logoDarkTheme : logoLightTheme}
                   alt="logo drill-dev"
                   //objectFit="contain"
-                  style={{
-                    maxWidth:'100%'
-                  }}
+                  
                 />
               </Grid>
               <Grid item xs={12}>

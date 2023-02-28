@@ -1,6 +1,22 @@
 :root { 
   
   --primary:#E8602F;
+  --text-color: #000000;
+  --text-color-secondary: #ffffff;
+  --background-color: #ffffff;
+  --white-blur: rgba(255, 255, 255, 0.1);
+  --accents0: #F1F3F5;
+  --accents1: #ECEEF0;
+  --accents2: #E6E8EB;
+  --accents3: #DFE3E6;
+  --accents4: #D7DBDF;
+  --accents5: #C1C8CD;
+  --accents6: #889096;
+  --accents7: #7E868C;
+  --accents8: #687076;
+  --accents9: #11181C;
+  --yarl__container_background_color:rgba(0,0,0, 0.9);
+
   --primary-opacity:#fcd1acbe;
   --grey: #727171;
   --grey-light: #efefef;
@@ -52,10 +68,38 @@
 
 [data-theme="light"] {
   --yarl__container_background_color:rgba(0,0,0, 0.9);
+  --text-color: #000000;
+  --text-color-secondary: #ffffff;
+  --background-color: #ffffff;
+
+  --accents0: #F1F3F5;
+  --accents1: #ECEEF0;
+  --accents2: #E6E8EB;
+  --accents3: #DFE3E6;
+  --accents4: #D7DBDF;
+  --accents5: #C1C8CD;
+  --accents6: #889096;
+  --accents7: #7E868C;
+  --accents8: #687076;
+  --accents9: #11181C;
 }
 
 [data-theme="dark"] {
   --yarl__container_background_color:rgba(0,0,0, 0.9);
+  --text-color: #ffffff;
+  --text-color-secondary: #000000;
+  --background-color: #000000;
+
+  --accents0: #16181A;
+  --accents1: #26292B;
+  --accents2: #2B2F31;
+  --accents3: #313538;
+  --accents4: #3A3F42;
+  --accents5: #4C5155;
+  --accents6: #697177;
+  --accents7: #787F85;
+  --accents8: #9BA1A6;
+  --accents9: #ECEDEE;
 }
 
 
@@ -131,5 +175,3 @@ a  {
   color: inherit;
   text-decoration: none;
 }
-
-

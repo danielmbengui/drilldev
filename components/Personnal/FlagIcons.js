@@ -1,10 +1,11 @@
 import React from 'react';
 import { FR, GB, PT } from "country-flag-icons/react/3x2";
+import { LANGAGE_ENGLISH, LANGAGE_FRENCH, LANGAGE_PORTUGUESE } from '@/constants';
 
 export const FlagIcon = ({ fill, size, height, width, lang, ...props }) => {
     function getFlag(_lang) {
         switch (_lang) {
-            case "eng":
+            case LANGAGE_ENGLISH:
                 return (
                     <GB
         //title={t('langEnglish')}
@@ -17,7 +18,7 @@ export const FlagIcon = ({ fill, size, height, width, lang, ...props }) => {
         }}
         />
                 )
-                case "fr":
+                case LANGAGE_FRENCH:
                     return (
                         <FR
             //title={t('langEnglish')}
@@ -31,7 +32,7 @@ export const FlagIcon = ({ fill, size, height, width, lang, ...props }) => {
             />
                     )
         
-                    case "pt":
+                    case LANGAGE_PORTUGUESE:
                 return (
                     <PT
         //title={t('langEnglish')}

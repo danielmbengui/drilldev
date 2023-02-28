@@ -410,7 +410,7 @@ setPictures(getRandomSortPictures());
                       "title": "OneMoonOneEgg",
                       "types": ["realistic 4k", "4k resolution"],
                       "src": "/images/mid-journey/moon/one-moon-one-man-0.png",
-                      "srcBase": "/images/mid-journey/base/base-2.png",
+                      "srcBase": "",
                       "dimensions": "1024 x 1024",
                       "prompt": "a man with a foot on the moon and the other foot on an egg, hyper realistic 4k resolution"
                     },

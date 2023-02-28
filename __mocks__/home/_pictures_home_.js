@@ -159,7 +159,6 @@ export const _PICTURES_HOME_ = [
     {title:"Home", src:`${WEBSITE_PICTURES_ADDRESS}/images/midjourney/PNG/home/155.png`,},
     {title:"Home", src:`${WEBSITE_PICTURES_ADDRESS}/images/midjourney/PNG/home/156.png`,},
     {title:"Home", src:`${WEBSITE_PICTURES_ADDRESS}/images/midjourney/PNG/home/157.png`,},
-    {title:"Home", src:`${WEBSITE_PICTURES_ADDRESS}/images/midjourney/PNG/home/158.png`,},
     {title:"Home", src:`${WEBSITE_PICTURES_ADDRESS}/images/midjourney/PNG/home/159.png`,},
     {title:"Home", src:`${WEBSITE_PICTURES_ADDRESS}/images/midjourney/PNG/home/160.png`,},
     {title:"Home", src:`${WEBSITE_PICTURES_ADDRESS}/images/midjourney/PNG/home/161.png`,},

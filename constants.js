@@ -2,7 +2,7 @@ import { cwd } from 'process';
 
 /* --------------- GENERAL -------------- */
 export const WEBSITE_NAME = 'Drill Dev';
-export const APP_NAME = 'Drill Dev';
+export const APP_NAME = 'Drill Dev App';
 export const DEFAULT_SCREEN_MODE = 'light';
 export const DEFAULT_LANGAGE = 'fr';
 export const WEBSITE_PICTURES_ADDRESS = "https://pictures.dandela.com";
@@ -64,6 +64,8 @@ export const TAB_LANGAGES = [
 export const PAGE_LINK_HOME = "/";
 export const PAGE_LINK_GALLERY = "/gallery";
 export const PAGE_LINK_TUTORIAL = "/tutorial";
+export const PAGE_LINK_ABOUT = "/about";
+export const PAGE_LINK_CONTACT = "/contact";
 export const PAGE_LINK_TUTORIAL_DRILL_DEV = "/tutorial/drilldev";
 export const PAGE_LINK_TUTORIAL_MIDJOURNEY = "/tutorial/midjourney";
 

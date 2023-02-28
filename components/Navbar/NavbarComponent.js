@@ -14,6 +14,8 @@ import { NAMESPACE_LANGAGE_COMMON, NAMESPACE_LANGAGE_TUTORIAL_MIDJOURNEY, PAGE_L
 import { useRouter } from "next/router.js";
 import { ChevronDownIcon, icons } from "../Personnal/Icons.js";
 import { myLoader } from "@/lib/ImageLoader.js";
+import UndownloadableImage from "../Customs/UndownloadableImage.js";
+import DropdownLangageComponent from "../Customs/DropdownLangage.js";
 //const logoLightTheme = "/images/logos/logo_black_light_complete_no_back.png";
 //const logoDarkTheme = "/images/logos/logo_white_dark_complete_no_back.png";
 //const logoLightTheme = "/images/logos/logo_original_light_complete_no_back.png";
@@ -226,9 +228,15 @@ export default function NavbarComponent(props) {
       //height={sizes.laptop ? '150px' : '74px'}
       isBordered="true"
       variant={'floating'}
+      disableShadow
+      disableBlur
+      containerCss={{
+        background:'$accents2',
+        //bgBlur:'green'
+      }}
       css={{
         position: 'fixed',
-        // background: 'red',
+        //background: 'red',
 
         zIndex: 1000,
         //marginBottom:50
@@ -242,14 +250,14 @@ export default function NavbarComponent(props) {
           marginLeft: { xs: 10, sm: 0 },
           display: isXs ? 'none' : 'flex'
         }}>
-          <Image
+          <UndownloadableImage
             //showSkeleton
             //maxDelay={10000}
             //autoResize={true}
             width={50}
             height={50}
             src={logoMobileTheme}
-            alt="Default Image"
+            alt="logo pic Image"
           //objectFit="cover"
           />
         </div>
@@ -364,25 +372,23 @@ export default function NavbarComponent(props) {
               aria-label="content navigation"
               aria-labelledby="content navigation"
               checked={isDark}
-              size="lg"
+              size="xl"
               //shadow
               bordered
               iconOn={<SunIcon filled />}
               iconOff={<MoonIcon filled />}
               onChange={handleChange}
-              css={{
-                xs: {
-                  display: 'none'
-                },
-              }}
             />
           </Grid>
           <Grid>
-            <DropdownCustom lang={lang} setLang={onChangeLanguage} />
+            <DropdownLangageComponent lang={lang} setLang={onChangeLanguage} />
           </Grid>
         </Grid.Container>
 
       </Navbar.Content>
+
+
+
       <Navbar.Collapse id="collapse mobile" aria-labelledby="collapse mobile">
 
 

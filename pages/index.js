@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import { Inter } from '@next/font/google'
-import HomeComponent from '../components/All/HomeComponent';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { NAMESPACE_LANGAGE_COMMON, NAMESPACE_LANGAGE_HOME, TAB_LANGAGES, TAB_NAMEPACES } from '@/constants';
 import { useTranslation } from 'next-i18next';
@@ -8,6 +7,10 @@ import ContainerPageComponent from '@/components/Containers/ContainerPageCompone
 import { Text, useTheme } from '@nextui-org/react';
 import { PICTURES_HOME } from '@/__mocks__/_pictures_';
 import { _PICTURE_HEADER_HOME_ } from '@/__mocks__/home/_pictures_home_';
+import { useContext, useEffect } from 'react';
+import { DeviceModeProviderContext } from '@/contexts/DeviceModeProvider';
+import HomeComponent from '@/components/Home/HomeComponent';
+import LayoutPageComponent from '@/components/Layouts/LayoutPageComponent';
 
 const homePictures = [
   _PICTURE_HEADER_HOME_
@@ -29,11 +32,17 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function HomePage(props) {
   const {isDark} = useTheme();
-  const {lang, setLang, sizes, isMobile, isTablet, isLaptop} = props;
+  const {lang, setLang, sizes, isTablet, isMobile, isLaptop} = props;
   const {t} = useTranslation(TAB_NAMEPACES);
+  //const {isMobile} = useContext(DeviceModeProviderContext);
+
+  useEffect(() => {
+    //console.log("AAAAAAIE SIZE", isMobile);
+  })
 
   return (
-    <ContainerPageComponent
+    <LayoutPageComponent
+    lang={lang} setLang={setLang}
     picturesTitle={homePictures}
     sizes={sizes}
     isMobile={isMobile} isTablet={isTablet} isLaptop={isLaptop}
@@ -42,14 +51,14 @@ export default function HomePage(props) {
     }}>
 {`${t('title_page', {ns:NAMESPACE_LANGAGE_HOME})}`}
   </Text>}
-    lang={lang} setLang={setLang}
+    
     >
       <Head>
         <title>{`${t('menuHome', {ns:NAMESPACE_LANGAGE_COMMON})}`}</title>
         <meta name="description" content={t('description_page', {ns:NAMESPACE_LANGAGE_HOME})} />
       </Head>
 <HomeComponent sizes={sizes} />
-    </ContainerPageComponent>
+    </LayoutPageComponent>
   )
 }
 

@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { Inter } from '@next/font/google';
-import GalleryComponent from '@/components/All/GalleryComponent';
+import GalleryComponent from '@/components/Gallery/GalleryComponent';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { DEFAULT_LANGAGE, GALLERY_MAX_PICTURES_PER_PAGE, LANGAGE_ENGLISH, LANGAGE_FRENCH, LANGAGE_PORTUGUESE, NAMESPACE_LANGAGE_COMMON, NAMESPACE_LANGAGE_GALLERY, PAGE_LINK_API_PICTURES, QUERY_ACTION_GET_LIST_PICTURES, TAB_LANGAGES, TAB_NAMEPACES } from '@/constants';
 import { useTranslation } from 'next-i18next';
@@ -30,7 +30,7 @@ export default function GalleryPage(props) {
         <title>{`${t('menuGallery', { ns: NAMESPACE_LANGAGE_COMMON })}`}</title>
         <meta name="description" content={t('description_page', {ns:NAMESPACE_LANGAGE_GALLERY})} />
       </Head>
-      <GalleryComponent lang={lang} isMobile={isMobile} />
+      <GalleryComponent lang={lang} setLang={setLang} isMobile={isMobile} />
     </ContainerPageWithoutHeaderComponent>
   )
 }
