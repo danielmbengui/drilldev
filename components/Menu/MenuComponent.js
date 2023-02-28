@@ -26,7 +26,7 @@ export default function MenuComponent(props) {
   
   const isXs = useMediaQuery(650);
 
-  const {isMobile, isTablet} = useDeviceMode();
+  const {isMobile, isTablet, isLaptop} = useDeviceMode();
 
   const [subtitleSelected, setSubtitleSelected] = useState(new Set([router.asPath]));
 
@@ -79,21 +79,23 @@ export default function MenuComponent(props) {
     >
       <Navbar.Brand aria-label="brand navigation">
         <Navbar.Toggle showIn={"xs"} aria-label="toggle navigation" />
-        <div style={{
-          marginLeft: { xs: 10, sm: 0 },
-          display: isTablet ? 'none' : 'flex'
-        }}>
-          <UndownloadableImage
-            //showSkeleton
-            //maxDelay={10000}
-            //autoResize={true}
-            width={50}
-            height={50}
-            src={logoMobileTheme}
-            alt="logo pic Image"
-          //objectFit="cover"
-          />
-        </div>
+        {
+          !isTablet && <div style={{
+            marginLeft: { xs: 10, sm: 0 },
+            //display: isTablet ? 'none' : 'flex'
+          }}>
+            <UndownloadableImage
+              //showSkeleton
+              //maxDelay={10000}
+              //autoResize={true}
+              width={50}
+              height={50}
+              src={logoMobileTheme}
+              alt="logo pic Image"
+            //objectFit="cover"
+            />
+          </div>
+        }
       </Navbar.Brand>
       <Navbar.Content aria-label="content navigation" activeColor={activeColorContent} hideIn="xs" variant={variantContent}>
         

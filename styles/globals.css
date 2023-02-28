@@ -5,6 +5,9 @@
   --text-color-secondary: #ffffff;
   --background-color: #ffffff;
   --white-blur: rgba(255, 255, 255, 0.1);
+  --black-blur: rgba(0, 0, 0, 0.1);
+  --blackground-card-blur: var(--white-blur);
+  
   --accents0: #F1F3F5;
   --accents1: #ECEEF0;
   --accents2: #E6E8EB;
@@ -71,6 +74,7 @@
   --text-color: #000000;
   --text-color-secondary: #ffffff;
   --background-color: #ffffff;
+  --blackground-card-blur: var(--white-blur);
 
   --accents0: #F1F3F5;
   --accents1: #ECEEF0;
@@ -89,6 +93,7 @@
   --text-color: #ffffff;
   --text-color-secondary: #000000;
   --background-color: #000000;
+--blackground-card-blur: var(--black-blur);
 
   --accents0: #16181A;
   --accents1: #26292B;

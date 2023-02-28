@@ -7,7 +7,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CustomArrow from "../Personnal/CustomArrow.js";
 import ContainerPageComponent from "../Containers/ContainerPageComponent.js";
 import { useTranslation } from "next-i18next";
-import { NAMESPACE_LANGAGE_HOME, WEBSITE_NAME } from "@/constants.js";
+import { NAMESPACE_LANGAGE_HOME, PAGE_LINK_GALLERY, WEBSITE_NAME } from "@/constants.js";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CollectionsIcon from '@mui/icons-material/Collections';
 import DownloadIcon from '@mui/icons-material/Download';
@@ -56,14 +56,14 @@ const {isMobile} = useDeviceMode();
     <Card variant="flat" css={{ w: "100%", h: "400px", background:'transparent' }}>
     <Card.Body css={{ p: 0 }}>
     <UndownloadableImage 
-        src={`/images/home/link-gallery-${isDark ? 'dark' : 'light'}.jpg`}
+        src={src}
     />
     </Card.Body>
     <Card.Footer
       isBlurred
       css={{
         position: "absolute",
-        bgBlur: "var(--white-blur)",
+        bgBlur: "var(--blackground-card-blur)",
         //background: "var(--white-blur)",
         //borderTop: "$borderWeights$light solid $gray800",
         bottom: 0,
@@ -74,6 +74,9 @@ const {isMobile} = useDeviceMode();
       <Grid container justifyContent={'center'}>
       <Grid item>
       <Button
+      as='a'
+      href={PAGE_LINK_GALLERY}
+      target='_blank'
               flat
               auto
               rounded

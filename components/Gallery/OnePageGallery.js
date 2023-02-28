@@ -23,10 +23,13 @@ import Video from "yet-another-react-lightbox/plugins/video";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import "yet-another-react-lightbox/plugins/captions.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
+import { useDeviceMode } from "@/contexts/DeviceModeProvider.js";
 
 const fetcherListPictures = params => axios.get(`${PAGE_LINK_API_PICTURES}`, params).then(res => res.data);
 
 export default function OnePageGallery (props) {
+  const {isMobile} = useDeviceMode();
+
     const {t} = useTranslation(NAMESPACE_LANGAGE_GALLERY);
   const [manager, setManager] = useState({
     search: '',
@@ -151,7 +154,9 @@ export default function OnePageGallery (props) {
       />
             </Grid>
             <Grid xs={12} justify='center'>
-      <Masonry columns={{xs:2, sm:3, md:5}}>
+      <Masonry 
+      columns={{xs:4, sm:6, md:10}}
+      >
         {
             manager.list.map((item, index) => <div key={`${item.title}-${index}`} style={{
                 cursor:'pointer'
@@ -195,7 +200,7 @@ export default function OnePageGallery (props) {
         open={manager.indexPicture >= 0}
         close={() => handleChangeState("indexPicture", -1)}
         slides={manager.list}
-        plugins={[Captions, Zoom, Fullscreen, Thumbnails, /*Video, Slideshow*/]}
+        plugins={[Zoom, Fullscreen, Thumbnails, /* Captions, Video, Slideshow*/]}
         index={manager.indexPicture}
         render={{
             slide:(slide) => <UndownloadableImage

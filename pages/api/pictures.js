@@ -62,6 +62,23 @@ function getDataFile() {
     return (array);
 }
 
+function getDataPaths() {
+    
+    if (!fs.existsSync(DIR_MIDJOURNEY_DATAS)) {
+        fs.mkdirSync(DIR_MIDJOURNEY_DATAS, { recursive: true });
+        fs.writeFileSync(DIR_MIDJOURNEY_DATAS + "/data.json", JSON.stringify([], null, 2));
+    }
+    
+    const array = require("../../public/images/midjourney/datas/data.json");
+    const filtered = [];
+    for (let i = 0; i < array.length; i++) {
+        const element = array[i];
+        filtered.push(element.id);
+    }
+    //return JSON.parse(fs.readFileSync(DIR_MIDJOURNEY_DATAS + "/data.json"));
+    return (filtered);
+}
+
 function formatTitle(link) {
     var last = -1;
     var word = path.basename(link);
@@ -128,7 +145,7 @@ function getAllPictures() {
                 }
             )
         })
-        writeFile(array);
+        //writeFile(array);
         //updateFile();
         return (array);
     }
@@ -246,7 +263,15 @@ export default async function handler(req, res) {
     try {
         //console.log("API", "access to the API \n");
         if (req.method === METHOD_GET) {
-            if (req.query.action === "get_all") {
+            if (req.query.action === "get_datas") {
+                //console.log("GET_ALL", `${req.query.action}\n`);
+                const array = getDataPaths();
+                //console.log("ARRAY", `${array.length}\n`);
+                return res.status(200).json({array});
+                //return res.status(200).json({ msg: "Success", files: [], length: 0, });
+            }
+            
+            else if (req.query.action === "get_all") {
                 //console.log("GET_ALL", `${req.query.action}\n`);
                 const array = getAllPictures();
                 //console.log("ARRAY", `${array.length}\n`);

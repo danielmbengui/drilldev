@@ -36,7 +36,7 @@ module.exports = withPWA({
     publicPath: `${process.cwd()}/public`,
   },
   env: {
-    domain: process.env.NODE_ENV === "production" ? 'https://www.drill-dev.com' : 'http://localhost:3000',
+    domain: process.env.NODE_ENV === "production" ? 'https://www.drilldev.com' : 'http://localhost:3000',
   },
   images: {
     domains: ['pictures.dandela.com'],

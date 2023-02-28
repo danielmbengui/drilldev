@@ -207,7 +207,7 @@ indexStop={12}
 
 <Grid container spacing={1} justifyContent='center' my={3}>
     <Grid item xs={12} sm={5}>
-        <CardLinkToPageComponent src={`/images/home/link-gallery-${isDark ? 'dark' : 'light'}.jpg`} userInfos={_ARIEL_INFOS_}  />
+        <CardLinkToPageComponent src={`/images/home/link-downloads.png`} userInfos={_ARIEL_INFOS_}  />
     </Grid>
     <Grid item xs={12} sm={5}>
     <CardTeamComponent userInfos={_TIAGO_INFOS_} />
