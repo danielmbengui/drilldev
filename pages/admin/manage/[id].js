@@ -7,12 +7,9 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-export default function ManagePage(props) {
-  const {isDark} = useTheme();
-  const {t} = useTranslation(TAB_NAMEPACES);
-
-  const router = useRouter();
-  const { id } = router.query
+export default function ManagePage({id}) {
+  //const router = useRouter();
+  //const { id } = router.query
 
   useEffect(() => {
     console.log("IIIIIID", id)
