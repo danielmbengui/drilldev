@@ -14,10 +14,11 @@ export default function ManagePage(props) {
   const router = useRouter();
 
   useEffect(() => {
+
   })
   return (
     <>
-    {`general: OK`}
+    {`general: OK : ${router.query.id ? router.query.id : ''}` }
     </>
   )
 }
