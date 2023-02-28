@@ -26,7 +26,7 @@ export default function ManagePage({id}) {
 export async function getStaticPaths() {
     // Call an external API endpoint to get posts
     
-  const res = await axios.get(`${process.env.domain}/api/pictures?action=get_datas`).then((result) => {
+  const res = await axios.get(`/api/pictures?action=get_datas`).then((result) => {
         console.log("Result fetch", result.data.array)
         return(result.data.array);
   })
