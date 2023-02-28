@@ -18,8 +18,7 @@ import { myLoader } from "@/lib/ImageLoader.js";
 import { _PICTURES_HOME_, _PICTURE_HEADER_HOME_ } from "@/__mocks__/home/_pictures_home_.js";
 import UndownloadableImage from "../Customs/UndownloadableImage.js";
 import { DeviceModeProviderContext, useDeviceMode } from "@/contexts/DeviceModeProvider.js";
-import {Slide} from 'react-reveal';
-import Flip from 'react-reveal/Flip';
+import { Slide } from 'react-awesome-reveal';
 
 const logoLightTheme = "/images/logos/logo_orange_complete_no_back.png";
 const logoDarkTheme = "/images/logos/logo_orange_complete_no_back.png";
@@ -62,7 +61,7 @@ export default function ParagraphRowComponent({textComponent, arrayText}) {
   borderRadius:10,
   p:15
 }}>
-    <Slide bottom cascade>
+    <Slide direction={'top'} triggerOnce={true}>
     <div style={{display:'block'}}>
     {
         arrayText && arrayText.map((item, index) => {

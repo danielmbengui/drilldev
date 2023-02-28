@@ -18,7 +18,11 @@ class MyDocument extends Document {
         <Head>
           {CssBaseline.flush()}
           <meta charSet="utf-8" />
-          
+          <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"
+  />
+  
           <link
             rel="icon"
             type="image/ico"

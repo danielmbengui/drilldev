@@ -19,7 +19,7 @@ import { _PICTURES_HOME_, _PICTURE_HEADER_HOME_ } from "@/__mocks__/home/_pictur
 import UndownloadableImage from "../Customs/UndownloadableImage.js";
 import { DeviceModeProviderContext, useDeviceMode } from "@/contexts/DeviceModeProvider.js";
 import ParagraphRowComponent from "./ParagraphRowComponent.js";
-import Fade from 'react-reveal/Fade';
+import { Fade } from 'react-awesome-reveal';
 
 const logoLightTheme = "/images/logos/logo_orange_complete_no_back.png";
 const logoDarkTheme = "/images/logos/logo_orange_complete_no_back.png";
