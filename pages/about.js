@@ -15,7 +15,6 @@ export default function AboutPage() {
       {
  "Apprenez à créer de belles images, quelle que soit votre expérience en matière de conception artistique."     
 }</>
-<HomeComponent />
     </>
   )
 }

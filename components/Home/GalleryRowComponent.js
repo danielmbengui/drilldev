@@ -48,7 +48,7 @@ export default function GalleryRowComponent(props) {
 
 
   return (
-    <Fade big cascade>
+    <Fade triggerOnce={true}>
     <Grid 
     container 
     justifyContent={'center'}
