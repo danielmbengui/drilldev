@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { TAB_LANGAGES, TAB_NAMEPACES } from '@/constants';
+import { LANGAGE_ENGLISH, TAB_LANGAGES, TAB_NAMEPACES } from '@/constants';
 import { useTranslation } from 'next-i18next';
 import { Button, Input, Text, Textarea, useTheme } from '@nextui-org/react';
 import { useRouter } from 'next/router';
@@ -21,7 +21,7 @@ import { useDeviceMode } from '@/contexts/DeviceModeProvider';
 
 const fetcherListPictures = params => axios.get(`/api/pictures`, params).then(res => res.data);
 
-export default function GetpicturePage({ids}) {
+export default function GetpicturePage({ids, okay}) {
   const {isDark} = useTheme();
   const {t} = useTranslation(TAB_NAMEPACES);
   //get_one
@@ -91,7 +91,7 @@ if (router.isReady && ids){
       //handleChangeState("total_length", data.result.total_length);
       const index = getIndexById(data.id);
       setIndex(index);
-      console.log("INDEX", index)
+      console.log("INDEX", okay)
       handleChangeState("src", data.src);
       handleChangeState("title", data.title);
       handleChangeState("description", data.description);
@@ -281,7 +281,8 @@ handleChangeState("types", tab)
   )
 }
 
-  export async function getStaticProps({ locale }) {
+
+  export async function getStaticProps({ locale, params }) {
     const array = await axios.get(`${process.env.domain}/api/pictures`, {
         params :{
             action: "get_ids"
@@ -289,10 +290,13 @@ handleChangeState("types", tab)
     }).then((res) => {
         return(res.data);
     })
+
     
+    console.log("params", params)
     return {
         props: {
           //tabPrice: response,
+          //okay:params,
           ids:array,
           //id:params.id,
             ...(await serverSideTranslations(locale, TAB_NAMEPACES, null, TAB_LANGAGES)),

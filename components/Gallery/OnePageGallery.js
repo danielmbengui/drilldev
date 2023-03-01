@@ -200,7 +200,7 @@ export default function OnePageGallery (props) {
         open={manager.indexPicture >= 0}
         close={() => handleChangeState("indexPicture", -1)}
         slides={manager.list}
-        plugins={[Zoom, Fullscreen, Thumbnails, /* Captions, Video, Slideshow*/]}
+        plugins={[Zoom, Fullscreen, Thumbnails, Captions /* , Video, Slideshow*/]}
         index={manager.indexPicture}
         render={{
             slide:(slide) => <UndownloadableImage
