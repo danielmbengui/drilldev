@@ -35,7 +35,6 @@ module.exports = withPWA({
   images: {
     domains: ['pictures.dandela.com'],
   },
-  /*
   async headers() {
     return [
       {
@@ -50,5 +49,4 @@ module.exports = withPWA({
       }
     ]
   }
-  */
 })
