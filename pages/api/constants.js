@@ -54,3 +54,22 @@ export function getOnePictureFromList(name_image, list) {
     }
     return (null);
 }
+
+export function getOnePictureFromListById(id_image, list) {
+    for (let i = 0; i < list.length; i++) {
+        const element = list[i];
+        if (parseInt(element.id) === parseInt(id_image)) {
+            return (element);
+        }
+    }
+    return (null);
+}
+
+export function getIndexOnePictureFromListById(id_image, list) {
+    for (let i = 0; i < list.length; i++) {
+        if (parseInt(list[i].id) === parseInt(id_image)) {
+            return (i);
+        }
+    }
+    return (-1);
+}

@@ -1,14 +1,8 @@
 // Require the polyfill before requiring any other modules.
 //require('intersection-observer');
 //const { DEFAULT_LANGAGE, LANGAGE_ENGLISH } = require('./constants.js');
-const { i18n } = require('./next-i18next.config')
-
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-  fs: false,
-}
-
+//const { i18n } = require('./next-i18next.config')
+//const { i18n } = require('next-i18next/server/config')
 //module.exports = nextConfig
 
 const withPWA = require('next-pwa')({
@@ -22,7 +16,7 @@ module.exports = withPWA({
     nextConfig.resolve.fallback = { 
       //reactStrictMode: true,
       fs: false,
-      timers: false,
+      //timers: false,
       //process: false,
     };
 
@@ -30,10 +24,10 @@ module.exports = withPWA({
   },
   
   //nextConfig,
-  i18n,
-  serverRuntimeConfig: {
-    // Chemin d'accès absolu vers le dossier public
-    publicPath: `${process.cwd()}/public`,
+  i18n: {
+    defaultLocale: 'fr',
+  locales: ['fr', 'en', 'pt'],
+  localeDetection: true,
   },
   env: {
     domain: process.env.NODE_ENV === "production" ? 'https://www.drilldev.com' : 'http://localhost:3000',
@@ -41,6 +35,7 @@ module.exports = withPWA({
   images: {
     domains: ['pictures.dandela.com'],
   },
+  /*
   async headers() {
     return [
       {
@@ -55,4 +50,5 @@ module.exports = withPWA({
       }
     ]
   }
+  */
 })

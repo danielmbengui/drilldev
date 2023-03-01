@@ -3,10 +3,8 @@ import fs from 'fs';
 import initMiddleware from '@/lib/init-middleware';
 import { cwd } from 'process';
 import path from 'path';
-import { getFirstLetterUpperCase, getOnePictureFromList, getRelativePath, getListPictures } from './constants';
-import { DIR_MIDJOURNEY_DATAS, GALLERY_MAX_PICTURES_PER_PAGE, METHOD_GET, METHOD_POST, QUERY_ACTION_GET_LIST_PICTURES, QUERY_PAGE, QUERY_PER_PAGE, QUERY_SEARCH, WEBSITE_PICTURES_ADDRESS, } from '@/constants';
-import getConfig from 'next/config';
-const { serverRuntimeConfig, publicRuntimeConfig } = getConfig();
+import { getFirstLetterUpperCase, getOnePictureFromList, getRelativePath, getListPictures, getOnePictureFromListById, getIndexOnePictureFromListById } from './constants';
+import { DIR_MIDJOURNEY_DATAS, EXTENSION_JPG, EXTENSION_PNG, EXTENSION_WEBP, GALLERY_MAX_PICTURES_PER_PAGE, HIGH_RESOLUTION, LOW_RESOLUTION, METHOD_GET, METHOD_POST, QUERY_ACTION_GET_LIST_PICTURES, QUERY_PAGE, QUERY_PER_PAGE, QUERY_SEARCH, WEBSITE_NAME, WEBSITE_PICTURES_ADDRESS, } from '@/constants';
 
 //const DIR_MIDJOURNEY_DRAFTS = `${serverRuntimeConfig.publicPath}/images/midjourney/drafts`;
 const publicDirectoryPath = path.join(__dirname, 'public');
@@ -14,7 +12,16 @@ const rootDirectoryPath = path.resolve(process.cwd());
 //const DIR_MIDJOURNEY_DRAFTS = `${rootDirectoryPath}/public/images/midjourney/drafts`;
 const DIR_MIDJOURNEY_DRAFTS = path.join(rootDirectoryPath, 'public', 'images', 'midjourney', 'drafts');
 //const DIR_WEBP = path.join(rootDirectoryPath, 'public', 'images', 'midjourney', 'webp');
+
+const DIR_PNG_HIGH_RESOLUTION = `${rootDirectoryPath}/public/images/midjourney/png/high_resolution`;
+const DIR_PNG_LOW_RESOLUTION = `${rootDirectoryPath}/public/images/midjourney/png/low_resolution`;
+const DIR_JPG_HIGH_RESOLUTION = `${rootDirectoryPath}/public/images/midjourney/jpg/high_resolution`;
+const DIR_JPG_LOW_RESOLUTION = `${rootDirectoryPath}/public/images/midjourney/jpg/low_resolution`;
+const DIR_WEBP_HIGH_RESOLUTION = `${rootDirectoryPath}/public/images/midjourney/webp/high_resolution`;
+const DIR_WEBP_LOW_RESOLUTION = `${rootDirectoryPath}/public/images/midjourney/webp/low_resolution`;
 const DIR_WEBP = `${rootDirectoryPath}/public/images/midjourney/webp`;
+
+
 const PATH_PICTURES = `${process.cwd()}/public/datas/images/`;
 const sharp = require('sharp');
 
@@ -51,32 +58,34 @@ function updateFile() {
 }
 
 function getDataFile() {
-    
+
     if (!fs.existsSync(DIR_MIDJOURNEY_DATAS)) {
         fs.mkdirSync(DIR_MIDJOURNEY_DATAS, { recursive: true });
         fs.writeFileSync(DIR_MIDJOURNEY_DATAS + "/data.json", JSON.stringify([], null, 2));
     }
-    
+
     const array = require("../../public/images/midjourney/datas/data.json")
     //return JSON.parse(fs.readFileSync(DIR_MIDJOURNEY_DATAS + "/data.json"));
     return (array);
 }
 
 function getDataPaths() {
-    
+
     if (!fs.existsSync(DIR_MIDJOURNEY_DATAS)) {
         fs.mkdirSync(DIR_MIDJOURNEY_DATAS, { recursive: true });
         fs.writeFileSync(DIR_MIDJOURNEY_DATAS + "/data.json", JSON.stringify([], null, 2));
     }
-    
+
     const array = require("../../public/images/midjourney/datas/data.json");
     const filtered = [];
     for (let i = 0; i < array.length; i++) {
         const element = array[i];
-        filtered.push(element.id);
+        filtered.push(parseInt(element.id));
     }
     //return JSON.parse(fs.readFileSync(DIR_MIDJOURNEY_DATAS + "/data.json"));
-    return (filtered);
+    return (filtered.sort((a, b) => {
+        return(a <= b)
+    }));
 }
 
 function formatTitle(link) {
@@ -110,11 +119,11 @@ function formatTitle(link) {
 function formatExtensionImage(imagePath, toExtension = 'webp', resolution = 'high_resolution') {
     const actualExtension = path.extname(imagePath);
     const srcImage = `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/${toExtension.toString().toUpperCase()}/${resolution.toString().toLowerCase()}`;
-    return `${srcImage}/${path.basename(imagePath, `${actualExtension}`)
-    .replaceAll("dambengu__", "")
-    .replaceAll("dambengu_", "")
-    .replaceAll("Drill_Dev__", "")
-    .replaceAll("Drill_Dev_", "")}.${toExtension}`;
+    return `${srcImage}/gallery/${path.basename(imagePath, `${actualExtension}`)
+        .replaceAll("dambengu__", "")
+        .replaceAll("dambengu_", "")
+        .replaceAll("Drill_Dev__", "")
+        .replaceAll("Drill_Dev_", "")}.${toExtension}`;
 }
 
 
@@ -130,16 +139,18 @@ function getAllPictures() {
                     id: index,
                     title: formatTitle(item),
                     //src: item,
-                    src: formatExtensionImage(item, 'webp', 'high_resolution'),
-                    src_png_high_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/PNG/high_resolution/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
-                    src_png_low_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/PNG/high_resolution/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
-                    src_jpg_high_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/JPG/high_resolution/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
-                    src_jpg_low_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/JPG/low_resolution/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
-                    src_webp_high_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/WEBP/high_resolution/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
-                    src_webp_low_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/WEBP/low_resolution/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
+                    src: formatExtensionImage(item, "webp", "high_resolution"),
+                    src_png_high_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/PNG/high_resolution/gallery/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
+                    src_png_low_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/PNG/high_resolution/gallery/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
+                    src_jpg_high_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/JPG/high_resolution/gallery/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
+                    src_jpg_low_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/JPG/low_resolution/gallery/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
+                    src_webp_high_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/WEBP/high_resolution/gallery/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
+                    src_webp_low_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/WEBP/low_resolution/gallery/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
                     //src:`https://ipfs.io/ipfs/Qmc8Pvj2hU7syTZVZWNHFT8dNhZypboTon2ioL6b7V6TXf/mid-journey/${path.basename(item).replaceAll("dambengu_", "")}`,
-                    types: ["illustration"],
+                    types: [],
                     description: formatTitle(item).toLowerCase(),
+                    prompt: '',
+                    style: 'illustration',
                     width: 1024,
                     height: 1024,
                 }
@@ -153,14 +164,23 @@ function getAllPictures() {
 }
 
 function updateAllPictures() {
-    
+
     const array = getDataFile();
-        array.map((item, index) => {
-            //fs.renameSync(pictures_absolute[index], pictures_absolute[index].replaceAll("dambengu_", ""));
-            item.src = formatExtensionImage(item.src, 'png', 'high_resolution');
-        })
-        writeFile(array);
-        //updateFile();
+    array.map((item, index) => {
+        //fs.renameSync(pictures_absolute[index], pictures_absolute[index].replaceAll("dambengu_", ""));
+        item.src = formatExtensionImage(item.src, 'webp', 'high_resolution');
+        item.src_png_high_resolution = formatExtensionImage(item.src, 'png', 'high_resolution');
+        item.src_png_low_resolution = formatExtensionImage(item.src, 'png', 'low_resolution');
+        item.src_jpg_high_resolution = formatExtensionImage(item.src, 'jpg', 'high_resolution');
+        item.src_jpg_low_resolution = formatExtensionImage(item.src, 'jpg', 'low_resolution');
+        item.src_webp_high_resolution = formatExtensionImage(item.src, 'webp', 'high_resolution');
+        item.src_webp_low_resolution = formatExtensionImage(item.src, 'webp', 'low_resolution');
+        item.prompt = '';
+        item.style = 'illustration';
+        item.types = [];
+    })
+    writeFile(array);
+    //updateFile();
     return (array);
 }
 
@@ -169,6 +189,28 @@ function updateAllPictures() {
 function getOnePicture(name) {
     return (getOnePictureFromList(name, getAllPictures()))
 }
+
+function getOnePictureById(id) {
+    return (getOnePictureFromListById(id, getDataFile()))
+}
+
+function editOnePictureById(id, title, description, types) {
+    const array = getDataFile();
+    var picture = getOnePictureFromListById(id, array);
+    
+    if (picture) {
+        picture.title = title ? title : picture.title;
+        picture.description = description ? description : picture.description;
+        picture.types = types ? types : picture.types;
+        const indexPicture = getIndexOnePictureFromListById(id, array);
+        array[indexPicture] = picture;
+        writeFile(array);
+        return (getOnePictureFromListById(id, getDataFile()))
+    }
+    return (null)
+}
+
+
 
 function getRandomSortPictures(_pictures = []) {
     const randomOrder = [];
@@ -228,9 +270,95 @@ function getListPicturesBySearch(search, page, per_page) {
     });
 }
 
-function convertToWebp() {
+function formatExtensionImageLocal(imagePath, toExtension = 'webp', resolution = 'high_resolution') {
+    const actualExtension = path.extname(imagePath);
+    const output = path.basename(imagePath, actualExtension)
+        .replaceAll("dambengu__", "")
+        .replaceAll("dambengu_", "")
+        .replaceAll("Drill_Dev__", "")
+        .replaceAll("Drill_Dev_", "");
+    const outputFinal = path.join(DIR_PNG_LOW_RESOLUTION, `${output}.${toExtension}`);
+
+    return (outputFinal);
+}
+
+async function convertDraftsPictures(toExtension = 'png', resolution = 'high_resolution') {
+    const pictures_absolute = getListPictures([], DIR_MIDJOURNEY_DRAFTS).array;
+    const lowResolutionPng = {
+        palette: true,
+        quality: 50,
+    }
+    const highResolution = {
+        quality: 100,
+    }
+    const lowResolution = {
+        quality: 50,
+    }
+    const copyright = {
+        exif: {
+            IFD0: {
+                Copyright: WEBSITE_NAME,
+            }
+        }
+    };
+    for (let i = 0; i < pictures_absolute.length; i++) {
+        const element = pictures_absolute[i];
+        const output = formatExtensionImageLocal(element, toExtension, resolution);
+
+        if (toExtension === EXTENSION_PNG) {
+            if (resolution === HIGH_RESOLUTION) {
+                if (!fs.existsSync(DIR_PNG_HIGH_RESOLUTION)) {
+                    fs.mkdirSync(DIR_PNG_HIGH_RESOLUTION, { recursive: true });
+                }
+
+                fs.copyFile(element, path.join(DIR_PNG_HIGH_RESOLUTION, `${output}.png`), async (err) => { });
+            } else if (resolution === LOW_RESOLUTION) {
+                if (!fs.existsSync(DIR_PNG_LOW_RESOLUTION)) {
+                    fs.mkdirSync(DIR_PNG_LOW_RESOLUTION, { recursive: true });
+                }
+
+                await sharp(element)
+                    .withMetadata(copyright)
+                    //.resize(320, 240)
+                    .png(lowResolutionPng)
+                    .toFile(output);
+            }
+        } else if (toExtension === EXTENSION_JPG) {
+            const _resolution = resolution === HIGH_RESOLUTION ? highResolution : lowResolution;
+            const _dir = resolution === HIGH_RESOLUTION ? DIR_JPG_HIGH_RESOLUTION : DIR_JPG_LOW_RESOLUTION;
+            if (!fs.existsSync(_dir)) {
+                fs.mkdirSync(_dir, { recursive: true });
+            }
+            await sharp(element)
+                .withMetadata(copyright)
+                //.resize(320, 240)
+                .jpeg(_resolution)
+                .toFile(output);
+        } else if (toExtension === EXTENSION_WEBP) {
+            const _resolution = resolution === HIGH_RESOLUTION ? highResolution : lowResolution;
+            const _dir = resolution === HIGH_RESOLUTION ? DIR_WEBP_HIGH_RESOLUTION : DIR_WEBP_LOW_RESOLUTION;
+            if (!fs.existsSync(_dir)) {
+                fs.mkdirSync(_dir, { recursive: true });
+            }
+            await sharp(element)
+                .withMetadata(copyright)
+                //.resize(320, 240)
+                .webp(_resolution)
+                .toFile(output);
+        }
+    }
+}
+
+async function convertToWebp() {
     const pictures_absolute = getListPictures([], DIR_MIDJOURNEY_DRAFTS).array;
     console.log("size tab", pictures_absolute.length)
+    const copyright = {
+        exif: {
+            IFD0: {
+                Copyright: WEBSITE_NAME,
+            }
+        }
+    };
     for (let i = 0; i < pictures_absolute.length; i++) {
         const element = pictures_absolute[i];
 
@@ -238,21 +366,107 @@ function convertToWebp() {
             .replaceAll("dambengu__", "")
             .replaceAll("dambengu_", "")
             .replaceAll("Drill_Dev__", "")
-            .replaceAll("Drill_Dev_", "")
-            .trim()
-/*
-        if (!fs.existsSync(DIR_WEBP)) {
-            fs.mkdirSync(DIR_WEBP, { recursive: true });
+            .replaceAll("Drill_Dev_", "");
+
+        if (!fs.existsSync(DIR_PNG_HIGH_RESOLUTION)) {
+            fs.mkdirSync(DIR_PNG_HIGH_RESOLUTION, { recursive: true });
         }
-        */
-        
-        sharp(element)
+
+        if (!fs.existsSync(DIR_PNG_LOW_RESOLUTION)) {
+            fs.mkdirSync(DIR_PNG_LOW_RESOLUTION, { recursive: true });
+        }
+        /*
+        await sharp(element)
+        .withMetadata(copyright)
             //.resize(320, 240)
-            .webp({
-                quality: 40,
+            .png({
+                palette:true,
+                //quality: 100, //high_resolution / default 80
+                //quality: 50, //low_resolution / default 80
+                //alphaQuality:100, //high_resolution && low_resolution / default 100
+                //lossless: true 
+                compressionLevel:1,
+            })
+            .toFile(path.join(DIR_PNG_HIGH_RESOLUTION, `${output}.png`));
+            */
+
+        fs.copyFile(element, path.join(DIR_PNG_HIGH_RESOLUTION, `${output}.png`), async (err) => {
+            if (!err) {
+                await sharp(element)
+                    .withMetadata(copyright)
+                    //.resize(320, 240)
+                    .png({
+                        palette: true,
+                        //quality: 100, //high_resolution / default 80
+                        quality: 50, //low_resolution / default 80
+                        //alphaQuality:100, //high_resolution && low_resolution / default 100
+                        //lossless: true 
+                    })
+                    .toFile(path.join(DIR_PNG_LOW_RESOLUTION, `${output}.png`));
+            }
+        });
+
+
+        if (!fs.existsSync(DIR_JPG_HIGH_RESOLUTION)) {
+            fs.mkdirSync(DIR_JPG_HIGH_RESOLUTION, { recursive: true });
+        }
+
+
+        if (!fs.existsSync(DIR_JPG_LOW_RESOLUTION)) {
+            fs.mkdirSync(DIR_JPG_LOW_RESOLUTION, { recursive: true });
+        }
+
+        await sharp(element)
+            .withMetadata(copyright)
+            //.resize(320, 240)
+            .jpeg({
+                quality: 100, //high_resolution / default 80
+                //quality: 50, //low_resolution / default 80
+                //alphaQuality:100, //high_resolution && low_resolution / default 100
                 //lossless: true 
             })
-            .toFile(path.join(DIR_WEBP, output + ".webp"));
+            .toFile(path.join(DIR_JPG_HIGH_RESOLUTION, `${output}.jpg`));
+
+        await sharp(element)
+            .withMetadata(copyright)
+            //.resize(320, 240)
+            .jpeg({
+                //quality: 100, //high_resolution / default 80
+                quality: 50, //low_resolution / default 80
+                //alphaQuality:100, //high_resolution && low_resolution / default 100
+                //lossless: true 
+            })
+            .toFile(path.join(DIR_JPG_LOW_RESOLUTION, `${output}.jpg`));
+
+        if (!fs.existsSync(DIR_WEBP_HIGH_RESOLUTION)) {
+            fs.mkdirSync(DIR_WEBP_HIGH_RESOLUTION, { recursive: true });
+        }
+
+        if (!fs.existsSync(DIR_WEBP_LOW_RESOLUTION)) {
+            fs.mkdirSync(DIR_WEBP_LOW_RESOLUTION, { recursive: true });
+        }
+
+        await sharp(element)
+            .withMetadata(copyright)
+            //.resize(320, 240)
+            .webp({
+                quality: 100, //high_resolution / default 80
+                //quality: 50, //low_resolution / default 80
+                //alphaQuality:100, //high_resolution && low_resolution / default 100
+                //lossless: true 
+            })
+            .toFile(path.join(DIR_WEBP_HIGH_RESOLUTION, `${output}.webp`));
+
+        await sharp(element)
+            .withMetadata(copyright)
+            //.resize(320, 240)
+            .webp({
+                //quality: 100, //high_resolution / default 80
+                quality: 50, //low_resolution / default 80
+                //alphaQuality:100, //high_resolution && low_resolution / default 100
+                //lossless: true 
+            })
+            .toFile(path.join(DIR_WEBP_LOW_RESOLUTION, `${output}.webp`));
     }
 }
 
@@ -263,14 +477,14 @@ export default async function handler(req, res) {
     try {
         //console.log("API", "access to the API \n");
         if (req.method === METHOD_GET) {
-            if (req.query.action === "get_datas") {
+            if (req.query.action === "get_ids") {
                 //console.log("GET_ALL", `${req.query.action}\n`);
                 const array = getDataPaths();
                 //console.log("ARRAY", `${array.length}\n`);
-                return res.status(200).json({array});
+                return res.status(200).json(array);
                 //return res.status(200).json({ msg: "Success", files: [], length: 0, });
             }
-            
+
             else if (req.query.action === "get_all") {
                 //console.log("GET_ALL", `${req.query.action}\n`);
                 const array = getAllPictures();
@@ -283,11 +497,24 @@ export default async function handler(req, res) {
                 //console.log("ARRAY", `${array.length}\n`);
                 return res.status(200).json({ msg: array.length ? "Success" : "Error", files: array, length: array.length, });
                 //return res.status(200).json({ msg: "Success", files: [], length: 0, });
-            } 
+            }
+            else if (req.query.action === "edit_one" && req.query.id) {
+                //console.log("GET_ALL", `${req.query.action}\n`);
+                const id = req.query.id;
+                const title = req.query.title ? req.query.title : '';
+                const description = req.query.description ? req.query.description : '';
+                const types = req.query.types ? JSON.parse(req.query.types) : [];
+                const picture = editOnePictureById(id, title, description, types);
+                //console.log("ARRAY", `${array.length}\n`);
+                return res.status(200).json({ msg: picture ? "Success" : "Error", picture: picture,});
+                //return res.status(200).json({ msg: "Success", files: [], length: 0, });
+            }
+
             
-            
-            
-            
+
+
+
+
             else if (req.query.action === QUERY_ACTION_GET_LIST_PICTURES) {
                 const search = req.query[QUERY_SEARCH] ? req.query[QUERY_SEARCH] : '';
                 const page = req.query[QUERY_PAGE] ? req.query[QUERY_PAGE] : 1;
@@ -301,12 +528,12 @@ export default async function handler(req, res) {
                 updateFile();
                 return res.status(200).json({ msg: "Success" });
             }
-            else if (req.query.action === "get_one" && req.query.name) {
-                const one = getOnePicture(req.query.name);
-                return res.status(200).json({ msg: one ? "Success" : "Error", file: one, });
+            else if (req.query.action === "get_one" && req.query.id) {
+                const one = getOnePictureById(req.query.id);
+                return res.status(200).json(one);
             } else if (req.query.action === "convert") {
                 //const one = getOnePicture(req.query.name);
-                convertToWebp();
+                await convertToWebp();
                 return res.status(200).json({ msg: "Success" });
             }
 

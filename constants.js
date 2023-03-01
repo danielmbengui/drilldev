@@ -22,7 +22,12 @@ export const QUERY_ACTION_GET_LIST_PICTURES = 'get_list_pictures';
 export const QUERY_SEARCH = 'search';
 export const QUERY_PAGE = 'page';
 export const QUERY_PER_PAGE = 'per_page';
-/*                 Queries                */
+/*                 Formats                */
+export const EXTENSION_PNG = 'png';
+export const EXTENSION_JPG = 'jpg';
+export const EXTENSION_WEBP = 'webp';
+export const HIGH_RESOLUTION = 'high_resolution';
+export const LOW_RESOLUTION = 'low_resolution';
 
 /*                Methods               */
 

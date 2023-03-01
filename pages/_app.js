@@ -104,11 +104,15 @@ const MyApp = ({ Component, pageProps }) => {
 <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2953886510697247"
   crossOrigin="anonymous" />
    <DeviceModeProvider>
-   <SSRProvider>
-      <Component {...pageProps} 
-      lang={lang} setLang={setLang} 
+     <SSRProvider>
+      <Component 
+      {...pageProps} 
+      lang={lang} 
+      setLang={setLang} 
       sizes={sizes}
-      isMobile={isMobile} isTablet={isTablet} isLaptop={isLaptop}
+      isMobile={isMobile} 
+      isTablet={isTablet} 
+      isLaptop={isLaptop}
        />
        </SSRProvider>
    </DeviceModeProvider>
