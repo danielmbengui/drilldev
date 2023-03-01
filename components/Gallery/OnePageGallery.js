@@ -26,6 +26,7 @@ import "yet-another-react-lightbox/plugins/thumbnails.css";
 import { useDeviceMode } from "@/contexts/DeviceModeProvider.js";
 import CustomCheckBox from "../Customs/CustomCheckBox.js";
 
+
 const fetcherListPictures = params => axios.get(`${PAGE_LINK_API_PICTURES}`, params).then(res => res.data);
 
 export default function OnePageGallery (props) {
@@ -116,8 +117,8 @@ export default function OnePageGallery (props) {
             </Card.Body>
           </Card>
         </Grid>
-                    <Grid xs={12} justify='center' css={{
-              mb:30,
+                    <Grid item xs={12} justify='center' sx={{
+              my:5,
               maxWidth:'fit-content'
             }}>
             <Pagination 
@@ -133,7 +134,7 @@ export default function OnePageGallery (props) {
       total={manager.total_page}
       />
             </Grid>
-            <Grid xs={12} justify='center'>
+            <Grid item xs={12} justifyContent='center'>
       <Masonry 
       columns={{xs:4, sm:6, md:10}}
       >
@@ -157,7 +158,7 @@ export default function OnePageGallery (props) {
         }
         </Masonry>
         </Grid>
-         <Grid xs={12} justify='center' css={{
+         <Grid item xs={12} justify='center' sx={{
               mb:30,
               maxWidth:'fit-content'
             }}>

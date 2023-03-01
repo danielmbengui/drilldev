@@ -1,18 +1,20 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Checkbox from '@mui/material/Checkbox';
+import { useTheme } from '@nextui-org/react';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
-const BpIcon = styled('span')(({ theme }) => ({
+const BpIcon = styled('span')(({ theme, isdark }) => ({
   borderRadius: 3,
   width: 16,
   height: 16,
   boxShadow:
-    theme.palette.mode === 'dark'
+    isdark === "true"
       ? '0 0 0 1px rgb(16 22 26 / 40%)'
       : 'inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)',
-  backgroundColor: theme.palette.mode === 'dark' ? '#394b59' : '#f5f8fa',
+  backgroundColor: isdark === "true" ? '#394b59' : '#f5f8fa',
   backgroundImage:
-    theme.palette.mode === 'dark'
+    isdark === "true"
       ? 'linear-gradient(180deg,hsla(0,0%,100%,.05),hsla(0,0%,100%,0))'
       : 'linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))',
   '.Mui-focusVisible &': {
@@ -20,17 +22,20 @@ const BpIcon = styled('span')(({ theme }) => ({
     outlineOffset: 2,
   },
   'input:hover ~ &': {
-    backgroundColor: theme.palette.mode === 'dark' ? '#30404d' : '#ebf1f5',
+    backgroundColor: isdark === "true" ? '#30404d' : '#ebf1f5',
   },
   'input:disabled ~ &': {
     boxShadow: 'none',
     background:
-      theme.palette.mode === 'dark' ? 'rgba(57,75,89,.5)' : 'rgba(206,217,224,.5)',
+      isdark === "true" ? 'rgba(57,75,89,.5)' : 'rgba(206,217,224,.5)',
+  },
+  'label:disabled ~ &': {
+    color: 'red',
   },
 }));
 
 const BpCheckedIcon = styled(BpIcon)({
-  backgroundColor: '#137cbd',
+  backgroundColor: 'var(--primary)',
   backgroundImage: 'linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))',
   '&:before': {
     display: 'block',
@@ -43,24 +48,53 @@ const BpCheckedIcon = styled(BpIcon)({
     content: '""',
   },
   'input:hover ~ &': {
-    backgroundColor: '#106ba3',
+    //backgroundColor: 'var',
   },
 });
 
 // Inspired by blueprintjs
 function BpCheckbox(props) {
+  const {isDark} = useTheme();
+
   return (
-    <Checkbox
-      sx={{
-        '&:hover': { bgcolor: 'transparent' },
-      }}
-      disableRipple
-      color="default"
-      checkedIcon={<BpCheckedIcon />}
-      icon={<BpIcon />}
-      inputProps={{ 'aria-label': 'Checkbox demo' }}
-      {...props}
-    />
+    <FormControlLabel
+          value="start"
+          control={<Checkbox
+            value="checkedA"
+            inputProps={{
+              'aria-label': 'Checkbox A',
+              color:'red'
+            }}
+            sx={{
+              '&:hover': { bgcolor: 'transparent' },
+            }}
+            disableRipple
+            label="ok"
+            color="default"
+            checkedIcon={<BpCheckedIcon isdark={isDark ? "true" : "false"} />}
+            icon={<BpIcon isdark={isDark ? "true" : "false"} />}
+            
+          />}
+          {...props}
+          label="Start"
+          labelPlacement="start"
+          sx={{
+            color:'var(--text-color)',
+            "& .MuiFormControlLabel-root": {
+              color:'yellow',
+              "&:disabled":{
+                color:'red'
+              }
+            },
+            "& .Mui-disabled": {
+              color:'red'
+            }
+
+            
+          }}
+          
+        />
+    
   );
 }
 
