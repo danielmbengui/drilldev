@@ -2,22 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { getDocumentTheme } from '@nextui-org/react';
 import '@/styles/globals.css';
 import { NextUIProvider } from '@nextui-org/react';
-import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { lightTheme, darkTheme } from '@/styles/theme';
-import { Switch, changeTheme, useTheme } from '@nextui-org/react'
-import { DEFAULT_LANGAGE, DEFAULT_SCREEN_MODE, NAMESPACE_LANGAGE_COMMON, STORAGE_SCREEN_MODE, TAB_NAMEPACES } from '@/constants';
-import {SSRProvider} from '@react-aria/ssr'; 
+import { DEFAULT_SCREEN_MODE, NAMESPACE_LANGAGE_COMMON, STORAGE_SCREEN_MODE, TAB_NAMEPACES } from '@/constants';
 import { useMediaQuery } from "@/styles/useMediaQuery";
 import { getLangageStorage } from '@/lib/storage/UserStorageFunctions';
 import { appWithTranslation, useTranslation } from 'next-i18next';
 import Script from 'next/script';
-import FooterComponent from '@/components/All/FooterComponent';
 import Head from 'next/head';
 import DeviceModeProvider from '@/contexts/DeviceModeProvider';
 import ThemeModeProvider from '@/contexts/ThemeModeProvider';
+import { SSRProvider } from '@react-aria/ssr';
+import { useSSR } from '@nextui-org/react'
 
 const MyApp = ({ Component, pageProps }) => {
   const {t, i18n} = useTranslation();
+  const { isBrowser } = useSSR();
   const isMobile = useMediaQuery(650);
   const isTablet = useMediaQuery(960);
   const isLaptop = useMediaQuery(1280);
@@ -90,35 +89,34 @@ const MyApp = ({ Component, pageProps }) => {
   }, []);
 
   return (
+    isBrowser && <SSRProvider>
+   
     
-    <NextUIProvider theme={isDark ? darkTheme : lightTheme}>
-    
-      <ThemeModeProvider screenMode={screenMode}>
-      <Head>
-      <meta name="description" content={t('description_page', {ns:NAMESPACE_LANGAGE_COMMON})} />
-      <meta name="twitter:description" content={t('description_page', {ns:NAMESPACE_LANGAGE_COMMON})} />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
-      
-                <Script async src="https://www.googletagmanager.com/gtag/js?id=G-MJ6X1M1YRR" />
+    <ThemeModeProvider screenMode={screenMode}>
+    <Head>
+    <meta name="description" content={t('description_page', {ns:NAMESPACE_LANGAGE_COMMON})} />
+    <meta name="twitter:description" content={t('description_page', {ns:NAMESPACE_LANGAGE_COMMON})} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </Head>
+              <Script async src="https://www.googletagmanager.com/gtag/js?id=G-MJ6X1M1YRR" />
 <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2953886510697247"
-  crossOrigin="anonymous" />
-   <DeviceModeProvider>
-     <SSRProvider>
-      <Component 
-      {...pageProps} 
-      lang={lang} 
-      setLang={setLang} 
-      sizes={sizes}
-      isMobile={isMobile} 
-      isTablet={isTablet} 
-      isLaptop={isLaptop}
-       />
-       </SSRProvider>
-   </DeviceModeProvider>
-      </ThemeModeProvider>
-    </NextUIProvider>
-    
+crossOrigin="anonymous" />
+ <DeviceModeProvider>
+ <NextUIProvider theme={isDark ? darkTheme : lightTheme}>
+    <Component 
+    {...pageProps} 
+    lang={lang} 
+    setLang={setLang} 
+    sizes={sizes}
+    isMobile={isMobile} 
+    isTablet={isTablet} 
+    isLaptop={isLaptop}
+     />
+  </NextUIProvider>
+ </DeviceModeProvider>
+    </ThemeModeProvider>
+
+  </SSRProvider>  
   );
 }
 

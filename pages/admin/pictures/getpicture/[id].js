@@ -312,25 +312,25 @@ export async function getStaticPaths({ locales }) {
       }
   }
 
-  export async function getStaticProps({ locale }) {
+  export async function getStaticProps({ locale, params }) {
     /*
     const array = await axios.get(`${process.env.domain}/api/pictures?action=get_ids`)
     .then((res) => {
         return(res.data);
     })
     */
-/*
+
     const _picture = await axios.get(`${process.env.domain}/api/pictures?action=get_one&id=${params.id}`)
     .then((res) => {
         return(res.data);
     })
-    */
+    
 
-    //console.log("params", params)
+    console.log("params", _picture)
     return {
         props: {
           //tabPrice: response,
-          //picture:_picture,
+          picture:_picture,
           //id:params.id,
           //ids:array,
           //id:params.id,
