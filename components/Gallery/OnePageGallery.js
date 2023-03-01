@@ -24,6 +24,7 @@ import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import "yet-another-react-lightbox/plugins/captions.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 import { useDeviceMode } from "@/contexts/DeviceModeProvider.js";
+import CustomCheckBox from "../Customs/CustomCheckBox.js";
 
 const fetcherListPictures = params => axios.get(`${PAGE_LINK_API_PICTURES}`, params).then(res => res.data);
 
@@ -105,32 +106,11 @@ export default function OnePageGallery (props) {
                     }
                   />
                 </Grid>
-                <Grid item xs={12} sx={{display:'none'}}>
-                  <Text h5>
-                    <Text b>{`actual page : `}</Text>
-                    <Text as={'span'}>{manager.page}</Text>
-                  </Text>
-                </Grid>
 
-                <Grid item xs={12} sx={{display:'none'}}>
-                  <Text h5>
-                    <Text b>{`total pages : `}</Text>
-                    <Text as={'span'}>{manager.total_page}</Text>
-                  </Text>
-                </Grid>
-
-                <Grid item xs={12} sx={{display:'none'}}>
-                  <Text h5>
-                    <Text b>{`length pictures page : `}</Text>
-                    <Text as={'span'}>{manager.length}</Text>
-                  </Text>
-                </Grid>
-
-                <Grid item xs={12} sx={{display:'none'}}>
-                  <Text h5>
-                    <Text b>{`Nb total : `}</Text>
-                    <Text as={'span'}>{manager.total_length}</Text>
-                  </Text>
+                <Grid item xs={12} py={3}>
+                  <CustomCheckBox 
+                  
+                  />
                 </Grid>
               </Grid>
             </Card.Body>

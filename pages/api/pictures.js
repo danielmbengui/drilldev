@@ -529,7 +529,7 @@ export default async function handler(req, res) {
                 return res.status(200).json({ msg: "Success" });
             }
             else if (req.query.action === "get_one" && req.query.id) {
-                const one = getOnePictureById(req.query.id);
+                const one = getOnePictureById(parseInt(req.query.id));
                 return res.status(200).json(one);
             } else if (req.query.action === "convert") {
                 //const one = getOnePicture(req.query.name);

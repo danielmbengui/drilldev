@@ -271,19 +271,7 @@ handleChangeState("types", tab)
 }
 
 export async function getStaticPaths({ locales }) {
-    /*
-  const array = await axios.get(`${process.env.domain}/api/pictures?action=get_ids`).then((res) => {
-        return(res.data);
-    })
-    */
-    
-
-    const array = require(`@/public/images/midjourney/datas/data.json`);
-    //console.log("AIE", arry)
-  // Get the paths we want to prerender based on posts
-  // In production environments, prerender all pages
-  // (slower builds, but faster initial page load)
-  
+    const array = require(`@/public/images/midjourney/datas/data.json`);  
   const _paths = [];
   //paths.push({params: { id: '1' }});
   array.map((item) => {
