@@ -36,6 +36,7 @@ export const EXT_PNG = `.png`;
 export const EXT_JPG = `.jpg`;
 export const DIR_MIDJOURNEY_PICTURES = `${cwd()}/public/pictures/images`;
 export const DIR_MIDJOURNEY_DATAS = `${cwd()}/public/images/midjourney/datas`;
+export const DIR_MIDJOURNEY_DATA_FILE = `${cwd()}/public/images/midjourney/datas/data.json`;
 export const DIR_MIDJOURNEY_DRAFTS = `${cwd()}/public/images/midjourney/drafts`;
 export const DIR_WEBP = `${cwd()}/public/images/midjourney/webp`;
 export const RELATIVE_DIR_MID_JOURNEY = `/images/mid-journey`;

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { TAB_LANGAGES, TAB_NAMEPACES } from '@/constants';
+import { DIR_MIDJOURNEY_DATA_FILE, TAB_LANGAGES, TAB_NAMEPACES } from '@/constants';
 import { Button, Input, Text, Textarea, useTheme } from '@nextui-org/react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
@@ -284,23 +284,25 @@ handleChangeState("types", tab)
 }
 
 export async function getStaticPaths({ locales }) {
-    
+    /*
   const array = await axios.get(`${process.env.domain}/api/pictures?action=get_ids`).then((res) => {
         return(res.data);
     })
+    */
     
 
-    //const arry = require("../../../../public/images/midjourney/datas/data.json");
+    const array = require(`@/public/images/midjourney/datas/data.json`);
+    //console.log("AIE", arry)
   // Get the paths we want to prerender based on posts
   // In production environments, prerender all pages
   // (slower builds, but faster initial page load)
   
   const _paths = [];
   //paths.push({params: { id: '1' }});
-  array.map((_id) => {
+  array.map((item) => {
     for (let i = 0; i < locales.length; i++) {
         const lang = locales[i];
-        _paths.push({params: { id: _id.toString() }, locale: lang});
+        _paths.push({params: { id: item.id.toString() }, locale: lang});
         }
   })
 
@@ -326,7 +328,7 @@ export async function getStaticPaths({ locales }) {
     })
     
 
-    console.log("params", _picture)
+    //console.log("params", _picture)
     return {
         props: {
           //tabPrice: response,
