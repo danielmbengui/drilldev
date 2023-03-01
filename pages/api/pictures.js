@@ -1,7 +1,6 @@
 import Cors from 'cors';
 import fs from 'fs';
 import initMiddleware from '@/lib/init-middleware';
-import { cwd } from 'process';
 import path from 'path';
 import { getFirstLetterUpperCase, getOnePictureFromList, getRelativePath, getListPictures, getOnePictureFromListById, getIndexOnePictureFromListById } from './constants';
 import { DIR_MIDJOURNEY_DATAS, EXTENSION_JPG, EXTENSION_PNG, EXTENSION_WEBP, GALLERY_MAX_PICTURES_PER_PAGE, HIGH_RESOLUTION, LOW_RESOLUTION, METHOD_GET, METHOD_POST, QUERY_ACTION_GET_LIST_PICTURES, QUERY_PAGE, QUERY_PER_PAGE, QUERY_SEARCH, WEBSITE_NAME, WEBSITE_PICTURES_ADDRESS, } from '@/constants';

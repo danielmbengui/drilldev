@@ -9,7 +9,6 @@ import TutorialComponent from '@/components/All/TutorialComponent';
 import { useEffect, useState } from 'react';
 import fs from 'fs';
 import path from 'path';
-import { cwd } from 'process';
 import Image from 'next/image';
 import axios from 'axios';
 import { useRouter } from 'next/router';

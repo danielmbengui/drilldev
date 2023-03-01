@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { TAB_LANGAGES, TAB_NAMEPACES } from '@/constants';
-import { useTranslation } from 'next-i18next';
 import { Button, Input, Text, Textarea, useTheme } from '@nextui-org/react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
@@ -19,18 +18,18 @@ import { useDeviceMode } from '@/contexts/DeviceModeProvider';
 
 const fetcherListPictures = params => axios.get(`/api/pictures`, params).then(res => res.data);
 
-export default function GetpicturePage({picture}) {
+export default function GetpicturePage() {
   const router = useRouter();
 
   const [index, setIndex] = useState(-1);
 const {isTablet} = useDeviceMode();
 
   const [manager, setManager] = useState({
-    id: picture.id ? parseInt(picture.id) : '',
-    src: picture ? picture.src : '',
-    title: picture ? picture.title : '',
-    description: picture ? picture.description : '',
-    types: picture ? picture.types : [],
+    id: '',
+    src: '',
+    title: '',
+    description: '',
+    types: [],
     first_id:-1,
     last_id:-1,
   });
@@ -291,12 +290,12 @@ export async function getStaticPaths({ locales }) {
     })
     */
 
-    const arry = require("../../../../public/images/midjourney/datas/data.json");
+    //const arry = require("../../../../public/images/midjourney/datas/data.json");
   // Get the paths we want to prerender based on posts
   // In production environments, prerender all pages
   // (slower builds, but faster initial page load)
   const paths = [];
-  paths.push({params: { id: '1' }});
+  //paths.push({params: { id: '1' }});
   for (let i = 0; i < locales.length; i++) {
     const lang = locales[i];
     paths.push({params: { id: '1' }, locale: lang});
@@ -306,25 +305,26 @@ export async function getStaticPaths({ locales }) {
   return { paths, fallback: true }
   }
 
-  export async function getStaticProps({ locale, params }) {
+  export async function getStaticProps({ locale }) {
     /*
     const array = await axios.get(`${process.env.domain}/api/pictures?action=get_ids`)
     .then((res) => {
         return(res.data);
     })
     */
-
+/*
     const _picture = await axios.get(`${process.env.domain}/api/pictures?action=get_one&id=${params.id}`)
     .then((res) => {
         return(res.data);
     })
+    */
 
-    console.log("params", params)
+    //console.log("params", params)
     return {
         props: {
           //tabPrice: response,
-          picture:_picture,
-          id:params.id,
+          //picture:_picture,
+          //id:params.id,
           //ids:array,
           //id:params.id,
             ...(await serverSideTranslations(locale, TAB_NAMEPACES, null, TAB_LANGAGES)),

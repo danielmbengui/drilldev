@@ -1,7 +1,6 @@
 import Cors from 'cors';
 import fs from 'fs';
 import initMiddleware from '@/lib/init-middleware';
-import { cwd } from 'process';
 import path from 'path';
 import { DIR_MIDJOURNEY_DATAS, DIR_MIDJOURNEY_DRAFTS } from '@/constants';
 import { getListPictures } from './constants';

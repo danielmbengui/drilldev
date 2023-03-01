@@ -13,18 +13,11 @@ import { useTranslation } from 'next-i18next';
 import { NAMESPACE_LANGAGE_COMMON } from '@/constants';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import "react-responsive-carousel/lib/styles/carousel.css"; // requires a loader
-import { Carousel } from 'react-responsive-carousel';
 import "yet-another-react-lightbox/styles.css";
-import { PICTURES_HOME } from '@/__mocks__/_pictures_';
-import BasicExample from '../Carousels/BasicExample';
-
 import Lightbox from "yet-another-react-lightbox";
 import Captions from "yet-another-react-lightbox/plugins/captions";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
-import Slideshow from "yet-another-react-lightbox/plugins/slideshow";
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
-import Video from "yet-another-react-lightbox/plugins/video";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import "yet-another-react-lightbox/plugins/captions.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";

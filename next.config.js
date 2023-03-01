@@ -1,7 +1,7 @@
 // Require the polyfill before requiring any other modules.
 //require('intersection-observer');
 //const { DEFAULT_LANGAGE, LANGAGE_ENGLISH } = require('./constants.js');
-//const { i18n } = require('./next-i18next.config')
+const { i18n } = require('./next-i18next.config')
 //const { i18n } = require('next-i18next/server/config')
 //module.exports = nextConfig
 
@@ -24,17 +24,14 @@ module.exports = withPWA({
   },
   
   //nextConfig,
-  i18n: {
-    defaultLocale: 'fr',
-  locales: ['fr', 'en', 'pt'],
-  localeDetection: true,
-  },
+  i18n,
   env: {
     domain: process.env.NODE_ENV === "production" ? 'https://drilldev.com' : 'http://localhost:3000',
   },
   images: {
     domains: ['pictures.dandela.com'],
   },
+  /*
   async headers() {
     return [
       {
@@ -49,4 +46,5 @@ module.exports = withPWA({
       }
     ]
   }
+  */
 })
