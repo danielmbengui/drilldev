@@ -285,7 +285,7 @@ handleChangeState("types", tab)
   )
 }
 
-export async function getStaticPaths() {
+export async function getStaticPaths({ locales }) {
   const array = await axios.get(`${process.env.domain}/api/pictures`, {
     params :{
         action: "get_ids"
@@ -299,14 +299,14 @@ export async function getStaticPaths() {
   // (slower builds, but faster initial page load)
   const paths = [];
   array.map((_id) => {
-    for (let i = 0; i < TAB_LANGAGES.length; i++) {
-        const lang = TAB_LANGAGES[i];
+    for (let i = 0; i < locales.length; i++) {
+        const lang = locales[i];
         paths.push({params: { id: _id.toString() },locale: lang});
     }
   })
 
      // { fallback: false } means other routes should 404
-  return { paths, fallback: false }
+  return { paths, fallback: true }
   }
 
   export async function getStaticProps({ locale, params }) {
