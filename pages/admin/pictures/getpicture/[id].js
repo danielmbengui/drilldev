@@ -296,6 +296,7 @@ export async function getStaticPaths({ locales }) {
   // In production environments, prerender all pages
   // (slower builds, but faster initial page load)
   const paths = [];
+  paths.push({params: { id: '1' }});
   for (let i = 0; i < locales.length; i++) {
     const lang = locales[i];
     paths.push({params: { id: '1' }, locale: lang});
