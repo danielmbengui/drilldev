@@ -69,7 +69,7 @@ export default function MenuComponent(props) {
       }}
       css={{
         position: 'fixed',
-        //background: 'red',
+        background: '$background',
 
         zIndex: 1000,
         //marginBottom:50

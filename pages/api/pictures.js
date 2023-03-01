@@ -3,7 +3,7 @@ import fs from 'fs';
 import initMiddleware from '@/lib/init-middleware';
 import path from 'path';
 import { getFirstLetterUpperCase, getOnePictureFromList, getRelativePath, getListPictures, getOnePictureFromListById, getIndexOnePictureFromListById } from './constants';
-import { DIR_MIDJOURNEY_DATAS, EXTENSION_JPG, EXTENSION_PNG, EXTENSION_WEBP, GALLERY_MAX_PICTURES_PER_PAGE, HIGH_RESOLUTION, LOW_RESOLUTION, METHOD_GET, METHOD_POST, QUERY_ACTION_GET_LIST_PICTURES, QUERY_PAGE, QUERY_PER_PAGE, QUERY_SEARCH, WEBSITE_NAME, WEBSITE_PICTURES_ADDRESS, } from '@/constants';
+import { EXTENSION_JPG, EXTENSION_PNG, EXTENSION_WEBP, GALLERY_MAX_PICTURES_PER_PAGE, HIGH_RESOLUTION, LOW_RESOLUTION, METHOD_GET, METHOD_POST, QUERY_ACTION_GET_LIST_PICTURES, QUERY_PAGE, QUERY_PER_PAGE, QUERY_SEARCH, WEBSITE_NAME, WEBSITE_PICTURES_ADDRESS, } from '@/constants';
 
 //const DIR_MIDJOURNEY_DRAFTS = `${serverRuntimeConfig.publicPath}/images/midjourney/drafts`;
 const publicDirectoryPath = path.join(__dirname, 'public');
@@ -12,6 +12,7 @@ const rootDirectoryPath = path.resolve(process.cwd());
 const DIR_MIDJOURNEY_DRAFTS = path.join(rootDirectoryPath, 'public', 'images', 'midjourney', 'drafts');
 //const DIR_WEBP = path.join(rootDirectoryPath, 'public', 'images', 'midjourney', 'webp');
 
+const DIR_MIDJOURNEY_DATAS = `${rootDirectoryPath}/public/images/midjourney/datas`;
 const DIR_PNG_HIGH_RESOLUTION = `${rootDirectoryPath}/public/images/midjourney/png/high_resolution`;
 const DIR_PNG_LOW_RESOLUTION = `${rootDirectoryPath}/public/images/midjourney/png/low_resolution`;
 const DIR_JPG_HIGH_RESOLUTION = `${rootDirectoryPath}/public/images/midjourney/jpg/high_resolution`;
@@ -64,9 +65,9 @@ function getDataFile() {
     }
     
 
-    const array = require("../../public/images/midjourney/datas/data.json")
-    //return JSON.parse(fs.readFileSync(DIR_MIDJOURNEY_DATAS + "/data.json"));
-    return (array);
+    //const array = require("../../public/images/midjourney/datas/data.json")
+    return JSON.parse(fs.readFileSync(DIR_MIDJOURNEY_DATAS + "/data.json"));
+    //return (array);
 }
 
 function getDataPaths() {
@@ -128,9 +129,10 @@ function formatExtensionImage(imagePath, toExtension = 'webp', resolution = 'hig
 
 
 function getAllPictures() {
-    const pictures_absolute = getListPictures([], DIR_MIDJOURNEY_DRAFTS).array;
-    const pictures = getListPictures([], DIR_MIDJOURNEY_DRAFTS).array_relative;
+    //const pictures_absolute = getListPictures([], DIR_MIDJOURNEY_DRAFTS).array;
+    //const pictures = getListPictures([], DIR_MIDJOURNEY_DRAFTS).array_relative;
     //console.log("PIIICTU", pictures)
+    /*
     if (pictures.length) {
         const array = pictures.map((item, index) => {
             //fs.renameSync(pictures_absolute[index], pictures_absolute[index].replaceAll("dambengu_", ""));
@@ -158,9 +160,10 @@ function getAllPictures() {
         })
         //writeFile(array);
         //updateFile();
-        return (array);
+        //return (array);
     }
-    return ([]);
+    */
+    return (getDataFile());
 }
 
 function updateAllPictures() {

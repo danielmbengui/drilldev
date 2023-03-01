@@ -152,8 +152,6 @@ setPictures(getRandomSortPictures());
   return (
 <>
 <HeaderComponent />
-
-
     <Container sx={{mb:10}} fixed>
     <ParagraphRowComponent
         arrayText={[
@@ -258,37 +256,6 @@ pictures={pictures}
 indexStart={30}
 indexStop={36}
 />
-
-
-        <Container sx={{
-          textAlign: 'center',
-          display:'none'
-        }}>
-          <Text h3 color="$text">
-            {"J'ai choisi des images piquées au hasard sur internet et j'ai utilisé une intelligence artificielle "}
-            <Link href="https://www.midjourney.com/app/" underline target={"_blank"}>
-              {"Midjourney"}
-            </Link>
-            {" pour les transformer de différentes manières."}
-          </Text>
-          <Text h3>
-            {"Cela m'a permis de générer des versions variées de ces images, chacune avec des caractéristiques uniques."}
-          </Text>
-          <Text h3 color="$text">{"C'était intéressant de voir comment l'IA pouvait interpréter et altérer mon image de différentes manières."}</Text>
-          <Text h3 color="$text">{"Je suis impressionné par les résultats obtenus et je suis impatient de découvrir d'autres utilisations de l'IA dans le traitement d'images."}</Text>
-        </Container>
-        <Container sx={{ my: 50, display: 'none' }}>
-          <Image
-            //showSkeleton
-            //maxDelay={10000}
-            //autoResize={true}
-            width={150}
-            height={150}
-            src=""
-            alt="Default Image"
-            //objectFit="cover"
-          />
-        </Container>
       </Container>
 </>
   )

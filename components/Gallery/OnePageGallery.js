@@ -6,7 +6,7 @@ import { Image } from "@nextui-org/react";
 import ImageMasonry from "../Personnal/ImageMasonry.js";
 import ContainerPageComponent from "../Containers/ContainerPageComponent.js";
 import SearchIcon from '@mui/icons-material/Search';
-import { Container, Grid } from "@mui/material";
+import { Container, Grid, Stack } from "@mui/material";
 import axios from 'axios';
 import useSWR from 'swr';
 import { GALLERY_MAX_PICTURES_PER_PAGE, NAMESPACE_LANGAGE_GALLERY, PAGE_LINK_API_PICTURES, QUERY_ACTION_GET_LIST_PICTURES, QUERY_SEARCH } from "@/constants.js";
@@ -25,6 +25,8 @@ import "yet-another-react-lightbox/plugins/captions.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 import { useDeviceMode } from "@/contexts/DeviceModeProvider.js";
 import CustomCheckBox from "../Customs/CustomCheckBox.js";
+import { _TYPES_PICTURES_ } from "@/__mocks__/types/_types_pictures_.js";
+import CustomRadioGroup from "../Customs/CustomRadioGroup.js";
 
 
 const fetcherListPictures = params => axios.get(`${PAGE_LINK_API_PICTURES}`, params).then(res => res.data);
@@ -109,9 +111,36 @@ export default function OnePageGallery (props) {
                 </Grid>
 
                 <Grid item xs={12} py={3}>
-                  <CustomCheckBox 
-                  
+                  <Stack direction={'row'}>
+                  <CustomRadioGroup
+                  direction={'row'}
+                  array={_TYPES_PICTURES_}
                   />
+                  </Stack>
+                </Grid>
+                
+
+                <Grid item xs={12} py={3}>
+                  <Stack direction={'row'}>
+                  <CustomCheckBox 
+                          value={'all'}
+                          defaultChecked={true}
+                          checked={false}
+                        />
+                  {
+                    _TYPES_PICTURES_.map((type, index) => {
+                      return(
+                        <div key={type + index}>
+                          <CustomCheckBox 
+                          value={type}
+                          defaultChecked={false}
+                          checked={false}
+                        />
+                        </div>
+                      )
+                    })
+                  }
+                  </Stack>
                 </Grid>
               </Grid>
             </Card.Body>

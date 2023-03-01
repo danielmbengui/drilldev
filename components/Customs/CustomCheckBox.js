@@ -48,7 +48,7 @@ const BpCheckedIcon = styled(BpIcon)({
     content: '""',
   },
   'input:hover ~ &': {
-    //backgroundColor: 'var',
+    backgroundColor: 'var(--primary)',
   },
 });
 
@@ -56,14 +56,19 @@ const BpCheckedIcon = styled(BpIcon)({
 function BpCheckbox(props) {
   const {isDark} = useTheme();
 
+  const {value} = props;
+
   return (
     <FormControlLabel
-          value="start"
+          value={value}
+          
           control={<Checkbox
-            value="checkedA"
+            //value="checkedA"
+            //defaultChecked={defaultChecked}
+            
+            //checked={checked}
             inputProps={{
-              'aria-label': 'Checkbox A',
-              color:'red'
+              'aria-label': value,
             }}
             sx={{
               '&:hover': { bgcolor: 'transparent' },
@@ -73,11 +78,11 @@ function BpCheckbox(props) {
             color="default"
             checkedIcon={<BpCheckedIcon isdark={isDark ? "true" : "false"} />}
             icon={<BpIcon isdark={isDark ? "true" : "false"} />}
-            
+            {...props}
           />}
-          {...props}
-          label="Start"
-          labelPlacement="start"
+          
+          label={value}
+          labelPlacement="end"
           sx={{
             color:'var(--text-color)',
             "& .MuiFormControlLabel-root": {
@@ -98,12 +103,15 @@ function BpCheckbox(props) {
   );
 }
 
-export default function CustomCheckBox() {
+export default function CustomCheckBox(props) {
+  const {value, defaultChecked} = props;
   return (
     <div>
-      <BpCheckbox />
-      <BpCheckbox defaultChecked />
-      <BpCheckbox disabled />
+      <BpCheckbox 
+      value={value} 
+      //checked={checked}
+      defaultChecked={defaultChecked}
+      />
     </div>
   );
 }
