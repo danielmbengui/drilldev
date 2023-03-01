@@ -75,6 +75,8 @@ if (router.isReady && ids){
       [field]: value
     }));
   };
+
+  /*
   const { data } = useSWR({
     params: {
       action: 'get_one',
@@ -96,6 +98,7 @@ if (router.isReady && ids){
       //setSelected("types", data.types);
     }
   }, [data])
+  */
   return (
 <Grid container justifyContent={'center'} spacing={{xs:0, sm:1}} py={3}>
 <Grid item xs={10}>
@@ -282,20 +285,21 @@ handleChangeState("types", tab)
 }
 
 export async function getStaticPaths({ locales }) {
+    /*
   const array = await axios.get(`${process.env.domain}/api/pictures?action=get_ids`).then((res) => {
         return(res.data);
     })
+    */
 
+    const arry = require("../../../../public/images/midjourney/datas/data.json");
   // Get the paths we want to prerender based on posts
   // In production environments, prerender all pages
   // (slower builds, but faster initial page load)
   const paths = [];
-  array.map((_id) => {
-    for (let i = 0; i < locales.length; i++) {
-        const lang = locales[i];
-        paths.push({params: { id: _id.toString() },locale: lang});
-    }
-  })
+  for (let i = 0; i < locales.length; i++) {
+    const lang = locales[i];
+    paths.push({params: { id: '1' }, locale: lang});
+}
 
      // { fallback: false } means other routes should 404
   return { paths, fallback: true }

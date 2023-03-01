@@ -63,6 +63,7 @@ function getDataFile() {
         fs.mkdirSync(DIR_MIDJOURNEY_DATAS, { recursive: true });
         fs.writeFileSync(DIR_MIDJOURNEY_DATAS + "/data.json", JSON.stringify([], null, 2));
     }
+    
 
     const array = require("../../public/images/midjourney/datas/data.json")
     //return JSON.parse(fs.readFileSync(DIR_MIDJOURNEY_DATAS + "/data.json"));
@@ -70,22 +71,22 @@ function getDataFile() {
 }
 
 function getDataPaths() {
-
+    
     if (!fs.existsSync(DIR_MIDJOURNEY_DATAS)) {
         fs.mkdirSync(DIR_MIDJOURNEY_DATAS, { recursive: true });
         fs.writeFileSync(DIR_MIDJOURNEY_DATAS + "/data.json", JSON.stringify([], null, 2));
     }
+    
 
-    const array = require("../../public/images/midjourney/datas/data.json");
+    //const array = require("../../public/images/midjourney/datas/data.json");
+    const array = getDataFile();
     const filtered = [];
     for (let i = 0; i < array.length; i++) {
         const element = array[i];
         filtered.push(parseInt(element.id));
     }
     //return JSON.parse(fs.readFileSync(DIR_MIDJOURNEY_DATAS + "/data.json"));
-    return (filtered.sort((a, b) => {
-        return(a <= b)
-    }));
+    return (filtered);
 }
 
 function formatTitle(link) {
