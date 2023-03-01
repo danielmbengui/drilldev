@@ -30,7 +30,7 @@ module.exports = withPWA({
   localeDetection: true,
   },
   env: {
-    domain: process.env.NODE_ENV === "production" ? 'https://www.drilldev.com' : 'http://localhost:3000',
+    domain: process.env.NODE_ENV === "production" ? 'https://drilldev.com' : 'http://localhost:3000',
   },
   images: {
     domains: ['pictures.dandela.com'],

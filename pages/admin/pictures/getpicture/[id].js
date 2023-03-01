@@ -304,12 +304,12 @@ export async function getStaticPaths({ locales }) {
   }
 
   export async function getStaticProps({ locale, params }) {
-    const array = await axios.get(`${process.env.domain}/api/pictures?action=get_ids`)
+    const array = await axios.get(`/api/pictures?action=get_ids`)
     .then((res) => {
         return(res.data);
     })
 
-    const _picture = await axios.get(`${process.env.domain}/api/pictures?action=get_one&id=${params.id}`)
+    const _picture = await axios.get(`/api/pictures?action=get_one&id=${params.id}`)
     .then((res) => {
         return(res.data);
     })
