@@ -61,7 +61,7 @@ export default function ParagraphRowComponent({textComponent, arrayText}) {
   borderRadius:10,
   p:15
 }}>
-    <Slide direction={'top'} triggerOnce={true}>
+    <Slide direction={'up'} duration={2000} triggerOnce={true}>
     <div style={{display:'block'}}>
     {
         arrayText && arrayText.map((item, index) => {

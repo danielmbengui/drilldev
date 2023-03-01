@@ -284,25 +284,32 @@ handleChangeState("types", tab)
 }
 
 export async function getStaticPaths({ locales }) {
-    /*
+    
   const array = await axios.get(`${process.env.domain}/api/pictures?action=get_ids`).then((res) => {
         return(res.data);
     })
-    */
+    
 
     //const arry = require("../../../../public/images/midjourney/datas/data.json");
   // Get the paths we want to prerender based on posts
   // In production environments, prerender all pages
   // (slower builds, but faster initial page load)
-  const paths = [];
+  
+  const _paths = [];
   //paths.push({params: { id: '1' }});
-  for (let i = 0; i < locales.length; i++) {
-    const lang = locales[i];
-    paths.push({params: { id: '1' }, locale: lang});
-}
+  array.map((_id) => {
+    for (let i = 0; i < locales.length; i++) {
+        const lang = locales[i];
+        _paths.push({params: { id: _id.toString() }, locale: lang});
+        }
+  })
+
 
      // { fallback: false } means other routes should 404
-  return { paths, fallback: true }
+     return {
+        paths: _paths,
+        fallback: false, // can also be true or 'blocking'
+      }
   }
 
   export async function getStaticProps({ locale }) {
