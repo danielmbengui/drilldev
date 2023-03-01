@@ -19,14 +19,14 @@ import { useDeviceMode } from '@/contexts/DeviceModeProvider';
 
 const fetcherListPictures = params => axios.get(`/api/pictures`, params).then(res => res.data);
 
-export default function GetpicturePage({ids, picture}) {
+export default function GetpicturePage({picture}) {
   const router = useRouter();
 
   const [index, setIndex] = useState(-1);
 const {isTablet} = useDeviceMode();
 
   const [manager, setManager] = useState({
-    id: router.query.id ? router.query.id : '',
+    id: picture.id ? parseInt(picture.id) : '',
     src: picture ? picture.src : '',
     title: picture ? picture.title : '',
     description: picture ? picture.description : '',
@@ -36,6 +36,7 @@ const {isTablet} = useDeviceMode();
   });
 
   //router.push('/?counter=10', undefined, { shallow: true })
+  /*
 function getIndexById(id) {
     if (ids && ids.length) {
         for (let i = 0; i < ids.length; i++) {
@@ -47,6 +48,7 @@ function getIndexById(id) {
     }
     return (-1);
 }
+*/
 
 /*
   useEffect(() => {
@@ -84,8 +86,8 @@ if (router.isReady && ids){
     if (data) {
       console.log("MANAAAAGE", data.types);
       //handleChangeState("total_length", data.result.total_length);
-      const index = getIndexById(data.id);
-      setIndex(index);
+      //const index = getIndexById(data.id);
+      //setIndex(index);
       console.log("INDEX", picture)
       handleChangeState("src", data.src);
       handleChangeState("title", data.title);
@@ -102,11 +104,11 @@ if (router.isReady && ids){
         <Stack spacing={1} direction='row'>
     <Link     
     href={{
-        pathname: `/admin/pictures/getpicture/${index >= 0 ? parseInt(ids[0]) : ''}`,
+        pathname: `/admin/pictures/getpicture/${0}`,
         //query: { id: index >= 0 ? parseInt(ids[0]) : '' },
       }}>
     <Button 
-    disabled={router.query.id && index >= 0 && parseInt(router.query.id) <= parseInt(ids[0]) + 1}
+    //disabled={router.query.id && id >= 0 && parseInt(router.query.id) <= 1}
     auto
     aria-label='button-go-first' 
     icon={<KeyboardDoubleArrowLeftIcon />}
@@ -115,12 +117,12 @@ if (router.isReady && ids){
     <Link     
     href={{
         //pathname: '/admin/pictures/getpicture',
-        pathname: `/admin/pictures/getpicture/${index > 0 ? parseInt(ids[index - 1]) : ''}`,
+        pathname: `/admin/pictures/getpicture/${manager.id - 1}`,
         //query: { id: index > 0 ? parseInt(ids[index - 1]) : '' },
       }}>
     <Button 
     //size="xl"
-    disabled={router.query.id && index >= 0 && parseInt(router.query.id) <= parseInt(ids[0])}
+    //disabled={router.query.id && id >= 0 && parseInt(router.query.id) <= 0}
     auto
     aria-label='button-go-back' 
     icon={<KeyboardArrowLeftIcon />}
@@ -134,12 +136,12 @@ if (router.isReady && ids){
         <Link     
     href={{
         //pathname: '/admin/pictures/getpicture',
-        pathname: `/admin/pictures/getpicture/${index < ids.length - 2 ? parseInt(ids[index + 1]) : ''}`,
+        pathname: `/admin/pictures/getpicture/${manager.id + 1}`,
         //query: { id: index < ids.length - 2 ? parseInt(ids[index + 1]) : '' },
       }}>
         <Button 
     //size="xl"
-    disabled={router.query.id && ids.length > 0 && parseInt(router.query.id) >= parseInt(ids[ids.length  - 1])}
+    //disabled={router.query.id && ids.length > 0 && parseInt(router.query.id) >= parseInt(ids[ids.length  - 1])}
     auto
     aria-label='button-go-next' 
     icon={<KeyboardArrowRightIcon />}
@@ -148,13 +150,13 @@ if (router.isReady && ids){
 
          <Link     
     href={{
-        pathname: `/admin/pictures/getpicture/${index < ids.length - 1 ? parseInt(ids[ids.length  - 1]) : ''}`,
+        pathname: `/admin/pictures/getpicture/${5084}`,
         //pathname: '/admin/pictures/getpicture',
         //query: { id: index < ids.length - 1 ? parseInt(ids[ids.length  - 1]) : '' },
       }}>
     <Button 
     //size="xl"
-    disabled={router.query.id && ids.length > 0 && parseInt(router.query.id) >= parseInt(ids[ids.length  - 2])}
+    //disabled={router.query.id && ids.length > 0 && parseInt(router.query.id) >= parseInt(ids[ids.length  - 2])}
     auto
     aria-label='button-go-last' 
     icon={<KeyboardDoubleArrowRightIcon />}
@@ -304,12 +306,12 @@ export async function getStaticPaths({ locales }) {
   }
 
   export async function getStaticProps({ locale, params }) {
-    const array = await axios.get(`/api/pictures?action=get_ids`)
+    const array = await axios.get(`${process.env.domain}/api/pictures?action=get_ids`)
     .then((res) => {
         return(res.data);
     })
 
-    const _picture = await axios.get(`/api/pictures?action=get_one&id=${params.id}`)
+    const _picture = await axios.get(`${process.env.domain}/api/pictures?action=get_one&id=${params.id}`)
     .then((res) => {
         return(res.data);
     })
