@@ -1,11 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { LANGAGE_ENGLISH, TAB_LANGAGES, TAB_NAMEPACES } from '@/constants';
+import { TAB_LANGAGES, TAB_NAMEPACES } from '@/constants';
 import { useTranslation } from 'next-i18next';
 import { Button, Input, Text, Textarea, useTheme } from '@nextui-org/react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { useSWRConfig } from 'swr';
 import useSWR from 'swr';
 import { Grid, Stack } from '@mui/material';
 import { Checkbox, Spacer } from "@nextui-org/react";
@@ -16,16 +15,11 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import Link from 'next/link';
 import Image from 'next/image';
-import { myLoader } from '@/lib/ImageLoader';
 import { useDeviceMode } from '@/contexts/DeviceModeProvider';
 
 const fetcherListPictures = params => axios.get(`/api/pictures`, params).then(res => res.data);
 
-export default function GetpicturePage({ids, id, picture}) {
-  const {isDark} = useTheme();
-  const {t} = useTranslation(TAB_NAMEPACES);
-  //get_one
-
+export default function GetpicturePage({ids, picture}) {
   const router = useRouter();
 
   const [index, setIndex] = useState(-1);
@@ -33,10 +27,10 @@ const {isTablet} = useDeviceMode();
 
   const [manager, setManager] = useState({
     id: router.query.id ? router.query.id : '',
-    src: picture.src,
-    title: picture.title,
-    description: picture.description,
-    types: picture.types,
+    src: picture ? picture.src : '',
+    title: picture ? picture.title : '',
+    description: picture ? picture.description : '',
+    types: picture ? picture.types : [],
     first_id:-1,
     last_id:-1,
   });
@@ -310,20 +304,13 @@ export async function getStaticPaths({ locales }) {
   }
 
   export async function getStaticProps({ locale, params }) {
-    const array = await axios.get(`${process.env.domain}/api/pictures`, {
-        params :{
-            action: "get_ids"
-        }
-    }).then((res) => {
+    const array = await axios.get(`${process.env.domain}/api/pictures?action=get_ids`)
+    .then((res) => {
         return(res.data);
     })
 
-    const _picture = await axios.get(`${process.env.domain}/api/pictures`, {
-        params :{
-            action: "get_one",
-            id:params.id
-        }
-    }).then((res) => {
+    const _picture = await axios.get(`${process.env.domain}/api/pictures?action=get_one&id=${params.id}`)
+    .then((res) => {
         return(res.data);
     })
 
