@@ -282,11 +282,7 @@ handleChangeState("types", tab)
 }
 
 export async function getStaticPaths({ locales }) {
-  const array = await axios.get(`${process.env.domain}/api/pictures`, {
-    params :{
-        action: "get_ids"
-    }
-    }).then((res) => {
+  const array = await axios.get(`${process.env.domain}/api/pictures?action=get_ids`).then((res) => {
         return(res.data);
     })
 
@@ -306,10 +302,12 @@ export async function getStaticPaths({ locales }) {
   }
 
   export async function getStaticProps({ locale, params }) {
+    /*
     const array = await axios.get(`${process.env.domain}/api/pictures?action=get_ids`)
     .then((res) => {
         return(res.data);
     })
+    */
 
     const _picture = await axios.get(`${process.env.domain}/api/pictures?action=get_one&id=${params.id}`)
     .then((res) => {
@@ -322,7 +320,7 @@ export async function getStaticPaths({ locales }) {
           //tabPrice: response,
           picture:_picture,
           id:params.id,
-          ids:array,
+          //ids:array,
           //id:params.id,
             ...(await serverSideTranslations(locale, TAB_NAMEPACES, null, TAB_LANGAGES)),
             // Will be passed to the page component as props
