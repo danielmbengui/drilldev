@@ -15,23 +15,26 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useDeviceMode } from '@/contexts/DeviceModeProvider';
+import { fileSave } from 'browser-fs-access';
 
 const fetcherListPictures = params => axios.get(`/api/pictures`, params).then(res => res.data);
 
-export default function GetpicturePage() {
+export default function GetpicturePage({picture, firstId, secondId, beforeLastId, lastId}) {
   const router = useRouter();
 
   const [index, setIndex] = useState(-1);
 const {isTablet} = useDeviceMode();
 
   const [manager, setManager] = useState({
-    id: '',
-    src: '',
-    title: '',
-    description: '',
-    types: [],
-    first_id:-1,
-    last_id:-1,
+    id: parseInt(picture.id),
+    src: picture.src,
+    title: picture.title,
+    description: picture.description,
+    types: picture.types,
+    first_id:parseInt(firstId),
+    second_id:parseInt(secondId),
+    before_last_id:parseInt(beforeLastId),
+    last_id:parseInt(lastId),
   });
 
   //router.push('/?counter=10', undefined, { shallow: true })
@@ -75,6 +78,10 @@ if (router.isReady && ids){
     }));
   };
 
+  useEffect(() => {
+    console.log("first id : " + firstId)
+  })
+
   /*
   const { data } = useSWR({
     params: {
@@ -104,66 +111,46 @@ if (router.isReady && ids){
     <Grid container justifyContent={'center'} spacing={3}>
         <Grid item>
         <Stack spacing={1} direction='row'>
-    <Link     
-    href={{
-        pathname: `/admin/pictures/getpicture/${0}`,
-        //query: { id: index >= 0 ? parseInt(ids[0]) : '' },
-      }}>
-    <Button 
-    //disabled={router.query.id && id >= 0 && parseInt(router.query.id) <= 1}
+        <Button 
+    as='a'
+    href={`/admin/pictures/getpicture/${manager.first_id}`}
+    disabled={manager.id <= manager.second_id}
     auto
     aria-label='button-go-first' 
     icon={<KeyboardDoubleArrowLeftIcon />}
     />
-    </Link>
-    <Link     
-    href={{
-        //pathname: '/admin/pictures/getpicture',
-        pathname: `/admin/pictures/getpicture/${manager.id - 1}`,
-        //query: { id: index > 0 ? parseInt(ids[index - 1]) : '' },
-      }}>
     <Button 
     //size="xl"
-    //disabled={router.query.id && id >= 0 && parseInt(router.query.id) <= 0}
+    as='a'
+    href={`/admin/pictures/getpicture/${manager.id - 1}`}
+    disabled={manager.id <= manager.first_id}
     auto
     aria-label='button-go-back' 
     icon={<KeyboardArrowLeftIcon />}
     />
-      </Link>
 
     </Stack>
         </Grid>
         <Grid item>
         <Stack spacing={1} direction='row'>
-        <Link     
-    href={{
-        //pathname: '/admin/pictures/getpicture',
-        pathname: `/admin/pictures/getpicture/${manager.id + 1}`,
-        //query: { id: index < ids.length - 2 ? parseInt(ids[index + 1]) : '' },
-      }}>
         <Button 
     //size="xl"
-    //disabled={router.query.id && ids.length > 0 && parseInt(router.query.id) >= parseInt(ids[ids.length  - 1])}
+    as='a'
+    href={`/admin/pictures/getpicture/${manager.id + 1}`}
+    disabled={manager.id >= manager.last_id}
     auto
     aria-label='button-go-next' 
     icon={<KeyboardArrowRightIcon />}
     />
-      </Link>
-
-         <Link     
-    href={{
-        pathname: `/admin/pictures/getpicture/${5084}`,
-        //pathname: '/admin/pictures/getpicture',
-        //query: { id: index < ids.length - 1 ? parseInt(ids[ids.length  - 1]) : '' },
-      }}>
-    <Button 
+      <Button 
     //size="xl"
-    //disabled={router.query.id && ids.length > 0 && parseInt(router.query.id) >= parseInt(ids[ids.length  - 2])}
+    as='a'
+    href={`/admin/pictures/getpicture/${manager.last_id}`}
+    disabled={manager.id >= manager.before_last_id}
     auto
     aria-label='button-go-last' 
     icon={<KeyboardDoubleArrowRightIcon />}
     />
-      </Link>
     </Stack>
         </Grid>
     </Grid>
@@ -315,6 +302,32 @@ export async function getStaticPaths({ locales }) {
   }
 
   export async function getStaticProps({ locale, params }) {
+    const array = require(`@/public/images/midjourney/datas/data.json`);
+    var firstId = 0;
+    var secondId = 0;
+    var beforeLastId = 0;
+    var lastId = 0;
+  //paths.push({params: { id: '1' }});
+  array.map((item) => {
+    const id = parseInt(item.id);
+    if (id <= firstId) {
+        firstId = id;
+        secondId = id + 1;
+    }
+    
+    if (id > firstId && id <= secondId) {
+        secondId = id;
+    }
+
+    if (id >= lastId) {
+        lastId = id;
+        beforeLastId = id - 1;
+    }
+
+    if (id < lastId && id >= beforeLastId) {
+        beforeLastId = id;
+    }
+  })
     /*
     const array = await axios.get(`${process.env.domain}/api/pictures?action=get_ids`)
     .then((res) => {
@@ -332,7 +345,11 @@ export async function getStaticPaths({ locales }) {
     return {
         props: {
           //tabPrice: response,
+          firstId:firstId,
+          secondId:secondId,
           picture:_picture,
+          beforeLastId:beforeLastId,
+          lastId:lastId,
           //id:params.id,
           //ids:array,
           //id:params.id,
