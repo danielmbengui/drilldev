@@ -7,6 +7,7 @@ export const DEFAULT_SCREEN_MODE = 'light';
 export const DEFAULT_LANGAGE = 'fr';
 export const WEBSITE_PICTURES_ADDRESS = "https://pictures.dandela.com";
 export const GALLERY_MAX_PICTURES_PER_PAGE = 100;
+export const ADMIN_GALLERY_MAX_PICTURES_PER_PAGE = 300;
 
 /* --------------- API'S -------------- */
 /*                 Pages                */

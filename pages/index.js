@@ -43,15 +43,6 @@ export default function HomePage(props) {
   return (
     <LayoutPageComponent
     lang={lang} setLang={setLang}
-    picturesTitle={homePictures}
-    sizes={sizes}
-    isMobile={isMobile} isTablet={isTablet} isLaptop={isLaptop}
-    title={<Text h1 size={45} b css={{
-      textGradient: `45deg, $${isDark ? 'white' : 'black'} -20%, $orange600 100%, $${isDark ? 'white' : 'black'} 80%`,
-    }}>
-{`${t('title_page', {ns:NAMESPACE_LANGAGE_HOME})}`}
-  </Text>}
-    
     >
       <Head>
         <title>{`${t('menuHome', {ns:NAMESPACE_LANGAGE_COMMON})}`}</title>

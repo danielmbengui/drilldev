@@ -17,6 +17,8 @@ import Image from 'next/image';
 import { useDeviceMode } from '@/contexts/DeviceModeProvider';
 import { fileSave } from 'browser-fs-access';
 import CustomCheckBox from '@/components/Customs/CustomCheckBox';
+import { myLoader } from '@/lib/ImageLoader';
+import UndownloadableImage from '@/components/Customs/UndownloadableImage';
 
 const fetcherListPictures = params => axios.get(`/api/pictures`, params).then(res => res.data);
 
@@ -170,13 +172,14 @@ if (router.isReady && ids){
         </Grid>
 
 <Grid item xs={12}>
-<Image
+<UndownloadableImage
 src={manager.src}
 width={100}
 height={100}
 alt='photo editing'
-//loader={myLoader}
-loading={'lazy'}
+loader={myLoader}
+priority
+//loading={'lazy'}
 />
 </Grid>
 
@@ -260,10 +263,10 @@ loading={'lazy'}
         </Grid>
     <Grid item xs={12} sx={{textAlign:'center'}}>
 <Button css={{mx:'auto'}} auto flat onPress={async () => {
-    await axios.get("/api/pictures", {
+    await axios.get(`/api/pictures/${manager.id}`, {
         params :{
             action:'edit_one',
-            id:manager.id,
+            //id:manager.id,
             title:manager.title,
             description:manager.description,
             types:JSON.stringify(manager.types),
@@ -330,7 +333,7 @@ export async function getStaticPaths({ locales }) {
     })
     */
 
-    const _picture = await axios.get(`${process.env.domain}/api/pictures?action=get_one&id=${params.id}`)
+    const _picture = await axios.get(`${process.env.domain}/api/pictures/${params.id}?action=get_one`)
     .then((res) => {
         return(res.data);
     })

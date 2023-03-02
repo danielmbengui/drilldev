@@ -29,19 +29,7 @@ function getRandomPicture(_pictures) {
 }
 
 export default function LayoutPageComponent(props) {
-  const {t, i18n,} = useTranslation();
-  const router = useRouter()
-  const { isDark } = useTheme();
-  const { children, title, picturesTitle, lang, setLang, } = props;
-  const [src, setSrc] = useState(null);
-  useEffect(() => {
-    if (picturesTitle && picturesTitle.length > 0) {
-      setSrc(getRandomPicture(picturesTitle));
-    } else {
-      setSrc(getRandomPicture(PICTURES).src)
-    }
-
-  }, [])
+  const { children, lang, setLang, } = props;
 
   return (
     <Grid
@@ -54,6 +42,7 @@ export default function LayoutPageComponent(props) {
         //background: `url(${randomSrc}) repeat center fixed`,
         //backgroundSize:'cover',
         backgroundColor: 'var(--background-color)',
+        //background:'purple'
       }}
       //aria-label="Layout general"
     >

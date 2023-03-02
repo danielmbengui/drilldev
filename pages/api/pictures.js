@@ -57,6 +57,17 @@ function updateFile() {
     writeFile(_array);
 }
 
+function getDataFileOrigin() {
+
+    if (!fs.existsSync(DIR_MIDJOURNEY_DATAS)) {
+        fs.mkdirSync(DIR_MIDJOURNEY_DATAS, { recursive: true });
+        fs.writeFileSync(DIR_MIDJOURNEY_DATAS + "/data_origin.json", JSON.stringify([], null, 2));
+    }
+    //const array = require("../../public/images/midjourney/datas/data.json")
+    return JSON.parse(fs.readFileSync(DIR_MIDJOURNEY_DATAS + "/data_origin.json"));
+    //return (array);
+}
+
 function getDataFile() {
 
     if (!fs.existsSync(DIR_MIDJOURNEY_DATAS)) {
@@ -128,26 +139,34 @@ function formatExtensionImage(imagePath, toExtension = 'webp', resolution = 'hig
 }
 
 
-function getAllPictures() {
-    //const pictures_absolute = getListPictures([], DIR_MIDJOURNEY_DRAFTS).array;
-    //const pictures = getListPictures([], DIR_MIDJOURNEY_DRAFTS).array_relative;
+function addPicturesFromDrafts() {
+    const pictures_absolute = getListPictures([], DIR_MIDJOURNEY_DRAFTS).array;
+    const pictures = getListPictures([], DIR_MIDJOURNEY_DRAFTS).array_relative;
     //console.log("PIIICTU", pictures)
-    /*
+    
     if (pictures.length) {
         const array = pictures.map((item, index) => {
-            //fs.renameSync(pictures_absolute[index], pictures_absolute[index].replaceAll("dambengu_", ""));
+            fs.renameSync(pictures_absolute[index], pictures_absolute[index].replaceAll("dambengu_", ""));
             return (
                 {
-                    id: index,
+                    id: -1,
                     title: formatTitle(item),
                     //src: item,
                     src: formatExtensionImage(item, "webp", "high_resolution"),
+                    src_png_high_resolution: formatExtensionImage(item, "png", "high_resolution"),
+                    src_png_low_resolution: formatExtensionImage(item, "png", "low_resolution"),
+                    src_jpg_high_resolution: formatExtensionImage(item, "jpg", "high_resolution"),
+                    src_jpg_low_resolution: formatExtensionImage(item, "jpg", "low_resolution"),
+                    src_webp_high_resolution: formatExtensionImage(item, "webp", "high_resolution"),
+                    src_webp_low_resolution: formatExtensionImage(item, "webp", "low_resolution"),
+                    /*
                     src_png_high_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/PNG/high_resolution/gallery/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
                     src_png_low_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/PNG/high_resolution/gallery/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
                     src_jpg_high_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/JPG/high_resolution/gallery/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
                     src_jpg_low_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/JPG/low_resolution/gallery/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
                     src_webp_high_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/WEBP/high_resolution/gallery/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
                     src_webp_low_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/WEBP/low_resolution/gallery/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
+                    */
                     //src:`https://ipfs.io/ipfs/Qmc8Pvj2hU7syTZVZWNHFT8dNhZypboTon2ioL6b7V6TXf/mid-journey/${path.basename(item).replaceAll("dambengu_", "")}`,
                     types: [],
                     description: formatTitle(item).toLowerCase(),
@@ -158,12 +177,17 @@ function getAllPictures() {
                 }
             )
         })
-        //writeFile(array);
-        //updateFile();
-        //return (array);
+        const actualData = getDataFile().sort((item1, item2) => item1.id - item2.id);
+        const lastId = parseInt(actualData[actualData.length - 1].id) + 1;
+        for (let i = 0; i < array.length; i++) {
+            const element = array[i];
+            element.id = lastId + i;
+            actualData.push(element);
+        }
+        writeFile(actualData);
+        return (array); // new datas added
     }
-    */
-    return (getDataFile());
+    return (null);
 }
 
 function updateAllPictures() {
@@ -189,9 +213,6 @@ function updateAllPictures() {
 
 
 
-function getOnePicture(name) {
-    return (getOnePictureFromList(name, getAllPictures()))
-}
 
 function getOnePictureById(id) {
     return (getOnePictureFromListById(id, getDataFile()))
@@ -235,7 +256,38 @@ function editMultipleTypePictureByIds(ids, types) {
     return (arrayEdited);
 }
 
+function randomizeFilePicture() {
+    const array = getDataFile();
+    const randomOrder = [];
+    const randomPictures = [];
+    const min = 0;
+    const max = array.length;
+    for (let i = 0; i < max; i++) {
+      let random = Math.floor(Math.random() * (max - min) + min);
+      while (randomOrder.includes(random)) {
+        random = Math.floor(Math.random() * (max - min) + min);
+      }
+      const element = array[random];
+      randomOrder.push(random);
+      randomPictures.push(element);
+    }
+    
+    if (!fs.existsSync(DIR_MIDJOURNEY_DATAS)) {
+        fs.mkdirSync(DIR_MIDJOURNEY_DATAS, { recursive: true });
+    }
+    fs.writeFileSync(DIR_MIDJOURNEY_DATAS + "/data.json", JSON.stringify(randomPictures, null, 2));
+    //updateFileToOrigin();    
+    return randomPictures; // The maximum is exclusive and the minimum is inclusive
+}
 
+function updateFileToOrigin() {
+    const array = getDataFile();
+    const arrayOrigin = array.sort((item1, item2) => item1.id - item2.id)
+    .map((item) => {
+        return(item);
+    })
+    fs.writeFileSync(DIR_MIDJOURNEY_DATAS + "/data.json", JSON.stringify(arrayOrigin, null, 2));
+}
 
 function getRandomSortPictures(_pictures = []) {
     const randomOrder = [];
@@ -516,11 +568,18 @@ export default async function handler(req, res) {
                 //console.log("ARRAY", `${array.length}\n`);
                 return res.status(200).json(array);
                 //return res.status(200).json({ msg: "Success", files: [], length: 0, });
+            }else if (req.query.action === "add_pic_from_drafts") {
+                //const one = getOnePicture(req.query.name);
+                addPicturesFromDrafts();
+                //convertToWebp();
+                return res.status(200).json({ msg: "Success" });
             }
+
+            
 
             else if (req.query.action === "get_all") {
                 //console.log("GET_ALL", `${req.query.action}\n`);
-                const array = getAllPictures();
+                const array = getDataFile();
                 //console.log("ARRAY", `${array.length}\n`);
                 return res.status(200).json({ msg: array.length ? "Success" : "Error", files: array, length: array.length, });
                 //return res.status(200).json({ msg: "Success", files: [], length: 0, });
@@ -578,6 +637,21 @@ export default async function handler(req, res) {
                 await convertToWebp();
                 return res.status(200).json({ msg: "Success" });
             }
+            else if (req.query.action === "get_origin_file") {
+                //const one = getOnePicture(req.query.name);
+                
+                updateFileToOrigin();
+                return res.status(200).json({ msg: "Success" });
+            }else if (req.query.action === "randomize_file") {
+                //const one = getOnePicture(req.query.name);
+                randomizeFilePicture();
+                return res.status(200).json({ msg: "Success" });
+            }
+
+            
+
+
+            
 
 
         }

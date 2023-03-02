@@ -5,7 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Checkbox, Container, FormLabel, Grid, Stack } from "@mui/material";
 import axios from 'axios';
 import useSWR from 'swr';
-import { GALLERY_MAX_PICTURES_PER_PAGE, NAMESPACE_LANGAGE_GALLERY, PAGE_LINK_API_PICTURES, QUERY_ACTION_GET_LIST_PICTURES, QUERY_SEARCH } from "@/constants.js";
+import { ADMIN_GALLERY_MAX_PICTURES_PER_PAGE, GALLERY_MAX_PICTURES_PER_PAGE, NAMESPACE_LANGAGE_GALLERY, PAGE_LINK_API_PICTURES, QUERY_ACTION_GET_LIST_PICTURES, QUERY_SEARCH } from "@/constants.js";
 import { useTranslation } from "next-i18next";
 
 import Masonry from '@mui/lab/Masonry';
@@ -39,7 +39,7 @@ export default function AdminOnePageGallery (props) {
     types: [],
     search: '',
     page: 1,
-    per_page: GALLERY_MAX_PICTURES_PER_PAGE,
+    per_page: ADMIN_GALLERY_MAX_PICTURES_PER_PAGE,
     next_page: 0,
     total_page: 0,
     length: 0,
@@ -60,7 +60,7 @@ export default function AdminOnePageGallery (props) {
       type: manager.type,
       search: manager.search,
       page: manager.page,
-      per_page: GALLERY_MAX_PICTURES_PER_PAGE,
+      per_page: ADMIN_GALLERY_MAX_PICTURES_PER_PAGE,
     }
   }, fetcherListPictures);
 
@@ -231,6 +231,7 @@ export default function AdminOnePageGallery (props) {
         width={500}
         height={500}
         borderRadius={10}
+        loading={'lazy'}
       />
       <CustomCheckBox
 value={item.id} 

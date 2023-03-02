@@ -10,7 +10,7 @@ import { useSWRConfig } from 'swr';
 import useSWR from 'swr';
 import { Grid } from '@mui/material';
 
-const fetcherListPictures = params => axios.get(`/api/pictures`, params).then(res => res.data);
+const fetcherListPictures = params => axios.get(`/api/pictures/${params.id}`, params).then(res => res.data);
 
 export default function ManagePage(props) {
   const {isDark} = useTheme();

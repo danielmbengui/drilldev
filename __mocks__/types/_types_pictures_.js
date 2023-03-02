@@ -20,4 +20,7 @@ export const _TYPES_PICTURES_ = [
     {value:"lego", label:"lego"},
     {value:"sport", label:"sport"},
     {value:"drilldev", label:"drilldev"},
+    {value:"kids", label:"kids"},
+    {value:"portrait", label:"portait"},
+    {value:"country", label:"country"},
 ];

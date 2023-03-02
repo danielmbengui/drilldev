@@ -44,9 +44,8 @@ function getRandomSortPictures(_pictures = []) {
 
 const fetcherListPictures = params => axios.get(`${PAGE_LINK_API_PICTURES}`, params).then(res => res.data);
 
-export default function GalleryComponent(props) {
+export default function GalleryComponent() {
   const {t} = useTranslation(NAMESPACE_LANGAGE_GALLERY);
-  const { isMobile } = props;
 
   const [manager, setManager] = useState({
     search: '',
@@ -127,7 +126,7 @@ export default function GalleryComponent(props) {
   }, [])
 
   return (
-    <Grid container justifyContent={'center'}>
+    <Grid container justifyContent={'center'} mt={20}>
 <Grid item xs={12} sx={{textAlign:'center'}}>
 <Text h1 size={45} b css={{
       textGradient: `45deg, $${isDark ? 'white' : 'black'} -20%, $orange600 100%, $${isDark ? 'white' : 'black'} 80%`,
