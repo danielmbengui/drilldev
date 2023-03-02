@@ -34,7 +34,7 @@ export default function ContainerPageWithoutHeaderComponent(props) {
 
 
   return (
-    <Layout padding={20} lang={lang} setLang={setLang}  >
+    <Layout padding={15} lang={lang} setLang={setLang}  >
       
       <Container>
       {children}

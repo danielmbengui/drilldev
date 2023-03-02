@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Card, Text, Link, Avatar, useTheme, Input, Pagination } from "@nextui-org/react";
-import SearchIcon from '@mui/icons-material/Search';
-import { Grid } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import axios from 'axios';
 import useSWR from 'swr';
-import { GALLERY_MAX_PICTURES_PER_PAGE, NAMESPACE_LANGAGE_GALLERY, PAGE_LINK_API_PICTURES, QUERY_ACTION_GET_LIST_PICTURES, QUERY_SEARCH } from "@/constants.js";
+import { GALLERY_MAX_PICTURES_PER_PAGE, NAMESPACE_LANGAGE_COMMON, NAMESPACE_LANGAGE_GALLERY, PAGE_LINK_API_PICTURES, QUERY_ACTION_GET_LIST_PICTURES, QUERY_SEARCH } from "@/constants.js";
 import { useTranslation } from "next-i18next";
-import AdminOnePageGallery from "./AdminOnePageGallery.js";
+import AdminOnePageGallery from "./AdminOnePageGallery";
 
 
 const logoLightTheme = "/images/logos/logo_orange_complete_no_back.png";
@@ -94,6 +93,7 @@ export default function AdminGalleryComponent(props) {
   };
 
   useEffect(() => {
+    /*
     if (data) {
       console.log("GALLLLEEERY", data);
       handleChangeState("total_length", data.result.total_length);
@@ -103,8 +103,9 @@ export default function AdminGalleryComponent(props) {
       handleChangeState("list", data.result.list);
       
     }
+    */
     //handleChangeState("search", search);
-    console.log("CHANGE SEARCH", manager.search);
+    //console.log("CHANGE SEARCH", manager.search);
     //handleChangeState("total_length", data.result.total_length);
     //handleChangeState("search", data.result.search);
     /*
@@ -117,93 +118,20 @@ export default function AdminGalleryComponent(props) {
         pictures: pictures.list,
     */
     //setFilteredList(manager.pictures);
-  }, [data])
-
-
-  const MockItem = ({ text }) => {
-    return (
-      <Card css={{ h: "$24", $$cardColor: '$colors$primary' }}>
-        <Card.Body>
-          <Text h6 size={15} color="white" css={{ mt: 0 }}>
-            {text}
-          </Text>
-        </Card.Body>
-      </Card>
-    );
-  };
+  }, [])
 
   return (
     <Grid container justifyContent={'center'}>
-      <Grid container justifyContent={'center'} sx={{ mb: 3 }}>
-        <Grid item>
-          <Card css={{
-            background: '$accents0',
-            color: 'white',
-            pb:20
-          }}>
-            <Card.Body>
-              <Grid container direction={'column'} alignItems='center'>
-                <Grid item >
-                  <Input
-                    color="primary"
-                    css={{
-                      color: '$primary',
-                      //background:'$accents0'
-                    }}
-                    value={manager.search}
-                    initialValue={manager.search}
-                    //labelLeft="search" 
-                    onChange={handleChangeEvent("search")}
-                    label={t('search_image', {ns:NAMESPACE_LANGAGE_GALLERY})}
-                    status="primary"
-                    bordered
-                    aria-label="search bar"
-                    clearable
-                    contentRightStyling={false}
-                    placeholder={t('search_place_holder', {ns:NAMESPACE_LANGAGE_GALLERY})}
-                    //helperColor={helper.color}
-                    helperText={`${t('search_results', {ns:NAMESPACE_LANGAGE_GALLERY})} : ${manager.total_length}`}
-                    contentRight={
-                      <SearchIcon />
-                    }
-                  />
-                </Grid>
-                <Grid item xs={12} sx={{display:'none'}}>
-                  <Text h5>
-                    <Text b>{`actual page : `}</Text>
-                    <Text as={'span'}>{manager.page}</Text>
-                  </Text>
-                </Grid>
-
-                <Grid item xs={12} sx={{display:'none'}}>
-                  <Text h5>
-                    <Text b>{`total pages : `}</Text>
-                    <Text as={'span'}>{manager.total_page}</Text>
-                  </Text>
-                </Grid>
-
-                <Grid item xs={12} sx={{display:'none'}}>
-                  <Text h5>
-                    <Text b>{`length pictures page : `}</Text>
-                    <Text as={'span'}>{manager.length}</Text>
-                  </Text>
-                </Grid>
-
-                <Grid item xs={12} sx={{display:'none'}}>
-                  <Text h5>
-                    <Text b>{`Nb total : `}</Text>
-                    <Text as={'span'}>{manager.total_length}</Text>
-                  </Text>
-                </Grid>
-              </Grid>
-            </Card.Body>
-          </Card>
-        </Grid>
+<Grid item xs={12} sx={{textAlign:'center'}}>
+<Text h1 size={45} b css={{
+      textGradient: `45deg, $${isDark ? 'white' : 'black'} -20%, $orange600 100%, $${isDark ? 'white' : 'black'} 80%`,
+    }}>
+{`${t('menuGallery', {ns:NAMESPACE_LANGAGE_COMMON})}`}
+  </Text>
+</Grid>
+      <Grid item xs={12}>
+      <AdminOnePageGallery />
       </Grid>
-
-      <AdminOnePageGallery
-
-      />
 
     </Grid>
   )

@@ -3,7 +3,7 @@ import fs from 'fs';
 import initMiddleware from '@/lib/init-middleware';
 import path from 'path';
 import { getFirstLetterUpperCase, getOnePictureFromList, getRelativePath, getListPictures, getOnePictureFromListById, getIndexOnePictureFromListById } from './constants';
-import { EXTENSION_JPG, EXTENSION_PNG, EXTENSION_WEBP, GALLERY_MAX_PICTURES_PER_PAGE, HIGH_RESOLUTION, LOW_RESOLUTION, METHOD_GET, METHOD_POST, QUERY_ACTION_GET_LIST_PICTURES, QUERY_PAGE, QUERY_PER_PAGE, QUERY_SEARCH, WEBSITE_NAME, WEBSITE_PICTURES_ADDRESS, } from '@/constants';
+import { EXTENSION_JPG, EXTENSION_PNG, EXTENSION_WEBP, GALLERY_MAX_PICTURES_PER_PAGE, HIGH_RESOLUTION, LOW_RESOLUTION, METHOD_GET, METHOD_POST, QUERY_ACTION_GET_LIST_PICTURES, QUERY_PAGE, QUERY_PER_PAGE, QUERY_SEARCH, QUERY_TYPE, WEBSITE_NAME, WEBSITE_PICTURES_ADDRESS, } from '@/constants';
 
 //const DIR_MIDJOURNEY_DRAFTS = `${serverRuntimeConfig.publicPath}/images/midjourney/drafts`;
 const publicDirectoryPath = path.join(__dirname, 'public');
@@ -213,6 +213,28 @@ function editOnePictureById(id, title, description, types) {
     return (null)
 }
 
+function editMultipleTypePictureByIds(ids, types) {
+    const array = getDataFile();
+    const arrayEdited = [];
+    for (let i = 0; i < ids.length; i++) {
+        const id = ids[i];
+        var picture = getOnePictureFromListById(id, array);
+        if (picture) {
+            for (let i = 0; i < types.length; i++) {
+                const type = types[i];
+                if (!picture.types.includes(type)) {
+                    picture.types.push(type);
+                }
+            }
+            const indexPicture = getIndexOnePictureFromListById(id, array);
+            array[indexPicture] = picture;
+            arrayEdited.push(picture);
+        }
+    }
+    writeFile(array);
+    return (arrayEdited);
+}
+
 
 
 function getRandomSortPictures(_pictures = []) {
@@ -242,9 +264,16 @@ function getPicturesFile() {
     return JSON.parse(fs.readFileSync(PATH_FILE_CRYPTO_CURRENCIES));
 }
 */
-function getListPicturesBySearch(search, page, per_page) {
+function getListPicturesBySearch(type, search, page, per_page) {
     const array = getDataFile();
-    const searchs = array.filter((item) => {
+    const types = array.filter((item) => {
+        if (type === 'all') {
+            return (item);
+        } else if (item.types.includes(type)) {
+            return (item);
+        }
+    });
+    const searchs = types.filter((item) => {
         if (item.title.toLowerCase().includes(search.toLowerCase())) {
             return (item);
         }
@@ -263,6 +292,7 @@ function getListPicturesBySearch(search, page, per_page) {
     //console.log("ARRAY", array, array.length);
     return ({
         search: search,
+        type:type,
         page: _page,
         per_page: _per_page,
         next_page: hasNext,
@@ -500,8 +530,7 @@ export default async function handler(req, res) {
                 //console.log("ARRAY", `${array.length}\n`);
                 return res.status(200).json({ msg: array.length ? "Success" : "Error", files: array, length: array.length, });
                 //return res.status(200).json({ msg: "Success", files: [], length: 0, });
-            }
-            else if (req.query.action === "edit_one" && req.query.id) {
+            } else if (req.query.action === "edit_one" && req.query.id) {
                 //console.log("GET_ALL", `${req.query.action}\n`);
                 const id = req.query.id;
                 const title = req.query.title ? req.query.title : '';
@@ -511,20 +540,30 @@ export default async function handler(req, res) {
                 //console.log("ARRAY", `${array.length}\n`);
                 return res.status(200).json({ msg: picture ? "Success" : "Error", picture: picture,});
                 //return res.status(200).json({ msg: "Success", files: [], length: 0, });
+            }else if (req.query.action === "edit_multiple_types") {
+                const ids = req.query.ids ? JSON.parse(req.query.ids) : [];
+                const types = req.query.types ? JSON.parse(req.query.types) : [];
+                const datas = editMultipleTypePictureByIds(ids, types);
+                //console.log("ARRAY", `${array.length}\n`);
+                return res.status(200).json({ msg: datas ? "Success" : "Error", datas: datas,});
+                //return res.status(200).json({ msg: "Success", files: [], length: 0, });
             }
 
+
+            
             
 
 
 
 
             else if (req.query.action === QUERY_ACTION_GET_LIST_PICTURES) {
+                const type = req.query[QUERY_TYPE] ? req.query[QUERY_TYPE] : '';
                 const search = req.query[QUERY_SEARCH] ? req.query[QUERY_SEARCH] : '';
                 const page = req.query[QUERY_PAGE] ? req.query[QUERY_PAGE] : 1;
                 const per_page = req.query[QUERY_PER_PAGE] ? req.query[QUERY_PER_PAGE] : GALLERY_MAX_PICTURES_PER_PAGE;
-                const array = getListPicturesBySearch(search, page, per_page);
+                const array = getListPicturesBySearch(type, search, page, per_page);
                 return res.status(200).json({
-                    msg: array.length ? "Success" : "Error",
+                    msg: array ? "Success" : "Error",
                     result: array,
                 });
             } else if (req.query.action === "update_file") {

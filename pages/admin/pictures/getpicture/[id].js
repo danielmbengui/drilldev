@@ -16,6 +16,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useDeviceMode } from '@/contexts/DeviceModeProvider';
 import { fileSave } from 'browser-fs-access';
+import CustomCheckBox from '@/components/Customs/CustomCheckBox';
 
 const fetcherListPictures = params => axios.get(`/api/pictures`, params).then(res => res.data);
 
@@ -223,33 +224,39 @@ loading={'lazy'}
             background:'green',
             width:'100%'
             }} my={3}>
-        <Stack sx={{
-            background:'green',
-            width:'100%'
-            }}>
-        <Checkbox.Group
-        justify={'center'}
-        css={{
-            maxWidth:'100%',
-        }}
-        id="checkbox-types"
-        //label="Types"
-        aria-label="Types"
-        value={manager.types}
-        orientation={isTablet ? 'vertical' : 'horizontal'}
-        //defaultValue={manager.types}
-        onChange={(tab) => {
-console.log("TAB : ", tab);
-//setSelected(tab);
-handleChangeState("types", tab)
-        }}
-      >
-        {
-            _TYPES_PICTURES_ && _TYPES_PICTURES_.map((item, index) => <Checkbox key={`${item}-${index}`} value={item}>{item}</Checkbox>)
-        }
-      </Checkbox.Group>
-        </Stack>
-      <Spacer y={1} />
+                <Grid container sx={{
+                    width:'100%'
+                }}>
+                {
+                    _TYPES_PICTURES_ && _TYPES_PICTURES_.sort((type1, type2) => type1.label.localeCompare(type2.label))
+                    .map((type, index) => {
+                        return(
+                            <CustomCheckBox 
+                            key={`${type.value}-${index}`}
+                    value={type.value}
+                    checked={manager.types && manager.types.includes(type.value)}
+                    onChange={(e) => {
+                        console.log("TAB : ", e.target.value);
+                        //setSelected(tab);
+                        const value = e.target.value;
+                        const types = manager.types;
+                        if (!e.target.checked) {
+                            const index = types.indexOf(value);
+                            types.slice(index, 1);
+                        } else {
+                            const index = types.indexOf(value);
+                            if (index === -1) {
+                                types.push(value);
+                            }
+                        }
+                        handleChangeState("types", types)
+                                }}
+//defaultValue={true}
+/>
+                        )
+                    })
+                }
+                </Grid>
         </Grid>
     <Grid item xs={12} sx={{textAlign:'center'}}>
 <Button css={{mx:'auto'}} auto flat onPress={async () => {

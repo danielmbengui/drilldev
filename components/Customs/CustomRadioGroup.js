@@ -5,18 +5,19 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import { Text, useTheme } from '@nextui-org/react';
 
-const BpIcon = styled('span')(({ theme }) => ({
+const BpIcon = styled('span')(({ theme, isdark }) => ({
   borderRadius: '50%',
   width: 16,
   height: 16,
   boxShadow:
-    theme.palette.mode === 'dark'
+    isdark === "true"
       ? '0 0 0 1px rgb(16 22 26 / 40%)'
       : 'inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)',
-  backgroundColor: theme.palette.mode === 'dark' ? '#394b59' : '#f5f8fa',
+  backgroundColor: isdark === "true" ? '#394b59' : '#f5f8fa',
   backgroundImage:
-    theme.palette.mode === 'dark'
+  isdark === "true"
       ? 'linear-gradient(180deg,hsla(0,0%,100%,.05),hsla(0,0%,100%,0))'
       : 'linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))',
   '.Mui-focusVisible &': {
@@ -24,17 +25,17 @@ const BpIcon = styled('span')(({ theme }) => ({
     outlineOffset: 2,
   },
   'input:hover ~ &': {
-    backgroundColor: theme.palette.mode === 'dark' ? '#30404d' : '#ebf1f5',
+    backgroundColor: isdark === "true" ? '#30404d' : '#ebf1f5',
   },
   'input:disabled ~ &': {
     boxShadow: 'none',
     background:
-      theme.palette.mode === 'dark' ? 'rgba(57,75,89,.5)' : 'rgba(206,217,224,.5)',
+    isdark === "true" ? 'rgba(57,75,89,.5)' : 'rgba(206,217,224,.5)',
   },
 }));
 
 const BpCheckedIcon = styled(BpIcon)({
-  backgroundColor: '#137cbd',
+  backgroundColor: 'var(--primary)',
   backgroundImage: 'linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))',
   '&:before': {
     display: 'block',
@@ -44,59 +45,66 @@ const BpCheckedIcon = styled(BpIcon)({
     content: '""',
   },
   'input:hover ~ &': {
-    backgroundColor: '#106ba3',
+    backgroundColor: 'var(--primary)',
   },
 });
 
 // Inspired by blueprintjs
 function BpRadio(props) {
+    const {isDark} = useTheme();
   return (
     <Radio
       disableRipple
       color="default"
-      checkedIcon={<BpCheckedIcon />}
-      icon={<BpIcon />}
+      checkedIcon={<BpCheckedIcon isdark={isDark ? 'true' : 'false'} />}
+      icon={<BpIcon isdark={isDark ? 'true' : 'false'} />}
       {...props}
     />
   );
 }
 
 export default function CustomRadioGroup(props) {
-    const {array, direction} = props;
+    const {array, type, handleChangeState} = props;
 
   return (
-    <FormControl>
-      <FormLabel id="demo-customized-radios" sx={{
-        color:'var(--text-color)'
-      }}>Gender</FormLabel>
+    <FormControl sx={{
+        textAlign:'center'
+        //background:'red'
+    }}>
+      <FormLabel id="demo-customized-radios" color='primary' sx={{
+        //color:'var(--text-color)'
+      }}><Text color='$text' b css={{tt:'uppercase'}}>{`Types`}</Text></FormLabel>
       <RadioGroup
-      row={direction && direction === 'row'}
-        defaultValue="all"
+      row
+        defaultValue={type}
+        value={type}
         aria-labelledby="demo-customized-radios"
         name="customized-radios"
         sx={{
-            color:'var(--text-color)'
+            color:'var(--text-color)',
+            textAlign:'center',
+            mx:'auto',
+        }}
+        onChange={(e) => {
+            console.log("CHANGE radio", e.target.value)
+            handleChangeState("type", e.target.value)
         }}
       >
-        <FormControlLabel value="all" control={<BpRadio />} label="all" />
+        <FormControlLabel value="all" control={<BpRadio />} label="ALL" />
         {
-            array && array.map((value, index) => {
+            array && array.sort((type1, type2) => type1.label.localeCompare(type2.label))
+            .map((type, index) => {
                 return(
-                    <div key={`${value}-${index}`}>
-                        <FormControlLabel value={value} control={<BpRadio />} label={value} />
+                    <div key={`${type.value}-${index}`}>
+                        <FormControlLabel 
+                        label={type.label}
+                        value={type.value} 
+                        control={<BpRadio />}
+                         />
                     </div>
                 )
             })
         }
-        <FormControlLabel value="female" control={<BpRadio />} label="Female" />
-        <FormControlLabel value="male" control={<BpRadio />} label="Male" />
-        <FormControlLabel value="other" control={<BpRadio />} label="Other" />
-        <FormControlLabel
-          value="disabled"
-          disabled
-          control={<BpRadio />}
-          label="(Disabled option)"
-        />
       </RadioGroup>
     </FormControl>
   );

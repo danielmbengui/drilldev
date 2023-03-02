@@ -32,10 +32,11 @@ import CustomRadioGroup from "../Customs/CustomRadioGroup.js";
 const fetcherListPictures = params => axios.get(`${PAGE_LINK_API_PICTURES}`, params).then(res => res.data);
 
 export default function OnePageGallery (props) {
-  const {isMobile} = useDeviceMode();
+  const {isMobile, isTablet, isLaptop} = useDeviceMode();
 
     const {t} = useTranslation(NAMESPACE_LANGAGE_GALLERY);
   const [manager, setManager] = useState({
+    type: 'all',
     search: '',
     page: 1,
     per_page: GALLERY_MAX_PICTURES_PER_PAGE,
@@ -55,6 +56,7 @@ export default function OnePageGallery (props) {
   const { data } = useSWR({
     params: {
       action: QUERY_ACTION_GET_LIST_PICTURES,
+      type: manager.type,
       search: manager.search,
       page: manager.page,
       per_page: GALLERY_MAX_PICTURES_PER_PAGE,
@@ -73,21 +75,26 @@ export default function OnePageGallery (props) {
   }, [data])
   
   return(
-    <Grid container sx={{ minHeight: 500, width:'100%',}}>
-        <Grid item>
+    <Grid container sx={{ minHeight: 500, width:'100%',}} justifyContent='center'>
+        <Grid item xs={12} sm={8}>
           <Card css={{
             background: '$accents0',
             color: 'white',
-            pb:20
+            //pb:20
           }}>
             <Card.Body>
-              <Grid container direction={'column'} alignItems='center'>
-                <Grid item >
+              <Grid container direction={'column'} justifyContent='center' alignItems='center'>
+                <Grid item xs={12} sx={{
+                  width:'100%',textAlign:'center',
+                //background:'red'
+                }}>
                   <Input
                     color="primary"
+                    width={isMobile ? "100%" : '70%'}
                     css={{
                       color: '$primary',
                       //background:'$accents0'
+                      //width: '100%',
                     }}
                     value={manager.search}
                     initialValue={manager.search}
@@ -105,61 +112,47 @@ export default function OnePageGallery (props) {
                     //helperColor={helper.color}
                     helperText={`${t('search_results', {ns:NAMESPACE_LANGAGE_GALLERY})} : ${manager.total_length}`}
                     contentRight={
-                      <SearchIcon />
+                      <SearchIcon color="primary" />
                     }
                   />
                 </Grid>
 
-                <Grid item xs={12} py={3}>
-                  <Stack direction={'row'}>
-                  <CustomRadioGroup
-                  direction={'row'}
+                <Grid item  xs={12}py={3} sx={{
+                  textAlign:'center',
+                  //background:'red'
+                }}>
+                <Stack alignItems={'center'}>
+                <CustomRadioGroup
                   array={_TYPES_PICTURES_}
+                  type={manager.type}
+                  handleChangeState={handleChangeState}
                   />
-                  </Stack>
+                </Stack>
                 </Grid>
-                
 
-                <Grid item xs={12} py={3}>
-                  <Stack direction={'row'}>
-                  <CustomCheckBox 
-                          value={'all'}
-                          defaultChecked={true}
-                          checked={false}
-                        />
-                  {
-                    _TYPES_PICTURES_.map((type, index) => {
-                      return(
-                        <div key={type + index}>
-                          <CustomCheckBox 
-                          value={type}
-                          defaultChecked={false}
-                          checked={false}
-                        />
-                        </div>
-                      )
-                    })
-                  }
-                  </Stack>
-                </Grid>
               </Grid>
             </Card.Body>
           </Card>
         </Grid>
-                    <Grid item xs={12} justify='center' sx={{
-              my:5,
-              maxWidth:'fit-content'
+                    <Grid item xs={12} justifyContent='center' sx={{
+              my:3,
+              //maxWidth:'fit-content',
+              //background:'green',
+              textAlign:'center'
             }}>
             <Pagination 
             onChange={(page) => {
               handleChangeState("page", page)
             }}
-        boundaries={0}
-        siblings={1}
+        boundaries={isMobile ? 0 : isTablet ? 3 : 5} //3
+        siblings={isMobile ? 1 : isTablet ? 4 : 6} //2
       noMargin
       page={manager.page}
       size={'md'}
-      css={{maxWidth:'100%'}}
+      css={{
+        //width:'100%',
+        //mx:'auto'
+      }}
       total={manager.total_page}
       />
             </Grid>
@@ -187,25 +180,30 @@ export default function OnePageGallery (props) {
         }
         </Masonry>
         </Grid>
-         <Grid item xs={12} justify='center' sx={{
-              mb:30,
-              maxWidth:'fit-content'
+        <Grid item xs={12} justifyContent='center' sx={{
+              my:3,
+              //maxWidth:'fit-content',
+              //background:'green',
+              textAlign:'center'
             }}>
             <Pagination 
             onChange={(page) => {
               handleChangeState("page", page)
             }}
-        boundaries={0}
-        siblings={1}
+        boundaries={isMobile ? 0 : isTablet ? 3 : 5} //3
+        siblings={isMobile ? 1 : isTablet ? 4 : 6} //2
       noMargin
       page={manager.page}
       size={'md'}
-      css={{maxWidth:'100%'}}
+      css={{
+        //width:'100%',
+        //mx:'auto'
+      }}
       total={manager.total_page}
       />
             </Grid>
             <Lightbox
-      sx={{backgroundColor:'red'}}
+      //sx={{backgroundColor:'red'}}
       title={'Captions, Fullscreen, Slideshow, Thumbnails, Video, Zoom'}
         open={manager.indexPicture >= 0}
         close={() => handleChangeState("indexPicture", -1)}

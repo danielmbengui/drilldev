@@ -19,6 +19,7 @@ export const METHOD_PUT = 'PUT';
 
 /*                Queries               */
 export const QUERY_ACTION_GET_LIST_PICTURES = 'get_list_pictures';
+export const QUERY_TYPE = 'type';
 export const QUERY_SEARCH = 'search';
 export const QUERY_PAGE = 'page';
 export const QUERY_PER_PAGE = 'per_page';

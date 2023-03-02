@@ -56,17 +56,15 @@ const BpCheckedIcon = styled(BpIcon)({
 function BpCheckbox(props) {
   const {isDark} = useTheme();
 
-  const {value} = props;
+  const {value, checked, onChange, defaultChecked} = props;
 
   return (
     <FormControlLabel
           value={value}
-          
           control={<Checkbox
             //value="checkedA"
-            //defaultChecked={defaultChecked}
-            
-            //checked={checked}
+            onChange={onChange}
+            checked={checked}
             inputProps={{
               'aria-label': value,
             }}
@@ -78,7 +76,7 @@ function BpCheckbox(props) {
             color="default"
             checkedIcon={<BpCheckedIcon isdark={isDark ? "true" : "false"} />}
             icon={<BpIcon isdark={isDark ? "true" : "false"} />}
-            {...props}
+            //{...props}
           />}
           
           label={value}
@@ -104,12 +102,13 @@ function BpCheckbox(props) {
 }
 
 export default function CustomCheckBox(props) {
-  const {value, defaultChecked} = props;
+  const {value, checked, onChange, defaultChecked} = props;
   return (
     <div>
       <BpCheckbox 
       value={value} 
-      //checked={checked}
+      checked={checked}
+      onChange={onChange}
       defaultChecked={defaultChecked}
       />
     </div>
