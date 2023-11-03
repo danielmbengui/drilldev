@@ -6,7 +6,7 @@ import { lightTheme, darkTheme } from '@/styles/theme';
 import { DEFAULT_SCREEN_MODE, NAMESPACE_LANGAGE_COMMON, STORAGE_SCREEN_MODE, TAB_NAMEPACES } from '@/constants';
 import { useMediaQuery } from "@/styles/useMediaQuery";
 import { getLangageStorage } from '@/lib/storage/UserStorageFunctions';
-import { appWithTranslation, useTranslation } from 'next-i18next';
+import { appWithTranslation } from 'next-i18next';
 import Head from 'next/head';
 import DeviceModeProvider from '@/contexts/DeviceModeProvider';
 import ThemeModeProvider from '@/contexts/ThemeModeProvider';
@@ -14,7 +14,7 @@ import { SSRProvider } from '@react-aria/ssr';
 import { useSSR } from '@nextui-org/react';
 
 const MyApp = ({ Component, pageProps }) => {
-  const {t} = useTranslation();
+  //const {t} = useTranslation();
   const { isBrowser } = useSSR();
   const isMobile = useMediaQuery(650);
   const isTablet = useMediaQuery(960);
@@ -95,8 +95,8 @@ const MyApp = ({ Component, pageProps }) => {
 
     <ThemeModeProvider screenMode={screenMode}>
     <Head>
-    <meta name="description" content={t('description_page', {ns:NAMESPACE_LANGAGE_COMMON})} />
-    <meta name="twitter:description" content={t('description_page', {ns:NAMESPACE_LANGAGE_COMMON})} />
+    <meta name="description" content={'Drill Dev'} />
+    <meta name="twitter:description" content={"Taan & Daan"} />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     </Head>
 {
