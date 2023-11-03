@@ -18,6 +18,7 @@ class MyDocument extends Document {
         <Head>
           {CssBaseline.flush()}
           <meta charSet="utf-8" />
+          <meta name="google-site-verification" content="DQNXKXht-8T26B2P-QLGf8xnJzOej1y_Ua4wTfvbbKQ" />
           <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"
