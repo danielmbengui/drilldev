@@ -1,3 +1,4 @@
+/*
 import Cors from 'cors';
 import fs from 'fs';
 import initMiddleware from '@/lib/init-middleware';
@@ -24,6 +25,7 @@ function getPicturesFile() {
     return JSON.parse(fs.readFileSync(PATH_FILE_CRYPTO_CURRENCIES));
 }
 */
+/*
 export default async function handler(req, res) {
     // Run cors
     await cors(req, res);
@@ -52,7 +54,7 @@ export default async function handler(req, res) {
         //const destinationImage = 
         fs.writeFileSync(`${DIR_MIDJOURNEY_DATAS}/${name_file}.json`, JSON.stringify(data, null, 2));
         fs.copyFileSync(one, `${DIR_MIDJOURNEY_PICTURES}/${name_file}${path.extname(one)}`);
-        */
+        
         //console.log("COOOPY", `${cwd()}/public/pictures/images/${path.basename(one)}`)
         res.status(200).json({ msg: "Success", files: array, length: array.length, });
         //console.log("tab", tabCryptoCurrencies);
@@ -61,5 +63,5 @@ export default async function handler(req, res) {
         console.log("ERROR", error);
         return res.status(405).json({ msg: "Error", cryptocurrencies: [] });
     }
-
 }
+*/

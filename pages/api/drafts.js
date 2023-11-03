@@ -1,3 +1,4 @@
+/*
 import Cors from 'cors';
 import fs from 'fs';
 import initMiddleware from '@/lib/init-middleware';
@@ -113,6 +114,8 @@ function getPicturesFile() {
     return JSON.parse(fs.readFileSync(PATH_FILE_CRYPTO_CURRENCIES));
 }
 */
+
+/*
 function getRandomSortPictures(_pictures = []) {
     const randomOrder = [];
     const randomPictures = [];
@@ -203,5 +206,5 @@ export default async function handler(req, res) {
         console.log("ERROR", error);
         return res.status(405).json({ msg: "Error 405", error: error });
     }
-
 }
+*/

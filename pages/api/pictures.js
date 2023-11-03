@@ -1,3 +1,4 @@
+/*
 import Cors from 'cors';
 import fs from 'fs';
 import initMiddleware from '@/lib/init-middleware';
@@ -159,14 +160,6 @@ function addPicturesFromDrafts() {
                     src_jpg_low_resolution: formatExtensionImage(item, "jpg", "low_resolution"),
                     src_webp_high_resolution: formatExtensionImage(item, "webp", "high_resolution"),
                     src_webp_low_resolution: formatExtensionImage(item, "webp", "low_resolution"),
-                    /*
-                    src_png_high_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/PNG/high_resolution/gallery/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
-                    src_png_low_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/PNG/high_resolution/gallery/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
-                    src_jpg_high_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/JPG/high_resolution/gallery/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
-                    src_jpg_low_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/JPG/low_resolution/gallery/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
-                    src_webp_high_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/WEBP/high_resolution/gallery/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
-                    src_webp_low_resolution: `${WEBSITE_PICTURES_ADDRESS}/images/midjourney/WEBP/low_resolution/gallery/${path.basename(item).replaceAll("dambengu__", "").replaceAll("dambengu_", "").replaceAll("Drill_Dev__", "").replaceAll("Drill_Dev_", "")}`,
-                    */
                     //src:`https://ipfs.io/ipfs/Qmc8Pvj2hU7syTZVZWNHFT8dNhZypboTon2ioL6b7V6TXf/mid-journey/${path.basename(item).replaceAll("dambengu_", "")}`,
                     types: [],
                     description: formatTitle(item).toLowerCase(),
@@ -189,7 +182,7 @@ function addPicturesFromDrafts() {
     }
     return (null);
 }
-
+*/
 function updateAllPictures() {
 
     const array = getDataFile();
@@ -581,10 +574,9 @@ async function convertToWebp() {
             .toFile(path.join(DIR_WEBP_LOW_RESOLUTION, `${output}.webp`));
             */
     });
-    console.log(`Function terminated !`)
-
 }
 
+/*
 export default async function handler(req, res) {
     // Run cors
     await cors(req, res);
@@ -691,5 +683,5 @@ export default async function handler(req, res) {
         console.log("ERROR", error);
         return res.status(405).json({ msg: "Error 405", error: error });
     }
-
 }
+*/

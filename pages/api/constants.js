@@ -1,3 +1,4 @@
+/*
 import { DIR_MIDJOURNEY_DRAFTS, EXT_JPG, EXT_PNG, TEXT_PUBLIC } from '@/constants';
 import axios from 'axios';
 import fs from 'fs';
@@ -73,3 +74,4 @@ export function getIndexOnePictureFromListById(id_image, list) {
     }
     return (-1);
 }
+*/
