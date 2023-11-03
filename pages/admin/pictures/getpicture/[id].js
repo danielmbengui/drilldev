@@ -83,7 +83,7 @@ if (router.isReady && ids){
   };
 
   useEffect(() => {
-    console.log("first id : " + firstId)
+    //console.log("first id : " + firstId)
   })
 
   /*
@@ -308,7 +308,7 @@ export async function getStaticPaths({ locales }) {
       
   }
 
-  export async function getStaticProps({ locale, params }) {
+  export async function getStaticProps({ locale }) {
     /*
     const array = require(`@/public/images/midjourney/datas/data.json`);
     var firstId = 0;
@@ -362,8 +362,8 @@ export async function getStaticPaths({ locales }) {
           //lastId:lastId,
           //id:params.id,
           //ids:array,
-          id:params.id,
-            //...(await serverSideTranslations(locale, TAB_NAMEPACES, null, TAB_LANGAGES)),
+          //id:params.id,
+            ...(await serverSideTranslations(locale, TAB_NAMEPACES, null, TAB_LANGAGES)),
             // Will be passed to the page component as props
         },
     }
