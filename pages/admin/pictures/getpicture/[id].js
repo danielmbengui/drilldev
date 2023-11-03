@@ -29,11 +29,11 @@ export default function GetpicturePage({/*picture,*/ firstId, secondId, beforeLa
 const {isTablet} = useDeviceMode();
 
   const [manager, setManager] = useState({
-    id: parseInt(picture.id),
-    src: picture.src,
-    title: picture.title,
-    description: picture.description,
-    types: picture.types,
+    //id: parseInt(picture.id),
+    //src: picture.src,
+    //title: picture.title,
+    //description: picture.description,
+    //types: picture.types,
     first_id:parseInt(firstId),
     second_id:parseInt(secondId),
     before_last_id:parseInt(beforeLastId),
