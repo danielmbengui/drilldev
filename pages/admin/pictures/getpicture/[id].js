@@ -22,7 +22,7 @@ import UndownloadableImage from '@/components/Customs/UndownloadableImage';
 
 const fetcherListPictures = params => axios.get(`/api/pictures`, params).then(res => res.data);
 
-export default function GetpicturePage({picture, firstId, secondId, beforeLastId, lastId}) {
+export default function GetpicturePage({/*picture,*/ firstId, secondId, beforeLastId, lastId}) {
   const router = useRouter();
 
   const [index, setIndex] = useState(-1);
@@ -306,6 +306,7 @@ export async function getStaticPaths({ locales }) {
   }
 
   export async function getStaticProps({ locale, params }) {
+    /*
     const array = require(`@/public/images/midjourney/datas/data.json`);
     var firstId = 0;
     var secondId = 0;
@@ -332,17 +333,19 @@ export async function getStaticPaths({ locales }) {
         beforeLastId = id;
     }
   })
+  */
     /*
     const array = await axios.get(`${process.env.domain}/api/pictures?action=get_ids`)
     .then((res) => {
         return(res.data);
     })
     */
-
+/*
     const _picture = await axios.get(`${process.env.domain}/api/pictures/${params.id}?action=get_one`)
     .then((res) => {
         return(res.data);
     })
+    */
     
 
     //console.log("params", _picture)
@@ -351,7 +354,7 @@ export async function getStaticPaths({ locales }) {
           //tabPrice: response,
           firstId:firstId,
           secondId:secondId,
-          picture:_picture,
+          //picture:_picture,
           beforeLastId:beforeLastId,
           lastId:lastId,
           //id:params.id,
