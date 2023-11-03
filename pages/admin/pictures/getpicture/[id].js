@@ -299,13 +299,13 @@ export async function getStaticPaths({ locales }) {
         }
   })
 
-
+*/
      // { fallback: false } means other routes should 404
      return {
-        paths: _paths,
+        paths: 1,
         fallback: false, // can also be true or 'blocking'
       }
-      */
+      
   }
 
   export async function getStaticProps({ locale }) {
