@@ -1,3 +1,6 @@
+export default async function handler(req, res) {
+
+}
 /*
 import { DIR_MIDJOURNEY_DRAFTS, EXT_JPG, EXT_PNG, TEXT_PUBLIC } from '@/constants';
 import axios from 'axios';

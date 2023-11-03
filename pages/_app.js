@@ -7,7 +7,6 @@ import { DEFAULT_SCREEN_MODE, NAMESPACE_LANGAGE_COMMON, STORAGE_SCREEN_MODE, TAB
 import { useMediaQuery } from "@/styles/useMediaQuery";
 import { getLangageStorage } from '@/lib/storage/UserStorageFunctions';
 import { appWithTranslation, useTranslation } from 'next-i18next';
-import Script from 'next/script';
 import Head from 'next/head';
 import DeviceModeProvider from '@/contexts/DeviceModeProvider';
 import ThemeModeProvider from '@/contexts/ThemeModeProvider';

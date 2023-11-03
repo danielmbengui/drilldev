@@ -2,15 +2,9 @@ import Head from 'next/head'
 import { Inter } from '@next/font/google';
 import GalleryComponent from '@/components/Gallery/GalleryComponent';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { DEFAULT_LANGAGE, GALLERY_MAX_PICTURES_PER_PAGE, LANGAGE_ENGLISH, LANGAGE_FRENCH, LANGAGE_PORTUGUESE, NAMESPACE_LANGAGE_COMMON, NAMESPACE_LANGAGE_GALLERY, PAGE_LINK_API_PICTURES, QUERY_ACTION_GET_LIST_PICTURES, TAB_LANGAGES, TAB_NAMEPACES } from '@/constants';
+import { DEFAULT_LANGAGE, GALLERY_MAX_PICTURES_PER_PAGE, LANGAGE_ENGLISH, LANGAGE_FRENCH, LANGAGE_PORTUGUESE, NAMESPACE_LANGAGE_COMMON, NAMESPACE_LANGAGE_GALLERY, TAB_LANGAGES, TAB_NAMEPACES } from '@/constants';
 import { useTranslation } from 'next-i18next';
-import ContainerPageComponent from '@/components/Containers/ContainerPageComponent';
-import { Text, useTheme } from '@nextui-org/react';
-import ContainerPageWithoutHeaderComponent from '@/components/Containers/ContainerPageWithoutHeaderComponent';
-import axios from 'axios';
 import LayoutPageComponent from '@/components/Layouts/LayoutPageComponent';
-import { useDeviceMode } from '@/contexts/DeviceModeProvider';
-import DownloadsComponent from '@/components/Downloads/DownloadsComponent';
 import MidjourneyComponent from '@/components/Tutorial/MidjourneyComponent';
 
 export default function TutorialPage(props) {

@@ -1,3 +1,6 @@
+export default async function handler(req, res) {
+
+}
 /*
 import Cors from 'cors';
 import fs from 'fs';
