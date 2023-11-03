@@ -67,7 +67,7 @@ export default function MidjourneyComponent(props) {
 }
 </Grid>
       <Grid mt={3} item xs={12} sm={8} sx={{
-        width:'50%'
+        width:{xs:'100%', md:'50%'}
       }} justifyContent='center'>
       {
         TAB_LANGAGES.map((_lang, index) => {

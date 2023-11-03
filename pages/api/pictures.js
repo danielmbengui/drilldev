@@ -1,7 +1,9 @@
+/*
 export default async function handler(req, res) {
 
 }
-/*
+*/
+
 import Cors from 'cors';
 import fs from 'fs';
 import initMiddleware from '@/lib/init-middleware';
@@ -185,8 +187,8 @@ function addPicturesFromDrafts() {
     }
     return (null);
 }
-*/
-/*
+
+
 function updateAllPictures() {
 
     const array = getDataFile();
@@ -312,8 +314,7 @@ function getRandomSortPictures(_pictures = []) {
 
     return randomPictures; // The maximum is exclusive and the minimum is inclusive
 }
-*/
-/*
+
 function getPicturesFile() {
     if (!fs.existsSync(PATH_PICTURES)) {
         fs.mkdirSync(PATH_PICTURES, { recursive: true });
@@ -321,8 +322,7 @@ function getPicturesFile() {
     }
     return JSON.parse(fs.readFileSync(PATH_FILE_CRYPTO_CURRENCIES));
 }
-*/
-/*
+
 function getListPicturesBySearch(type, search, page, per_page) {
     const array = getDataFile();
     const types = array.filter((item) => {
@@ -473,12 +473,11 @@ async function convertToWebp() {
         })
         .toFile(path.join(DIR_PNG_HIGH_RESOLUTION, `${output}.png`));
         console.log(`${i} - ${path.join(DIR_PNG_HIGH_RESOLUTION, `${output}.png`)} :`, `converted with success !`)
-        */
-/*
+
         if (!fs.existsSync(DIR_PNG_LOW_RESOLUTION)) {
             fs.mkdirSync(DIR_PNG_LOW_RESOLUTION, { recursive: true });
         }
-        */
+  
         /*
         await sharp(element)
         .withMetadata(copyright)
@@ -493,7 +492,7 @@ async function convertToWebp() {
             })
             .toFile(path.join(DIR_PNG_HIGH_RESOLUTION, `${output}.png`));
             */
-/*
+
         fs.copyFile(element, path.join(DIR_PNG_HIGH_RESOLUTION, `${output}.png`), async (err) => {
             if (!err) {
                 await sharp(element)
@@ -575,7 +574,7 @@ async function convertToWebp() {
     });
 }
 
-/*
+
 export default async function handler(req, res) {
     // Run cors
     await cors(req, res);
@@ -683,4 +682,3 @@ export default async function handler(req, res) {
         return res.status(405).json({ msg: "Error 405", error: error });
     }
 }
-*/
