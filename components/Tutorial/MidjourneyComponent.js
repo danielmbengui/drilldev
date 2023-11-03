@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { NAMESPACE_LANGAGE_COMMON, NAMESPACE_LANGAGE_HOME, TAB_LANGAGES, TAB_NAMEPACES, WEBSITE_NAME } from '@/constants';
+import { NAMESPACE_LANGAGE_COMMON, NAMESPACE_LANGAGE_HOME, TAB_LANGAGES, TAB_NAMEPACES, WEBSITE_NAME, WEBSITE_PICTURES_ADDRESS } from '@/constants';
 import { useTranslation } from 'next-i18next';
 import ContainerPageComponent from '@/components/Containers/ContainerPageComponent';
-import { Button, Card, Collapse, Grid, Link, Modal, Text, useTheme } from '@nextui-org/react';
+import { Button, Card, Collapse, Link, Modal, Text, useTheme } from '@nextui-org/react';
 import TutorialComponent from '@/components/All/TutorialComponent';
 import { useEffect, useState } from 'react';
 import fs from 'fs';
@@ -17,6 +17,9 @@ import ContainerPageWithoutHeaderComponent from '@/components/Containers/Contain
 import { Pagination } from "@nextui-org/react";
 import { myLoader } from '@/lib/ImageLoader';
 import VideoCardCustom from '../Personnal/VideoCardCustom';
+import { Grid } from '@mui/material';
+import { useDeviceMode } from '@/contexts/DeviceModeProvider';
+import UndownloadableVideo from '../Customs/UndownloadableVideo';
 
 
 
@@ -30,7 +33,8 @@ export default function MidjourneyComponent(props) {
   //const { data, error } = useSWR('/api/drafts?action=get_all', fetcher)
 
   const { isDark } = useTheme();
-  const { lang, setLang, isMobile, isTablet, isLaptop } = props;
+  const { lang, setLang, isTablet, isLaptop } = props;
+  const {isMobile} = useDeviceMode();
   const { t } = useTranslation(TAB_NAMEPACES);
   const [visible, setVisible] = useState(false);
   const [picture, setPicture] = useState(null);
@@ -43,10 +47,39 @@ export default function MidjourneyComponent(props) {
   }
 
   return (
-    <Grid.Container xs={12} justify='center' alignItems='center' direction='column' >
-      <Grid.Container justify='center'>
-      <VideoCardCustom isMobile={isMobile} />
-      </Grid.Container>
+    <Grid container justifyContent='center' alignItems='center' direction='column' >
+      <Grid item xs={12} sx={{textAlign:'center'}}>
+<Text h1 size={45} b css={{
+      textGradient: `45deg, $${isDark ? 'white' : 'black'} -20%, $orange600 100%, $${isDark ? 'white' : 'black'} 80%`,
+    }}>
+{`${t('menuTutorial', {ns:NAMESPACE_LANGAGE_COMMON})}`}
+  </Text>
+</Grid>
+
+<Grid item xs={12}>
+<p>{`Bienvenue sur notre page de Tutoriel sur la génération d'images en intelligence artificielle avec Midjourney. Nous sommes ravis de pouvoir partager avec vous notre expertise en matière d'IA et de vous aider à acquérir de nouvelles compétences passionnantes. `}</p>
+<p> Nous offrons un tutoriel détaillé sur la génération d'images à l'aide de la plateforme Midjourney. Vous apprendrez à créer des images réalistes à partir de modèles prédéfinis, en utilisant les dernières techniques d'apprentissage automatique et d'IA. Ce tutoriel est conçu pour tous les niveaux, des débutants aux experts en IA. </p>
+{
+  /*
+<p> Cependant, veuillez noter que l'accès à ce tutoriel est réservé aux utilisateurs disposant d'un compte payant. Pour un petit prix, vous pourrez accéder au tutoriel complet et bénéficier de nombreux avantages, tels que des conseils personnalisés, des mises à jour régulières, et un support technique de qualité. </p>
+<p> Nous sommes convaincus que notre tutoriel vous permettra de développer des compétences précieuses en IA et de créer des images incroyables. N'hésitez pas à nous contacter si vous avez des questions ou des commentaires sur nos services. </p>
+  */
+}
+</Grid>
+      <Grid mt={3} item xs={12} sm={8} sx={{
+        width:'50%'
+      }} justifyContent='center'>
+      {
+        TAB_LANGAGES.map((_lang, index) => {
+          return (
+            lang === _lang && <div key={`${_lang}-${index}`}>
+              <VideoCardCustom lang={lang} isMobile={isMobile} />
+            </div>
+          )
+        })
+      }
+      
+      </Grid>
 
 
 {
@@ -281,6 +314,6 @@ export default function MidjourneyComponent(props) {
 
 
 
-    </Grid.Container>
+    </Grid>
   )
 }

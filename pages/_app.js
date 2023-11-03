@@ -12,7 +12,7 @@ import Head from 'next/head';
 import DeviceModeProvider from '@/contexts/DeviceModeProvider';
 import ThemeModeProvider from '@/contexts/ThemeModeProvider';
 import { SSRProvider } from '@react-aria/ssr';
-import { useSSR } from '@nextui-org/react'
+import { useSSR } from '@nextui-org/react';
 
 const MyApp = ({ Component, pageProps }) => {
   const {t, i18n} = useTranslation();
@@ -20,7 +20,7 @@ const MyApp = ({ Component, pageProps }) => {
   const isMobile = useMediaQuery(650);
   const isTablet = useMediaQuery(960);
   const isLaptop = useMediaQuery(1280);
-  const [isDark, setIsDark] = useState();  
+  const [isDark, setIsDark] = useState();
   const [lang, setLang] = useState('');
   const [screenMode, setScreenMode] = useState(DEFAULT_SCREEN_MODE);
 
@@ -54,7 +54,7 @@ const MyApp = ({ Component, pageProps }) => {
     document.documentElement.setAttribute('data-theme', theme)
     const observer = new MutationObserver(() => {
       let newTheme = getDocumentTheme(document?.documentElement);
-      
+
       //document.documentElement.setAttribute('data-theme', newTheme)
       setIsDark(newTheme === 'dark');
       setScreenMode(theme);
@@ -90,8 +90,8 @@ const MyApp = ({ Component, pageProps }) => {
 
   return (
     isBrowser && <SSRProvider>
-   
-    
+
+
     <ThemeModeProvider screenMode={screenMode}>
     <Head>
     <meta name="description" content={t('description_page', {ns:NAMESPACE_LANGAGE_COMMON})} />
@@ -103,20 +103,20 @@ const MyApp = ({ Component, pageProps }) => {
 crossOrigin="anonymous" />
  <DeviceModeProvider>
  <NextUIProvider theme={isDark ? darkTheme : lightTheme}>
-    <Component 
-    {...pageProps} 
-    lang={lang} 
-    setLang={setLang} 
+    <Component
+    {...pageProps}
+    lang={lang}
+    setLang={setLang}
     sizes={sizes}
-    isMobile={isMobile} 
-    isTablet={isTablet} 
+    isMobile={isMobile}
+    isTablet={isTablet}
     isLaptop={isLaptop}
      />
   </NextUIProvider>
  </DeviceModeProvider>
     </ThemeModeProvider>
 
-  </SSRProvider>  
+  </SSRProvider>
   );
 }
 

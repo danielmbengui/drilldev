@@ -71,6 +71,7 @@ export const TAB_LANGAGES = [
 /* --------------- LINKS -------------- */
 export const PAGE_LINK_HOME = "/";
 export const PAGE_LINK_GALLERY = "/gallery";
+export const PAGE_LINK_DOWNLOADS = "/downloads";
 export const PAGE_LINK_TUTORIAL = "/tutorial";
 export const PAGE_LINK_ABOUT = "/about";
 export const PAGE_LINK_CONTACT = "/contact";

@@ -31,8 +31,8 @@ export default function UndownloadableVideo(props) {
         e.preventDefault();
       }} controls={controls} autoPlay={autoPlay} loop={loop} muted={muted} style={{
         objectFit:'contain',
-        width:'100%',
-        height:'100%'
+        maxWidth:'100%',
+        maxHeight:'100%',
       }} >
   <source src={src} type="video/mp4" />
   Your browser does not support the video tag.

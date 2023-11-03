@@ -289,6 +289,15 @@ function updateFileToOrigin() {
     fs.writeFileSync(DIR_MIDJOURNEY_DATAS + "/data.json", JSON.stringify(arrayOrigin, null, 2));
 }
 
+function createFileOrigin() {
+    const array = getDataFile();
+    const arrayOrigin = array.sort((item1, item2) => item1.id - item2.id)
+    .map((item) => {
+        return(item);
+    })
+    fs.writeFileSync(DIR_MIDJOURNEY_DATAS + "/data_origin.json", JSON.stringify(arrayOrigin, null, 2));
+}
+
 function getRandomSortPictures(_pictures = []) {
     const randomOrder = [];
     const randomPictures = [];
@@ -355,16 +364,16 @@ function getListPicturesBySearch(type, search, page, per_page) {
     });
 }
 
-function formatExtensionImageLocal(imagePath, toExtension = 'webp', resolution = 'high_resolution') {
+function formatExtensionImageLocal(imagePath) {
     const actualExtension = path.extname(imagePath);
     const output = path.basename(imagePath, actualExtension)
         .replaceAll("dambengu__", "")
         .replaceAll("dambengu_", "")
         .replaceAll("Drill_Dev__", "")
         .replaceAll("Drill_Dev_", "");
-    const outputFinal = path.join(DIR_PNG_LOW_RESOLUTION, `${output}.${toExtension}`);
+    //const outputFinal = path.join(DIR_PNG_LOW_RESOLUTION, `${output}.${toExtension}`);
 
-    return (outputFinal);
+    return (output);
 }
 
 async function convertDraftsPictures(toExtension = 'png', resolution = 'high_resolution') {
@@ -444,22 +453,40 @@ async function convertToWebp() {
             }
         }
     };
-    for (let i = 0; i < pictures_absolute.length; i++) {
-        const element = pictures_absolute[i];
 
+    if (!fs.existsSync(DIR_PNG_HIGH_RESOLUTION)) {
+        fs.mkdirSync(DIR_PNG_HIGH_RESOLUTION, { recursive: true });
+    }
+
+    //for (let i = 0; i < pictures_absolute.length; i++) {
+    pictures_absolute.map(async (element, i) => {
+        //const element = pictures_absolute[i];
+/*
         const output = path.basename(element, ".png")
             .replaceAll("dambengu__", "")
             .replaceAll("dambengu_", "")
             .replaceAll("Drill_Dev__", "")
             .replaceAll("Drill_Dev_", "");
+            */
+            const output = formatExtensionImageLocal(element);
 
-        if (!fs.existsSync(DIR_PNG_HIGH_RESOLUTION)) {
-            fs.mkdirSync(DIR_PNG_HIGH_RESOLUTION, { recursive: true });
-        }
-
+        await sharp(element)
+        .withMetadata(copyright)
+        .resize(2048, 2048)
+        .png({
+            palette: true,
+            //quality: 100, //high_resolution / default 80
+            quality: 100, //low_resolution / default 80
+            //alphaQuality:100, //high_resolution && low_resolution / default 100
+            //lossless: true 
+        })
+        .toFile(path.join(DIR_PNG_HIGH_RESOLUTION, `${output}.png`));
+        console.log(`${i} - ${path.join(DIR_PNG_HIGH_RESOLUTION, `${output}.png`)} :`, `converted with success !`)
+/*
         if (!fs.existsSync(DIR_PNG_LOW_RESOLUTION)) {
             fs.mkdirSync(DIR_PNG_LOW_RESOLUTION, { recursive: true });
         }
+        */
         /*
         await sharp(element)
         .withMetadata(copyright)
@@ -474,20 +501,20 @@ async function convertToWebp() {
             })
             .toFile(path.join(DIR_PNG_HIGH_RESOLUTION, `${output}.png`));
             */
-
+/*
         fs.copyFile(element, path.join(DIR_PNG_HIGH_RESOLUTION, `${output}.png`), async (err) => {
             if (!err) {
                 await sharp(element)
                     .withMetadata(copyright)
-                    //.resize(320, 240)
+                    .resize(2048, 2048)
                     .png({
                         palette: true,
                         //quality: 100, //high_resolution / default 80
-                        quality: 50, //low_resolution / default 80
+                        quality: 100, //low_resolution / default 80
                         //alphaQuality:100, //high_resolution && low_resolution / default 100
                         //lossless: true 
                     })
-                    .toFile(path.join(DIR_PNG_LOW_RESOLUTION, `${output}.png`));
+                    .toFile(path.join(DIR_PNG_HIGH_RESOLUTION, `${output}.png`));
             }
         });
 
@@ -552,7 +579,10 @@ async function convertToWebp() {
                 //lossless: true 
             })
             .toFile(path.join(DIR_WEBP_LOW_RESOLUTION, `${output}.webp`));
-    }
+            */
+    });
+    console.log(`Function terminated !`)
+
 }
 
 export default async function handler(req, res) {

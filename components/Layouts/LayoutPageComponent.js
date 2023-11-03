@@ -64,7 +64,7 @@ export default function LayoutPageComponent(props) {
       {children}
       </Container>
       </Grid>
-      <Container sx={{mt:5}}>
+      <Container sx={{mt:5, zIndex:1000}}>
         <FooterComponent />
       </Container>
     </Grid>

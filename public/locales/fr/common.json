@@ -1,7 +1,10 @@
 {
     "description_page" : "Découvrez des univers visuels surprenants grâce à l'intelligence artificielle (IA).",
     "menuHome": "Accueil",
-    "menuGallery": "Gallerie",
+    "menuGallery": "Galerie",
+    "menuDownloads": "Téléchargements",
+    "menuAbout": "À propos",
+    "menuContact": "Contact",
     "menuTutorial": "Tutoriel",
     "menuTutorialMidjourney":"Tutoriel | Midjourney",
     "menu404": "404",

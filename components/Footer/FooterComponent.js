@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Button, changeTheme, Popover, Switch, Text, useTheme, TriggerTypes, Card, Grid, Link } from "@nextui-org/react";
 import { getRandomNumber } from "@/lib/func/func.js";
-import { Container, MenuItem } from "@mui/material";
+import { Container, MenuItem, Typography } from "@mui/material";
 import { updateLangageStorage } from "@/lib/storage/UserStorageFunctions.js";
 import { useTranslation } from "next-i18next";
 import { NAMESPACE_LANGAGE_COMMON, PAGE_LINK_GALLERY, PAGE_LINK_HOME, PAGE_LINK_TUTORIAL, WEBSITE_NAME } from "@/constants.js";
@@ -35,7 +35,7 @@ export default function FooterComponent(props) {
     } else {
       setSrc(getRandomPicture(PICTURES).src)
     }
-    console.log('ismobile:' + isMobile);
+    //console.log('ismobile:' + isMobile);
   }, [])
 
 
@@ -50,6 +50,8 @@ export default function FooterComponent(props) {
       //p:30,
       mt: { xs: 5, md: 10 },
     }}>
+{
+  
       <Grid.Container justify="center">
         <Grid xs={12} sm={4} justify="center" alignItems="center" >
         <Card css={{ width: 'fit-content', background:'$accents0', opacity:0.9}}>
@@ -135,7 +137,7 @@ export default function FooterComponent(props) {
             </Grid.Container>
             <Grid.Container justify="center">
         <Grid xs={12} justify='center'>
-          <Text>{`©${new Date().getFullYear()} ${WEBSITE_NAME}`}</Text>
+          <Text>{`©${new Date().getFullYear() == 2023 ? new Date().getFullYear() : `2023-${new Date().getFullYear()}`} ${WEBSITE_NAME}`}</Text>
         </Grid>
         <Grid xs={12} justify='center'>
           <Text>{t('all_rights_reserved', {ns:NAMESPACE_LANGAGE_COMMON})}</Text>
@@ -145,6 +147,7 @@ export default function FooterComponent(props) {
         </Card>
         </Grid>
       </Grid.Container>
+}
 
     </Container>
   )

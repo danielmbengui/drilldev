@@ -89,7 +89,7 @@ const {isMobile} = useDeviceMode();
                 weight="bold"
                 transform="uppercase"
               >
-                {`consulter la gallerie`}
+                {`consulter la galerie`}
               </Text>
             </Button>
       </Grid>

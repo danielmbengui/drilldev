@@ -1,12 +1,14 @@
 import React from "react";
 import { Card, Col, Row, Button, Text, Grid } from "@nextui-org/react";
 import styles from "../../styles/VideoCard.module.css";
+import { WEBSITE_PICTURES_ADDRESS } from "@/constants";
+import UndownloadableVideo from "@/components/Customs/UndownloadableVideo";
 
 export default function VideoCardCustom(props) {
-const {isMobile} = props;
+const {isMobile, lang} = props;
     return (
         <Card css={{
-            width:isMobile ? '100%' : '50%',
+            //width:isMobile ? '100%' : '50%',
             bg:'transparent',
         }}>
                 <Grid.Container justify="center" css={{
@@ -19,11 +21,9 @@ const {isMobile} = props;
                 //width:isMobile ? '100%' : '50%',
                 //height:isMobile ? '100%' : '50%',
             }}>
-            <video width={'100%'} height={'100%'} className={styles['video']} controls>
-  <source src="https://pictures.drilldev.com/videos/tutorial-fr.mp4" type="video/mp4" />
-  <source src="movie.ogg" type="video/ogg" />
-  Your browser does not support the video tag.
-</video>
+            <UndownloadableVideo
+src={`${WEBSITE_PICTURES_ADDRESS}/videos/tutorial/tutorial-welcome-${lang}.mp4`}
+      />
             </Grid>
         </Grid.Container>
         <Card.Footer

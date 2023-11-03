@@ -4,7 +4,7 @@ import { useMediaQuery } from "../../styles/useMediaQuery";
 import Image from "next/image.js";
 import { useTranslation } from "next-i18next";
 import { updateLangageStorage } from "@/lib/storage/UserStorageFunctions.js";
-import { NAMESPACE_LANGAGE_COMMON, NAMESPACE_LANGAGE_TUTORIAL_MIDJOURNEY, PAGE_LINK_ABOUT, PAGE_LINK_CONTACT, PAGE_LINK_GALLERY, PAGE_LINK_HOME, PAGE_LINK_TUTORIAL, PAGE_LINK_TUTORIAL_DRILL_DEV, PAGE_LINK_TUTORIAL_MIDJOURNEY, STORAGE_SCREEN_MODE, WEBSITE_NAME } from "@/constants.js";
+import { NAMESPACE_LANGAGE_COMMON, NAMESPACE_LANGAGE_TUTORIAL_MIDJOURNEY, PAGE_LINK_ABOUT, PAGE_LINK_CONTACT, PAGE_LINK_DOWNLOADS, PAGE_LINK_GALLERY, PAGE_LINK_HOME, PAGE_LINK_TUTORIAL, PAGE_LINK_TUTORIAL_DRILL_DEV, PAGE_LINK_TUTORIAL_MIDJOURNEY, STORAGE_SCREEN_MODE, WEBSITE_NAME } from "@/constants.js";
 import { useRouter } from "next/router.js";
 import { ChevronDownIcon, icons } from "../Personnal/Icons.js";
 import { myLoader } from "@/lib/ImageLoader.js";
@@ -39,6 +39,18 @@ export default function MenuComponent(props) {
         name: t('menuGallery', { ns: NAMESPACE_LANGAGE_COMMON }),
         href: PAGE_LINK_GALLERY,
       },
+      /*
+      {
+        name: t('menuDownloads', { ns: NAMESPACE_LANGAGE_COMMON }),
+        href: PAGE_LINK_DOWNLOADS,
+      },
+      */
+      
+    {
+      name: t('menuTutorial', { ns: NAMESPACE_LANGAGE_COMMON }),
+      href: PAGE_LINK_TUTORIAL_MIDJOURNEY,
+    },
+      /*
     {
         name: t('menuAbout', { ns: NAMESPACE_LANGAGE_COMMON }),
         href: PAGE_LINK_ABOUT,
@@ -47,10 +59,8 @@ export default function MenuComponent(props) {
         name: t('menuContact', { ns: NAMESPACE_LANGAGE_COMMON }),
         href: PAGE_LINK_CONTACT,
       },
-    {
-      name: t('menuTutorial', { ns: NAMESPACE_LANGAGE_COMMON }),
-      href: PAGE_LINK_TUTORIAL_MIDJOURNEY,
-    }
+      */
+
   ];
 
   return (
