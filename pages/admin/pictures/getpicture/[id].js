@@ -307,7 +307,7 @@ export async function getStaticPaths({ locales }) {
       
   }
 */
-  export async function getStaticProps({ locale, params }) {
+  export async function getStaticProps({ locale }) {
     /*
     const array = require(`@/public/images/midjourney/datas/data.json`);
     var firstId = 0;
