@@ -1,25 +1,26 @@
 import React, {useState, useEffect} from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { DIR_MIDJOURNEY_DATA_FILE, TAB_LANGAGES, TAB_NAMEPACES } from '@/constants';
-import { Button, Input, Text, Textarea, useTheme } from '@nextui-org/react';
+import { useDeviceMode } from '@/contexts/DeviceModeProvider';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import { _TYPES_PICTURES_ } from '@/__mocks__/types/_types_pictures_';
+/*
+import { Button, Input, Text, Textarea, useTheme } from '@nextui-org/react';
 import useSWR from 'swr';
 import { Grid, Stack } from '@mui/material';
 import { Checkbox, Spacer } from "@nextui-org/react";
-import { _TYPES_PICTURES_ } from '@/__mocks__/types/_types_pictures_';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useDeviceMode } from '@/contexts/DeviceModeProvider';
 import { fileSave } from 'browser-fs-access';
 import CustomCheckBox from '@/components/Customs/CustomCheckBox';
 import { myLoader } from '@/lib/ImageLoader';
 import UndownloadableImage from '@/components/Customs/UndownloadableImage';
-
+*/
 const fetcherListPictures = params => axios.get(`/api/pictures`, params).then(res => res.data);
 
 export default function GetpicturePage({/*picture, firstId, secondId, beforeLastId, lastId*/}) {
@@ -285,9 +286,9 @@ priority
 </>
   )
 }
-/*
+
 export async function getStaticPaths({ locales }) {
-  
+/*  
     const array = require(`@/public/images/midjourney/datas/data.json`);  
   const _paths = [];
   //paths.push({params: { id: '1' }});
@@ -304,9 +305,9 @@ export async function getStaticPaths({ locales }) {
         paths: _paths,
         fallback: false, // can also be true or 'blocking'
       }
-      
+      */
   }
-*/
+
   export async function getStaticProps({ locale }) {
     /*
     const array = require(`@/public/images/midjourney/datas/data.json`);
