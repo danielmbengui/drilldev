@@ -14,7 +14,7 @@ import { SSRProvider } from '@react-aria/ssr';
 import { useSSR } from '@nextui-org/react';
 
 const MyApp = ({ Component, pageProps }) => {
-  const {t, i18n} = useTranslation();
+  const {t} = useTranslation();
   const { isBrowser } = useSSR();
   const isMobile = useMediaQuery(650);
   const isTablet = useMediaQuery(960);
@@ -39,7 +39,7 @@ const MyApp = ({ Component, pageProps }) => {
   useEffect(() => {
     let _lang = getLangageStorage();
     setLang(_lang);
-    i18n.changeLanguage(_lang);
+    //i18n.changeLanguage(_lang);
     document.documentElement.setAttribute('lang', _lang);
       //console.log("LAAANG MAIN", _lang)
   }, [])
