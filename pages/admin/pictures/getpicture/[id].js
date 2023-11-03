@@ -109,6 +109,9 @@ if (router.isReady && ids){
   }, [data])
   */
   return (
+<>
+{
+  /*
 <Grid container justifyContent={'center'} spacing={{xs:0, sm:1}} py={3}>
 <Grid item xs={10}>
     <Grid container justifyContent={'center'} spacing={3}>
@@ -277,6 +280,9 @@ priority
     </Grid>
 </Grid>
 </Grid>
+  */
+}
+</>
   )
 }
 
