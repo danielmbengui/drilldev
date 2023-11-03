@@ -22,7 +22,7 @@ import UndownloadableImage from '@/components/Customs/UndownloadableImage';
 
 const fetcherListPictures = params => axios.get(`/api/pictures`, params).then(res => res.data);
 
-export default function GetpicturePage({/*picture,*/ firstId, secondId, beforeLastId, lastId}) {
+export default function GetpicturePage({/*picture, firstId, secondId, beforeLastId, lastId*/}) {
   const router = useRouter();
 
   const [index, setIndex] = useState(-1);
@@ -34,10 +34,10 @@ const {isTablet} = useDeviceMode();
     //title: picture.title,
     //description: picture.description,
     //types: picture.types,
-    first_id:parseInt(firstId),
-    second_id:parseInt(secondId),
-    before_last_id:parseInt(beforeLastId),
-    last_id:parseInt(lastId),
+    //first_id:parseInt(firstId),
+    //second_id:parseInt(secondId),
+    //before_last_id:parseInt(beforeLastId),
+    //last_id:parseInt(lastId),
   });
 
   //router.push('/?counter=10', undefined, { shallow: true })
@@ -285,8 +285,9 @@ priority
 </>
   )
 }
-
+/*
 export async function getStaticPaths({ locales }) {
+  
     const array = require(`@/public/images/midjourney/datas/data.json`);  
   const _paths = [];
   //paths.push({params: { id: '1' }});
@@ -303,8 +304,9 @@ export async function getStaticPaths({ locales }) {
         paths: _paths,
         fallback: false, // can also be true or 'blocking'
       }
+      
   }
-
+*/
   export async function getStaticProps({ locale, params }) {
     /*
     const array = require(`@/public/images/midjourney/datas/data.json`);
@@ -352,11 +354,11 @@ export async function getStaticPaths({ locales }) {
     return {
         props: {
           //tabPrice: response,
-          firstId:firstId,
-          secondId:secondId,
+          //firstId:firstId,
+          //secondId:secondId,
           //picture:_picture,
-          beforeLastId:beforeLastId,
-          lastId:lastId,
+          //beforeLastId:beforeLastId,
+          //lastId:lastId,
           //id:params.id,
           //ids:array,
           //id:params.id,
