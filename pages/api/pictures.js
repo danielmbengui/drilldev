@@ -183,6 +183,7 @@ function addPicturesFromDrafts() {
     return (null);
 }
 */
+/*
 function updateAllPictures() {
 
     const array = getDataFile();
@@ -308,7 +309,7 @@ function getRandomSortPictures(_pictures = []) {
 
     return randomPictures; // The maximum is exclusive and the minimum is inclusive
 }
-
+*/
 /*
 function getPicturesFile() {
     if (!fs.existsSync(PATH_PICTURES)) {
@@ -318,6 +319,7 @@ function getPicturesFile() {
     return JSON.parse(fs.readFileSync(PATH_FILE_CRYPTO_CURRENCIES));
 }
 */
+/*
 function getListPicturesBySearch(type, search, page, per_page) {
     const array = getDataFile();
     const types = array.filter((item) => {
@@ -454,13 +456,6 @@ async function convertToWebp() {
     //for (let i = 0; i < pictures_absolute.length; i++) {
     pictures_absolute.map(async (element, i) => {
         //const element = pictures_absolute[i];
-/*
-        const output = path.basename(element, ".png")
-            .replaceAll("dambengu__", "")
-            .replaceAll("dambengu_", "")
-            .replaceAll("Drill_Dev__", "")
-            .replaceAll("Drill_Dev_", "");
-            */
             const output = formatExtensionImageLocal(element);
 
         await sharp(element)
@@ -475,6 +470,7 @@ async function convertToWebp() {
         })
         .toFile(path.join(DIR_PNG_HIGH_RESOLUTION, `${output}.png`));
         console.log(`${i} - ${path.join(DIR_PNG_HIGH_RESOLUTION, `${output}.png`)} :`, `converted with success !`)
+        */
 /*
         if (!fs.existsSync(DIR_PNG_LOW_RESOLUTION)) {
             fs.mkdirSync(DIR_PNG_LOW_RESOLUTION, { recursive: true });
@@ -572,7 +568,7 @@ async function convertToWebp() {
                 //lossless: true 
             })
             .toFile(path.join(DIR_WEBP_LOW_RESOLUTION, `${output}.webp`));
-            */
+            
     });
 }
 
