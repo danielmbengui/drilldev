@@ -23,23 +23,7 @@ import UndownloadableImage from '@/components/Customs/UndownloadableImage';
 */
 const fetcherListPictures = params => axios.get(`/api/pictures`, params).then(res => res.data);
 
-export default function GetpicturePage({id,/*picture, firstId, secondId, beforeLastId, lastId*/}) {
-  const router = useRouter();
-
-  const [index, setIndex] = useState(-1);
-const {isTablet} = useDeviceMode();
-
-  const [manager, setManager] = useState({
-    //id: parseInt(picture.id),
-    //src: picture.src,
-    //title: picture.title,
-    //description: picture.description,
-    //types: picture.types,
-    //first_id:parseInt(firstId),
-    //second_id:parseInt(secondId),
-    //before_last_id:parseInt(beforeLastId),
-    //last_id:parseInt(lastId),
-  });
+export default function GetpicturePage({/*picture, firstId, secondId, beforeLastId, lastId*/}) {
 
   //router.push('/?counter=10', undefined, { shallow: true })
   /*
@@ -74,17 +58,6 @@ if (router.isReady && ids){
     }
 }, [router.query.id])
 */
-
-  const handleChangeState = (field, value) => {
-    setManager((prev) => ({
-      ...prev,
-      [field]: value
-    }));
-  };
-
-  useEffect(() => {
-    //console.log("first id : " + firstId)
-  })
 
   /*
   const { data } = useSWR({

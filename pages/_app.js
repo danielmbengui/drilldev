@@ -100,9 +100,13 @@ const MyApp = ({ Component, pageProps }) => {
     <meta name="twitter:description" content={t('description_page', {ns:NAMESPACE_LANGAGE_COMMON})} />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     </Head>
+{
+  /*
               <Script async src="https://www.googletagmanager.com/gtag/js?id=G-MJ6X1M1YRR" />
 <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2953886510697247"
 crossOrigin="anonymous" />
+  */
+}
  <DeviceModeProvider>
  <NextUIProvider theme={isDark ? darkTheme : lightTheme}>
     <Component

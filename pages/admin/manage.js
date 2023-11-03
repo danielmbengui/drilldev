@@ -1,18 +1,21 @@
 import Head from 'next/head'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { TAB_LANGAGES, TAB_NAMEPACES } from '@/constants';
+import axios from 'axios';
+/*
 import { useTranslation } from 'next-i18next';
 import { Input, Text, useSSR, useTheme } from '@nextui-org/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+
 import { useSWRConfig } from 'swr';
 import useSWR from 'swr';
 import { Grid } from '@mui/material';
-
+*/
 const fetcherListPictures = params => axios.get(`/api/pictures/${params.id}`, params).then(res => res.data);
 
 export default function ManagePage(props) {
+  /*
   const {isDark} = useTheme();
   const {t} = useTranslation(TAB_NAMEPACES);
   //get_one
@@ -52,8 +55,12 @@ if (router.isReady){
       handleChangeState("title", data.title);
     }
   }, [data])
+  */
   return (
-    <Grid container>
+ <>
+ {
+  /*
+   <Grid container>
     <Grid item xs={12}>
     <Input
     aria-label={`title`}
@@ -74,6 +81,9 @@ if (router.isReady){
     </Grid>
     {`general: OK : ${router.query.id ? router.query.id : ''}` }
     </Grid>
+  */
+ }
+ </>
   )
 }
 

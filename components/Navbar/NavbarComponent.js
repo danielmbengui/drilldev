@@ -54,7 +54,7 @@ export default function NavbarComponent(props) {
     updateLangageStorage(_lang);
     document.documentElement.setAttribute('lang', _lang);
     //handleClose();
-    console.log("onChangeLanguage NavbarComponent", _lang)
+    //console.log("onChangeLanguage NavbarComponent", _lang)
   };
   //const [variant, setVariant] = React.useState("static");
 

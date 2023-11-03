@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import { Inter } from '@next/font/google';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { NAMESPACE_LANGAGE_COMMON, NAMESPACE_LANGAGE_HOME, NAMESPACE_LANGAGE_TUTORIAL_MIDJOURNEY, TAB_LANGAGES, TAB_NAMEPACES } from '@/constants';
 import { useTranslation } from 'next-i18next';
