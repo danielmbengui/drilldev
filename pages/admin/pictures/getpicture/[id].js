@@ -23,7 +23,7 @@ import UndownloadableImage from '@/components/Customs/UndownloadableImage';
 */
 const fetcherListPictures = params => axios.get(`/api/pictures`, params).then(res => res.data);
 
-export default function GetpicturePage({/*picture, firstId, secondId, beforeLastId, lastId*/}) {
+export default function GetpicturePage({id,/*picture, firstId, secondId, beforeLastId, lastId*/}) {
   const router = useRouter();
 
   const [index, setIndex] = useState(-1);
@@ -302,13 +302,13 @@ export async function getStaticPaths({ locales }) {
 */
      // { fallback: false } means other routes should 404
      return {
-        paths: {params: { id: '1' }},
+        paths: {params: ['1']},
         fallback: false, // can also be true or 'blocking'
       }
       
   }
 
-  export async function getStaticProps({ locale }) {
+  export async function getStaticProps({ locale, params }) {
     /*
     const array = require(`@/public/images/midjourney/datas/data.json`);
     var firstId = 0;
@@ -362,7 +362,7 @@ export async function getStaticPaths({ locales }) {
           //lastId:lastId,
           //id:params.id,
           //ids:array,
-          //id:params.id,
+          id:params.id,
             ...(await serverSideTranslations(locale, TAB_NAMEPACES, null, TAB_LANGAGES)),
             // Will be passed to the page component as props
         },
