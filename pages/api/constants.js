@@ -1,27 +1,13 @@
-/*
+
 export default async function handler(req, res) {
 
 }
-*/
+
+/*
 import { DIR_MIDJOURNEY_DRAFTS, EXT_JPG, EXT_PNG, TEXT_PUBLIC } from '@/constants';
 import axios from 'axios';
 import fs from 'fs';
 import path from 'path';
-
-export function getFirstLetterUpperCase(word) {
-    if (word)
-        return (word.charAt(0).toUpperCase() + word.slice(1));
-    return (word);
-}
-
-export function getRelativePath(path) {
-    if (path.includes(TEXT_PUBLIC)) {
-        const length_public = TEXT_PUBLIC.length;
-        const index_public = path.indexOf(TEXT_PUBLIC);
-        return (path.slice(index_public + length_public));
-    }
-    return (path);
-}
 
 export function getListPictures(array = [], directory = DIR_MIDJOURNEY_DRAFTS) {
     const _array = array;
@@ -49,6 +35,23 @@ export function getListPictures(array = [], directory = DIR_MIDJOURNEY_DRAFTS) {
         array_relative: _array_relative,
     });
 }
+
+export function getFirstLetterUpperCase(word) {
+    if (word)
+        return (word.charAt(0).toUpperCase() + word.slice(1));
+    return (word);
+}
+
+export function getRelativePath(path) {
+    if (path.includes(TEXT_PUBLIC)) {
+        const length_public = TEXT_PUBLIC.length;
+        const index_public = path.indexOf(TEXT_PUBLIC);
+        return (path.slice(index_public + length_public));
+    }
+    return (path);
+}
+
+
 
 export function getOnePictureFromList(name_image, list) {
     for (let i = 0; i < list.length; i++) {
@@ -78,3 +81,4 @@ export function getIndexOnePictureFromListById(id_image, list) {
     }
     return (-1);
 }
+*/

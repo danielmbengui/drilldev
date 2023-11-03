@@ -1,23 +1,101 @@
-/*
-export default async function handler(req, res) {
-
-}
-*/
-
 import Cors from 'cors';
 import fs from 'fs';
 import initMiddleware from '@/lib/init-middleware';
 import path from 'path';
+import { GALLERY_MAX_PICTURES_PER_PAGE, METHOD_GET, METHOD_POST, QUERY_ACTION_GET_LIST_PICTURES, QUERY_PAGE, QUERY_PER_PAGE, QUERY_SEARCH, QUERY_TYPE, } from '@/constants';
+
+const rootDirectoryPath = path.resolve(process.cwd());
+
+const DIR_MIDJOURNEY_DATAS = `${rootDirectoryPath}/public/images/midjourney/datas`;
+
+const cors = initMiddleware(
+    // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
+    Cors({
+        // Only allow requests with GET and POST
+        methods: [METHOD_POST, METHOD_GET],
+    })
+)
+
+function getDataFile() {
+
+    if (!fs.existsSync(DIR_MIDJOURNEY_DATAS)) {
+        fs.mkdirSync(DIR_MIDJOURNEY_DATAS, { recursive: true });
+        fs.writeFileSync(DIR_MIDJOURNEY_DATAS + "/data.json", JSON.stringify([], null, 2));
+    }
+    //const array = require("../../public/images/midjourney/datas/data.json")
+    return JSON.parse(fs.readFileSync(DIR_MIDJOURNEY_DATAS + "/data.json"));
+    //return (array);
+}
+
+function getListPicturesBySearch(type, search, page, per_page) {
+    const array = getDataFile();
+    const types = array.filter((item) => {
+        if (type === 'all') {
+            return (item);
+        } else if (item.types.includes(type)) {
+            return (item);
+        }
+    });
+    const searchs = types.filter((item) => {
+        if (item.title.toLowerCase().includes(search.toLowerCase())) {
+            return (item);
+        }
+    });
+    const totalPage = Math.ceil(searchs.length / per_page);
+    const _page = parseInt(page) > totalPage ? 1 : parseInt(page);
+    const _per_page = parseInt(per_page);
+    const min = (_page - 1) * _per_page;
+    const max = (_page) * _per_page;
+    const hasNext = searchs[max] ? _page + 1 : null;
+    const pictures = searchs.filter((item, index) => {
+        if (index >= min && index < max) {
+            return (item);
+        }
+    });
+    //console.log("ARRAY", array, array.length);
+    return ({
+        search: search,
+        type:type,
+        page: _page,
+        per_page: _per_page,
+        next_page: hasNext,
+        total_page: totalPage,
+        length: pictures.length,
+        total_length: searchs.length,
+        list: pictures,
+    });
+}
+
+export default async function handler(req, res) {
+    // Run cors
+    await cors(req, res);
+
+    try {
+        //console.log("API", "access to the API \n");
+        if (req.method === METHOD_GET) { 
+            if (req.query.action === QUERY_ACTION_GET_LIST_PICTURES) {
+                const type = req.query[QUERY_TYPE] ? req.query[QUERY_TYPE] : '';
+                const search = req.query[QUERY_SEARCH] ? req.query[QUERY_SEARCH] : '';
+                const page = req.query[QUERY_PAGE] ? req.query[QUERY_PAGE] : 1;
+                const per_page = req.query[QUERY_PER_PAGE] ? req.query[QUERY_PER_PAGE] : GALLERY_MAX_PICTURES_PER_PAGE;
+                const array = getListPicturesBySearch(type, search, page, per_page);
+                return res.status(200).json({
+                    msg: array ? "Success" : "Error",
+                    result: array,
+                });
+            }
+        }
+    return res.status(400).json({ msg: "Error 400", });
+} catch (error) {
+    return res.status(405).json({ msg: "Error 405", error: error });
+}
+}
+/*
 import { getFirstLetterUpperCase, getOnePictureFromList, getRelativePath, getListPictures, getOnePictureFromListById, getIndexOnePictureFromListById } from './constants';
 import { EXTENSION_JPG, EXTENSION_PNG, EXTENSION_WEBP, GALLERY_MAX_PICTURES_PER_PAGE, HIGH_RESOLUTION, LOW_RESOLUTION, METHOD_GET, METHOD_POST, QUERY_ACTION_GET_LIST_PICTURES, QUERY_PAGE, QUERY_PER_PAGE, QUERY_SEARCH, QUERY_TYPE, WEBSITE_NAME, WEBSITE_PICTURES_ADDRESS, } from '@/constants';
-
-//const DIR_MIDJOURNEY_DRAFTS = `${serverRuntimeConfig.publicPath}/images/midjourney/drafts`;
 const publicDirectoryPath = path.join(__dirname, 'public');
 const rootDirectoryPath = path.resolve(process.cwd());
-//const DIR_MIDJOURNEY_DRAFTS = `${rootDirectoryPath}/public/images/midjourney/drafts`;
 const DIR_MIDJOURNEY_DRAFTS = path.join(rootDirectoryPath, 'public', 'images', 'midjourney', 'drafts');
-//const DIR_WEBP = path.join(rootDirectoryPath, 'public', 'images', 'midjourney', 'webp');
-
 const DIR_MIDJOURNEY_DATAS = `${rootDirectoryPath}/public/images/midjourney/datas`;
 const DIR_PNG_HIGH_RESOLUTION = `${rootDirectoryPath}/public/images/midjourney/png/high_resolution`;
 const DIR_PNG_LOW_RESOLUTION = `${rootDirectoryPath}/public/images/midjourney/png/low_resolution`;
@@ -30,16 +108,6 @@ const DIR_WEBP = `${rootDirectoryPath}/public/images/midjourney/webp`;
 
 const PATH_PICTURES = `${process.cwd()}/public/datas/images/`;
 const sharp = require('sharp');
-
-const cors = initMiddleware(
-    // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
-    Cors({
-        // Only allow requests with GET and POST
-        methods: [METHOD_POST, METHOD_GET],
-    })
-)
-
-
 function writeFile(data) {
     if (!fs.existsSync(DIR_MIDJOURNEY_DATAS)) {
         fs.mkdirSync(DIR_MIDJOURNEY_DATAS, { recursive: true });
@@ -74,18 +142,8 @@ function getDataFileOrigin() {
     //return (array);
 }
 
-function getDataFile() {
 
-    if (!fs.existsSync(DIR_MIDJOURNEY_DATAS)) {
-        fs.mkdirSync(DIR_MIDJOURNEY_DATAS, { recursive: true });
-        fs.writeFileSync(DIR_MIDJOURNEY_DATAS + "/data.json", JSON.stringify([], null, 2));
-    }
-    
 
-    //const array = require("../../public/images/midjourney/datas/data.json")
-    return JSON.parse(fs.readFileSync(DIR_MIDJOURNEY_DATAS + "/data.json"));
-    //return (array);
-}
 
 function getDataPaths() {
     
@@ -188,7 +246,6 @@ function addPicturesFromDrafts() {
     return (null);
 }
 
-
 function updateAllPictures() {
 
     const array = getDataFile();
@@ -209,9 +266,6 @@ function updateAllPictures() {
     //updateFile();
     return (array);
 }
-
-
-
 
 function getOnePictureById(id) {
     return (getOnePictureFromListById(id, getDataFile()))
@@ -321,45 +375,6 @@ function getPicturesFile() {
         fs.writeFileSync(PATH_FILE_CRYPTO_CURRENCIES, JSON.stringify([], null, 2));
     }
     return JSON.parse(fs.readFileSync(PATH_FILE_CRYPTO_CURRENCIES));
-}
-
-function getListPicturesBySearch(type, search, page, per_page) {
-    const array = getDataFile();
-    const types = array.filter((item) => {
-        if (type === 'all') {
-            return (item);
-        } else if (item.types.includes(type)) {
-            return (item);
-        }
-    });
-    const searchs = types.filter((item) => {
-        if (item.title.toLowerCase().includes(search.toLowerCase())) {
-            return (item);
-        }
-    });
-    const totalPage = Math.ceil(searchs.length / per_page);
-    const _page = parseInt(page) > totalPage ? 1 : parseInt(page);
-    const _per_page = parseInt(per_page);
-    const min = (_page - 1) * _per_page;
-    const max = (_page) * _per_page;
-    const hasNext = searchs[max] ? _page + 1 : null;
-    const pictures = searchs.filter((item, index) => {
-        if (index >= min && index < max) {
-            return (item);
-        }
-    });
-    //console.log("ARRAY", array, array.length);
-    return ({
-        search: search,
-        type:type,
-        page: _page,
-        per_page: _per_page,
-        next_page: hasNext,
-        total_page: totalPage,
-        length: pictures.length,
-        total_length: searchs.length,
-        list: pictures,
-    });
 }
 
 function formatExtensionImageLocal(imagePath) {
@@ -477,21 +492,6 @@ async function convertToWebp() {
         if (!fs.existsSync(DIR_PNG_LOW_RESOLUTION)) {
             fs.mkdirSync(DIR_PNG_LOW_RESOLUTION, { recursive: true });
         }
-  
-        /*
-        await sharp(element)
-        .withMetadata(copyright)
-            //.resize(320, 240)
-            .png({
-                palette:true,
-                //quality: 100, //high_resolution / default 80
-                //quality: 50, //low_resolution / default 80
-                //alphaQuality:100, //high_resolution && low_resolution / default 100
-                //lossless: true 
-                compressionLevel:1,
-            })
-            .toFile(path.join(DIR_PNG_HIGH_RESOLUTION, `${output}.png`));
-            */
 
         fs.copyFile(element, path.join(DIR_PNG_HIGH_RESOLUTION, `${output}.png`), async (err) => {
             if (!err) {
@@ -573,16 +573,28 @@ async function convertToWebp() {
             
     });
 }
-
-
+*/
+/*
 export default async function handler(req, res) {
     // Run cors
     await cors(req, res);
 
     try {
         //console.log("API", "access to the API \n");
-        if (req.method === METHOD_GET) {
-            if (req.query.action === "get_ids") {
+        if (req.method === METHOD_GET) { 
+            if (req.query.action === QUERY_ACTION_GET_LIST_PICTURES) {
+                const type = req.query[QUERY_TYPE] ? req.query[QUERY_TYPE] : '';
+                const search = req.query[QUERY_SEARCH] ? req.query[QUERY_SEARCH] : '';
+                const page = req.query[QUERY_PAGE] ? req.query[QUERY_PAGE] : 1;
+                const per_page = req.query[QUERY_PER_PAGE] ? req.query[QUERY_PER_PAGE] : GALLERY_MAX_PICTURES_PER_PAGE;
+                const array = getListPicturesBySearch(type, search, page, per_page);
+                return res.status(200).json({
+                    msg: array ? "Success" : "Error",
+                    result: array,
+                });
+            }
+
+ if (req.query.action === "get_ids") {
                 //console.log("GET_ALL", `${req.query.action}\n`);
                 const array = getDataPaths();
                 //console.log("ARRAY", `${array.length}\n`);
@@ -594,10 +606,8 @@ export default async function handler(req, res) {
                 //convertToWebp();
                 return res.status(200).json({ msg: "Success" });
             }
-
             
-
-            else if (req.query.action === "get_all") {
+            if (req.query.action === "get_all") {
                 //console.log("GET_ALL", `${req.query.action}\n`);
                 const array = getDataFile();
                 //console.log("ARRAY", `${array.length}\n`);
@@ -627,25 +637,7 @@ export default async function handler(req, res) {
                 return res.status(200).json({ msg: datas ? "Success" : "Error", datas: datas,});
                 //return res.status(200).json({ msg: "Success", files: [], length: 0, });
             }
-
-
-            
-            
-
-
-
-
-            else if (req.query.action === QUERY_ACTION_GET_LIST_PICTURES) {
-                const type = req.query[QUERY_TYPE] ? req.query[QUERY_TYPE] : '';
-                const search = req.query[QUERY_SEARCH] ? req.query[QUERY_SEARCH] : '';
-                const page = req.query[QUERY_PAGE] ? req.query[QUERY_PAGE] : 1;
-                const per_page = req.query[QUERY_PER_PAGE] ? req.query[QUERY_PER_PAGE] : GALLERY_MAX_PICTURES_PER_PAGE;
-                const array = getListPicturesBySearch(type, search, page, per_page);
-                return res.status(200).json({
-                    msg: array ? "Success" : "Error",
-                    result: array,
-                });
-            } else if (req.query.action === "update_file") {
+            else if (req.query.action === "update_file") {
                 updateFile();
                 return res.status(200).json({ msg: "Success" });
             }
@@ -667,18 +659,12 @@ export default async function handler(req, res) {
                 randomizeFilePicture();
                 return res.status(200).json({ msg: "Success" });
             }
+            
         }
-
-        //const array_relative = getListDraftPictures().array_relative;
-        //const one = getOneDraftPictures(path_file, array);
-        //const one_relative = getOneDraftPictures(path_file, array_relative);
-
-        //console.log("COOOPY", `${cwd()}/public/pictures/images/${path.basename(one)}`)
         return res.status(400).json({ msg: "Error 400", });
-        //console.log("tab", tabCryptoCurrencies);
-        //console.log("result", response);
     } catch (error) {
         console.log("ERROR", error);
         return res.status(405).json({ msg: "Error 405", error: error });
     }
 }
+*/
