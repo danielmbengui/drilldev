@@ -4,7 +4,6 @@ import { NAMESPACE_LANGAGE_COMMON, NAMESPACE_LANGAGE_HOME, TAB_LANGAGES, TAB_NAM
 import { useTranslation } from 'next-i18next';
 import { Text, useTheme } from '@nextui-org/react';
 import { _PICTURE_HEADER_HOME_ } from '@/__mocks__/home/_pictures_home_';
-import { useContext, useEffect } from 'react';
 import HomeComponent from '@/components/Home/HomeComponent';
 import LayoutPageComponent from '@/components/Layouts/LayoutPageComponent';
 

@@ -7,7 +7,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CustomArrow from "../Personnal/CustomArrow.js";
 import ContainerPageComponent from "../Containers/ContainerPageComponent.js";
 import { useTranslation } from "next-i18next";
-import { NAMESPACE_LANGAGE_HOME, WEBSITE_NAME } from "@/constants.js";
+import { NAMESPACE_LANGAGE_HOME, WEBSITE_NAME, getFirstLetterUpperCase } from "@/constants.js";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CollectionsIcon from '@mui/icons-material/Collections';
 import DownloadIcon from '@mui/icons-material/Download';
@@ -22,7 +22,6 @@ import ParagraphRowComponent from "./ParagraphRowComponent.js";
 import GalleryRowComponent from "./GalleryRowComponent.js";
 import HeaderComponent from "./HeaderComponent.js";
 import UndownloadableVideo from "../Customs/UndownloadableVideo.js";
-import { getFirstLetterUpperCase } from "@/pages/api/constants.js";
 
 const logoLightTheme = "/images/logos/logo_black_pic_no_back.png";
 const logoDarkTheme = "/images/logos/logo_white_pic_no_back.png";

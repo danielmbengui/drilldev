@@ -1,5 +1,10 @@
 import { cwd } from 'process';
-
+/* FUNCTIONS */
+export function getFirstLetterUpperCase(word) {
+    if (word)
+        return (word.charAt(0).toUpperCase() + word.slice(1));
+    return (word);
+}
 /* --------------- GENERAL -------------- */
 export const WEBSITE_NAME = 'Drill Dev';
 export const APP_NAME = 'Drill Dev App';
