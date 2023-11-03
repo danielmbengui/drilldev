@@ -1,3 +1,4 @@
+/*
 import Cors from 'cors';
 import fs from 'fs';
 import initMiddleware from '@/lib/init-middleware';
@@ -88,5 +89,5 @@ export default async function handler(req, res) {
         console.log("ERROR", error);
         return res.status(405).json({ msg: "Error 405", error: error });
     }
-
 }
+*/

@@ -363,7 +363,7 @@ export async function getStaticPaths({ locales }) {
           //id:params.id,
           //ids:array,
           id:params.id,
-            ...(await serverSideTranslations(locale, TAB_NAMEPACES, null, TAB_LANGAGES)),
+            //...(await serverSideTranslations(locale, TAB_NAMEPACES, null, TAB_LANGAGES)),
             // Will be passed to the page component as props
         },
     }
