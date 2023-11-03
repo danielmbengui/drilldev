@@ -70,6 +70,7 @@ const MyApp = ({ Component, pageProps }) => {
   }, []);
 
   useEffect(() => {
+    /*
     if (typeof window !== 'undefined') {
       // You now have access to `window`
       window.dataLayer = window.dataLayer || [];
@@ -86,6 +87,7 @@ const MyApp = ({ Component, pageProps }) => {
         (adsbygoogle = window.adsbygoogle || []).push({});
       } catch (e) { }
     }
+    */
   }, []);
 
   return (

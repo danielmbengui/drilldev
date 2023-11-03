@@ -34,13 +34,13 @@ export default function ThemeModeProvider({children, screenMode}) {
     }
         setMode(_screenMode);
       //document.documentElement.setAttribute("data-theme", screenMode);
-      console.log('Initial SCREEEN MODE theme', _screenMode);
+      //console.log('Initial SCREEEN MODE theme', _screenMode);
     }, [screenMode]);
     
     useEffect( () => {
       document.documentElement.setAttribute("data-theme", mode);
       window.localStorage.setItem(STORAGE_SCREEN_MODE, mode);
-        console.log('Change SCREEEN MODE theme', mode);
+       // console.log('Change SCREEEN MODE theme', mode);
       }, [mode]);
       
     const themeMode = useMemo(
@@ -50,7 +50,7 @@ export default function ThemeModeProvider({children, screenMode}) {
           setMode((prevMode) => (prevMode === 'dark' ? 'light' : 'dark'));
           //document.documentElement.setAttribute("data-theme", newScreenMode);
 
-          console.log('SECREEEN MODE theme changeMode', window.localStorage.getItem('screenMode'))
+          //console.log('SECREEEN MODE theme changeMode', window.localStorage.getItem('screenMode'))
         },
       }),
       [],

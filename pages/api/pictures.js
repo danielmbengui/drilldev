@@ -677,13 +677,6 @@ export default async function handler(req, res) {
                 randomizeFilePicture();
                 return res.status(200).json({ msg: "Success" });
             }
-
-            
-
-
-            
-
-
         }
 
         //const array_relative = getListDraftPictures().array_relative;
