@@ -302,7 +302,7 @@ export async function getStaticPaths({ locales }) {
 */
      // { fallback: false } means other routes should 404
      return {
-        paths: {params: ['1']},
+        paths: [],
         fallback: false, // can also be true or 'blocking'
       }
       
