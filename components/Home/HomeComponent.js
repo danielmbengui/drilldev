@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {Card,  Text, Link, useTheme, } from "@nextui-org/react";
 import { useTranslation } from "next-i18next";
-import { NAMESPACE_LANGAGE_HOME } from "@/constants.js";
+import { NAMESPACE_LANGAGE_HOME, WEBSITE_PICTURES_ADDRESS } from "@/constants.js";
 import { Container, Grid } from "@mui/material";
 import { _PICTURES_HOME_, _PICTURE_HEADER_HOME_ } from "@/__mocks__/home/_pictures_home_.js";
 import UndownloadableImage from "../Customs/UndownloadableImage.js";
@@ -9,7 +9,7 @@ import ParagraphRowComponent from "./ParagraphRowComponent.js";
 import GalleryRowComponent from "./GalleryRowComponent.js";
 import HeaderComponent from "./HeaderComponent.js";
 import CardTeamComponent from "./CardTeamComponent.js";
-import { _ARIEL_INFOS_, _TIAGO_INFOS_ } from "@/__mocks__/team/_team_members_.js";
+//import { _TAAN_INFOS_, _DAAN_INFOS_ } from "@/__mocks__/team/_team_members_.js";
 import CardLinkToPageComponent from "./CardLinkToPgeComponent.js";
 
 const logoLightTheme = "/images/logos/logo_black_pic_no_back.png";
@@ -33,7 +33,6 @@ function getRandomSortPictures() {
   return randomPictures; // The maximum is exclusive and the minimum is inclusive
 }
 
-
 export default function HomeComponent(props) {
   const {t} = useTranslation();
   const {lang, sizes} = props;
@@ -48,6 +47,54 @@ export default function HomeComponent(props) {
   const variants = ["static", "floating", "sticky"];
   const [visible, setVisible] = useState(false);
   const handler = () => setVisible(true);
+  const _TAAN_INFOS_ = {
+    welcome:t('taan_infos.welcome', {ns:NAMESPACE_LANGAGE_HOME}), 
+    iam:t('taan_infos.iam', {ns:NAMESPACE_LANGAGE_HOME}), 
+    name:t('taan_infos.name', {ns:NAMESPACE_LANGAGE_HOME}), 
+    firstname:t('taan_infos.firstname', {ns:NAMESPACE_LANGAGE_HOME}),
+    //qualities:['creative', 'curious'],
+    job:t('taan_infos.job', {ns:NAMESPACE_LANGAGE_HOME}),
+    qualities_home:t('taan_infos.qualities_home', {ns:NAMESPACE_LANGAGE_HOME}),
+    src_video_home_light:`${WEBSITE_PICTURES_ADDRESS}/${t('taan_infos.src_video_home_light', {ns:NAMESPACE_LANGAGE_HOME})}`,
+    src_video_home_dark:`${WEBSITE_PICTURES_ADDRESS}/${t('taan_infos.src_video_home_dark', {ns:NAMESPACE_LANGAGE_HOME})}`,
+    src_pic:`${WEBSITE_PICTURES_ADDRESS}/${t('taan_infos.src_pic', {ns:NAMESPACE_LANGAGE_HOME})}`,
+  };
+
+  const _DAAN_INFOS_ = {
+    welcome:t('daan_infos.welcome', {ns:NAMESPACE_LANGAGE_HOME}), 
+    iam:t('daan_infos.iam', {ns:NAMESPACE_LANGAGE_HOME}), 
+    name:t('daan_infos.name', {ns:NAMESPACE_LANGAGE_HOME}), 
+    firstname:t('daan_infos.firstname', {ns:NAMESPACE_LANGAGE_HOME}),
+    //qualities:['creative', 'curious'],
+    job:t('daan_infos.job', {ns:NAMESPACE_LANGAGE_HOME}),
+    qualities_home:t('daan_infos.qualities_home', {ns:NAMESPACE_LANGAGE_HOME}),
+    src_video_home_light:`${WEBSITE_PICTURES_ADDRESS}/${t('daan_infos.src_video_home_light', {ns:NAMESPACE_LANGAGE_HOME})}`,
+    src_video_home_dark:`${WEBSITE_PICTURES_ADDRESS}/${t('daan_infos.src_video_home_dark', {ns:NAMESPACE_LANGAGE_HOME})}`,
+    src_pic:`${WEBSITE_PICTURES_ADDRESS}/${t('daan_infos.src_pic', {ns:NAMESPACE_LANGAGE_HOME})}`,
+  };
+/*
+  const _TAAN_INFOS_ = {
+    name:"Emoji", 
+    firstname:"Taan",
+    qualities:['creative', 'curious'],
+    job:"Digital Designer",
+    qualities_home:"Créative & Curieuse",
+    src_video_home_light:"https://pictures.dandela.com/videos/home/taan-light.mp4",
+    src_video_home_dark:"https://pictures.dandela.com/videos/home/taan-dark.mp4",
+    src_pic:`${WEBSITE_PICTURES_ADDRESS}/images/midjourney/PNG/home/1.png`,
+  };
+  
+  const _DAAN_INFOS_ = {
+    name:"Emoji", 
+    firstname:"Daan",
+    qualities:['innovative', 'solution-oriented'],
+    job:"Web Developer",
+    qualities_home:"Innovatif & Axé solution",
+    src_video_home_light:"https://pictures.dandela.com/videos/home/daan-light.mp4",
+    src_video_home_dark:"https://pictures.dandela.com/videos/home/daan-dark.mp4",
+    src_pic:`${WEBSITE_PICTURES_ADDRESS}/images/midjourney/PNG/home/1.png`,
+  };
+  */
 
 
   const ComponentMidJourney = () => {
@@ -158,11 +205,11 @@ indexStop={6}
         
 <Grid container spacing={1} justifyContent='center' my={3}>
     <Grid item xs={12} sm={5}>
-    <CardTeamComponent userInfos={_ARIEL_INFOS_} />
+    <CardTeamComponent userInfos={_TAAN_INFOS_} />
 
     </Grid>
     <Grid item xs={12} sm={5}>
-        <CardLinkToPageComponent src={`/images/home/link-gallery-${isDark ? 'dark' : 'light'}.jpg`} userInfos={_ARIEL_INFOS_}  />
+        <CardLinkToPageComponent src={`/images/home/link-gallery-${isDark ? 'dark' : 'light'}.jpg`} userInfos={_TAAN_INFOS_}  />
     </Grid>
 </Grid>
 
@@ -192,10 +239,10 @@ indexStop={12}
 
 <Grid container spacing={1} justifyContent='center' my={3}>
     <Grid item xs={12} sm={5}>
-        <CardLinkToPageComponent src={`/images/home/link-downloads.png`} userInfos={_ARIEL_INFOS_}  />
+        <CardLinkToPageComponent src={`/images/home/link-downloads.png`} userInfos={_TAAN_INFOS_}  />
     </Grid>
     <Grid item xs={12} sm={5}>
-    <CardTeamComponent userInfos={_TIAGO_INFOS_} />
+    <CardTeamComponent userInfos={_DAAN_INFOS_} />
 
     </Grid>
 </Grid>

@@ -12,5 +12,28 @@
     "paragraph_9": "Não perca a oportunidade de descobrir um mundo novo e fascinante, onde a arte e o digital se encontram.",
     "paragraph_10": "Baixe suas primeiras imagens geradas por IA agora e mergulhe em um mundo de criação ilimitada.",
     "paragraph_11": "Com nosso site, os limites da criação são ampliados um pouco mais a cada dia.",
-    "paragraph_12": "Junte-se à nossa crescente comunidade de usuários de IA apaixonados, interaja com eles, descubra novas ideias e compartilhe suas próprias criações."
+    "paragraph_12": "Junte-se à nossa crescente comunidade de usuários de IA apaixonados, interaja com eles, descubra novas ideias e compartilhe suas próprias criações.",
+    "taan_infos": {
+        "welcome": "Olá 🖐️,",
+        "iam": "eu sou",
+        "name": "Emoji",
+        "firstname": "Taan",
+        "job": "Designer Digital",
+        "qualities_home": "Criativa & Curiosa",
+        "src_video_home_light": "/videos/home/taan-light.mp4",
+        "src_video_home_dark": "videos/home/taan-dark.mp4",
+        "src_pic": "images/midjourney/PNG/home/1.png"
+    },
+    "daan_infos": {
+        "welcome": "Olá 🖐️,",
+        "iam": "eu sou",
+        "name": "Emoji",
+        "firstname": "Daan",
+        "job": "Desenvolvedor Web",
+        "qualities_home": "Inovador & Orientado para soluções",
+        "src_video_home_light": "/videos/home/daan-light.mp4",
+        "src_video_home_dark": "videos/home/daan-dark.mp4",
+        "src_pic": "images/midjourney/PNG/home/1.png"
+    }
+    
 }

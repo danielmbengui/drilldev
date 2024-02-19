@@ -28,7 +28,7 @@ export default function NavbarComponent(props) {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { type, isDark } = useTheme();
-  const { lang, setLang, variant, activeColorContent, variantContent, sizes } = props;
+  const { lang, setLang, langage, setLangage, variant, activeColorContent, variantContent, sizes } = props;
   const isXs = useMediaQuery(650);
   const [subtitleSelected, setSubtitleSelected] = useState(new Set([router.asPath]));
   const [selected, setSelected] = useState(new Set([router.asPath]));
@@ -121,7 +121,7 @@ export default function NavbarComponent(props) {
     //setSubtitleSelected(e);
     if (value) {
       setSubtitleSelected(e);
-      router.push(value);
+      //router.push(value);
     }
   }
 
@@ -381,7 +381,7 @@ export default function NavbarComponent(props) {
             />
           </Grid>
           <Grid>
-            <DropdownLangageComponent lang={lang} setLang={onChangeLanguage} />
+            <DropdownLangageComponent langage={langage} setLangage={setLangage} lang={lang} setLang={onChangeLanguage} />
           </Grid>
         </Grid.Container>
 

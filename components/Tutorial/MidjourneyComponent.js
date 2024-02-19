@@ -33,7 +33,7 @@ export default function MidjourneyComponent(props) {
   //const { data, error } = useSWR('/api/drafts?action=get_all', fetcher)
 
   const { isDark } = useTheme();
-  const { lang, setLang, isTablet, isLaptop } = props;
+  const { lang, setLang, isTablet, langage, setLangage, isLaptop } = props;
   const {isMobile} = useDeviceMode();
   const { t } = useTranslation(TAB_NAMEPACES);
   const [visible, setVisible] = useState(false);

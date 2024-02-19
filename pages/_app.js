@@ -3,7 +3,7 @@ import { getDocumentTheme } from '@nextui-org/react';
 import '@/styles/globals.css';
 import { NextUIProvider } from '@nextui-org/react';
 import { lightTheme, darkTheme } from '@/styles/theme';
-import { DEFAULT_SCREEN_MODE, NAMESPACE_LANGAGE_COMMON, STORAGE_SCREEN_MODE, TAB_NAMEPACES } from '@/constants';
+import { DEFAULT_LANGAGE, DEFAULT_SCREEN_MODE, NAMESPACE_LANGAGE_COMMON, STORAGE_LANGAGE, STORAGE_SCREEN_MODE, TAB_NAMEPACES } from '@/constants';
 import { useMediaQuery } from "@/styles/useMediaQuery";
 import { getLangageStorage } from '@/lib/storage/UserStorageFunctions';
 import { appWithTranslation } from 'next-i18next';
@@ -12,15 +12,19 @@ import DeviceModeProvider from '@/contexts/DeviceModeProvider';
 import ThemeModeProvider from '@/contexts/ThemeModeProvider';
 import { SSRProvider } from '@react-aria/ssr';
 import { useSSR } from '@nextui-org/react';
+import { useRouter } from 'next/router';
+import 'moment/locale/fr';
+import LangageProvider from '@/contexts/LangageProvider';
 
 const MyApp = ({ Component, pageProps }) => {
   //const {t} = useTranslation();
+  const router = useRouter();
   const { isBrowser } = useSSR();
   const isMobile = useMediaQuery(650);
   const isTablet = useMediaQuery(960);
   const isLaptop = useMediaQuery(1280);
   const [isDark, setIsDark] = useState();
-  const [lang, setLang] = useState('');
+  const [lang, setLang] = useState(DEFAULT_LANGAGE);
   const [screenMode, setScreenMode] = useState(DEFAULT_SCREEN_MODE);
 
   const mobile = useMediaQuery(599);
@@ -36,13 +40,49 @@ const MyApp = ({ Component, pageProps }) => {
     tv:tv,
   }
 
+  const onChangeLanguage = (language) => {
+    setLang(language);
+  };
+
   useEffect(() => {
+    /*
     let _lang = getLangageStorage();
     setLang(_lang);
     //i18n.changeLanguage(_lang);
     document.documentElement.setAttribute('lang', _lang);
+*/
+    let lang = DEFAULT_LANGAGE;
+
+    if (!window.localStorage.getItem(STORAGE_LANGAGE)) {
+      window.localStorage.setItem(STORAGE_LANGAGE, DEFAULT_LANGAGE);
+    } else {
+      lang = window.localStorage.getItem(STORAGE_LANGAGE);
+    }
+    setLang(lang);
       //console.log("LAAANG MAIN", _lang)
   }, [])
+
+  useEffect(() => {
+    //console.log("ACTUAL locale website address DEFAULT lang", router.defaultLocale);
+    //console.log("ACTUAL locale website address", router.locale);
+    /*
+    if (router.locale) {
+      setLang(router.locale);
+      //moment.locale(lang);
+    }
+    */
+  }, [])
+
+  useEffect(() => {
+    //setLangage(langMode);
+    /*
+    document.documentElement.setAttribute(STORAGE_LANGAGE, lang);
+    //i18n.changeLanguage(lang);
+    window.localStorage.setItem(STORAGE_LANGAGE, lang);
+    router.replace(router.asPath, router.asPath, { locale: lang })
+    moment.locale(lang);
+    */
+}, [lang]);
 
   useEffect(() => {
     // you can use any storage
@@ -107,17 +147,20 @@ crossOrigin="anonymous" />
   */
 }
  <DeviceModeProvider>
+ <LangageProvider langageMode={lang}>
  <NextUIProvider theme={isDark ? darkTheme : lightTheme}>
     <Component
     {...pageProps}
+    langage={lang} setLangage={onChangeLanguage}
     lang={lang}
-    setLang={setLang}
+    setLang={onChangeLanguage}
     sizes={sizes}
     isMobile={isMobile}
     isTablet={isTablet}
     isLaptop={isLaptop}
      />
   </NextUIProvider>
+ </LangageProvider>
  </DeviceModeProvider>
     </ThemeModeProvider>
 

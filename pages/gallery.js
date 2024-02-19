@@ -12,11 +12,12 @@ import LayoutPageComponent from '@/components/Layouts/LayoutPageComponent';
 import { useDeviceMode } from '@/contexts/DeviceModeProvider';
 
 export default function GalleryPage(props) {
-  const { lang, setLang, } = props;
+  const { lang, setLang, langage, setLangage} = props;
   const { t } = useTranslation(TAB_NAMEPACES);
   return (
     <LayoutPageComponent
     lang={lang} setLang={setLang}
+    langage={langage} setLangage={setLangage}
     >
       <Head>
         <title>{`${t('menuGallery', { ns: NAMESPACE_LANGAGE_COMMON })}`}</title>

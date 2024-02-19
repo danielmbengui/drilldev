@@ -10,12 +10,13 @@ import LayoutPageComponent from '@/components/Layouts/LayoutPageComponent';
 
 export default function HomePage(props) {
   const {isDark} = useTheme();
-  const {lang, setLang, sizes, isTablet, isMobile, isLaptop} = props;
+  const {lang, setLang, sizes, langage, setLangage, isTablet, isMobile, isLaptop} = props;
   const {t} = useTranslation(TAB_NAMEPACES);
 
   return (
     <LayoutPageComponent
     lang={lang} setLang={setLang}
+    langage={langage} setLangage={setLangage}
     >
       <Head>
         <title>{`${t('menuHome', {ns:NAMESPACE_LANGAGE_COMMON})}`}</title>

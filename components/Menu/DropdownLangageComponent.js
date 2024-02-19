@@ -4,7 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useTranslation } from 'next-i18next';
-import { LANGAGE_ENGLISH, LANGAGE_FRENCH, LANGAGE_PORTUGUESE, NAMESPACE_LANGAGE_COMMON } from '@/constants';
+import { LANGAGE_ENGLISH, LANGAGE_FRENCH, LANGAGE_PORTUGUESE, NAMESPACE_LANGAGE_COMMON, TAB_LANGAGES } from '@/constants';
 import { FlagIcon } from '../Personnal/FlagIcons';
 import { InputBase, Stack } from '@mui/material';
 import { updateLangageStorage } from '@/lib/storage/UserStorageFunctions';
@@ -88,22 +88,35 @@ const langs = [
     { value: LANGAGE_PORTUGUESE, text: 'langPortuguese' },
 ]
 
-export default function DropdownLangageComponent({ lang, setLang }) {
+export default function DropdownLangageComponent({ lang, setLang, langage, setLangage }) {
     const { t, i18n } = useTranslation();
 
-    const onChangeLanguage = (_lang) => {
-        setLang(_lang);
-        i18n.changeLanguage(_lang);
-        updateLangageStorage(_lang);
-        document.documentElement.setAttribute('lang', _lang);
+    const onChangeLanguage = (_langage) => {
+        //setLang(_lang);
+        //i18n.changeLanguage(_lang);
+        //updateLangageStorage(_lang);
+        //document.documentElement.setAttribute('lang', _lang);
+
+        const _lang = _langage;
+        if (TAB_LANGAGES && TAB_LANGAGES.includes(_lang)) {
+            i18n.changeLanguage(_lang);
+            //document.documentElement.setAttribute(STORAGE_LANG_MODE, _lang);
+            setLangage(_lang);
+            //i18n.changeLanguage(_lang);
+            //window.localStorage.setItem(STORAGE_LANG_MODE, _lang);
+            //alert(`The new langage is: ${_lang}`);
+            //setLangage(_language);
+            //handleClose();
+        }
       };
+      
 
     return (
         <FormControl sx={{ m: 1, }} variant="standard" size='small'>
         <Select
             aria-label='Select langage'
             id="select-langage"
-            value={lang}
+            value={langage}
             autoWidth
             onChange={(e) => {
                 onChangeLanguage(e.target.value)

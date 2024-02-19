@@ -12,5 +12,27 @@
     "paragraph_9": "Don't miss the opportunity to discover a new and fascinating world, where art and digital meet.",
     "paragraph_10": "Download your first AI-generated images now and dive into a world of limitless creation.",
     "paragraph_11": "With our site, the boundaries of creation are pushed a little further every day.",
-    "paragraph_12": "Join our ever-growing community of passionate AI users, interact with them, discover new ideas and share your own creations."
+    "paragraph_12": "Join our ever-growing community of passionate AI users, interact with them, discover new ideas and share your own creations.",
+    "taan_infos": {
+        "welcome": "Hi 🖐️,",
+        "iam": "I am",
+        "name": "Emoji",
+        "firstname": "Taan",
+        "job": "Digital Designer",
+        "qualities_home": "Creative & Curious",
+        "src_video_home_light": "/videos/home/taan-light.mp4",
+        "src_video_home_dark": "videos/home/taan-dark.mp4",
+        "src_pic": "images/midjourney/PNG/home/1.png"
+    },
+    "daan_infos": {
+        "welcome": "Hi 🖐️,",
+        "iam": "I am",
+        "name": "Emoji",
+        "firstname": "Daan",
+        "job": "Web Developer",
+        "qualities_home": "Innovative & Solution-Oriented",
+        "src_video_home_light": "/videos/home/daan-light.mp4",
+        "src_video_home_dark": "videos/home/daan-dark.mp4",
+        "src_pic": "images/midjourney/PNG/home/1.png"
+    }    
 }

@@ -22,7 +22,7 @@ const variantContent="highlight-rounded";
 export default function MenuComponent(props) {
   const router = useRouter();
   const { t, i18n } = useTranslation();
-  const { lang, setLang,} = props;
+  const { lang, setLang, langage, setLangage} = props;
   
   const isXs = useMediaQuery(650);
 
@@ -131,8 +131,9 @@ export default function MenuComponent(props) {
           </Grid>
           <Grid>
             <DropdownLangageComponent 
-            lang={lang} 
-            setLang={setLang} 
+            lang={langage} 
+            setLang={setLangage} 
+            langage={lang} setLangage={setLangage}
             />
           </Grid>
         </Grid.Container>

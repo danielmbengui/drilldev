@@ -58,7 +58,11 @@ const {isMobile} = useDeviceMode();
           {userInfos.qualities_home}
         </Text>
         <Text h3 color="$text">
-          {`Salut 🖐️, je suis ${getFirstLetterUpperCase(userInfos.firstname)} !`}
+          {`${userInfos.welcome}`}
+          &nbsp;
+          {` ${userInfos.iam}`}
+          &nbsp;
+          {`${getFirstLetterUpperCase(userInfos.firstname)} !`}
         </Text> 
       </Col>
     </Card.Header>

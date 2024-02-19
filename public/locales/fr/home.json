@@ -13,5 +13,27 @@
     "paragraph_10": "Téléchargez dès maintenant vos premières images générées par l'IA et plongez dans un univers de création illimité.",
     "paragraph_11": "Avec notre site, les frontières de la création sont repoussées chaque jour un peu plus loin.",
     "paragraph_12": "Rejoignez notre communauté en constante évolution d'utilisateurs passionnés par l'IA, échangez avec eux, découvrez de nouvelles idées et partagez vos propres créations.",
-    "paragraph_13": "Rejoignez la vague de l'IA dans la création artistique avec des images uniques à télécharger."
+    "paragraph_13": "Rejoignez la vague de l'IA dans la création artistique avec des images uniques à télécharger.",
+    "taan_infos" : {
+        "welcome":"Salut 🖐️,", 
+        "iam":"je suis", 
+        "name":"Emoji", 
+    "firstname":"Taan",
+    "job":"Designer Numérique",
+    "qualities_home":"Créative & Curieuse",
+    "src_video_home_light":"/videos/home/taan-light.mp4",
+    "src_video_home_dark":"videos/home/taan-dark.mp4",
+    "src_pic":"images/midjourney/PNG/home/1.png"
+    },
+    "daan_infos" : {
+        "welcome":"Salut 🖐️,",
+        "iam":"je suis",
+        "name":"Emoji", 
+    "firstname":"Daan",
+    "job":"Développeur Web",
+    "qualities_home":"Innovatif & Axé solution",
+    "src_video_home_light":"/videos/home/daan-light.mp4",
+    "src_video_home_dark":"videos/home/daan-dark.mp4",
+    "src_pic":"images/midjourney/PNG/home/1.png"
+    }
 }

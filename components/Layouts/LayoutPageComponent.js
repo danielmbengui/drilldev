@@ -29,7 +29,7 @@ function getRandomPicture(_pictures) {
 }
 
 export default function LayoutPageComponent(props) {
-  const { children, lang, setLang, } = props;
+  const { children, lang, setLang, langage, setLangage, } = props;
 
   return (
     <Grid
@@ -48,6 +48,7 @@ export default function LayoutPageComponent(props) {
     >
            <Container>
      <MenuComponent
+     langage={langage} setLangage={setLangage}
         lang={lang} setLang={setLang}
         activeColorContent={"primary"}
         variantContent={"highlight-rounded"}    

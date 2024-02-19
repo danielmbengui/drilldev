@@ -29,7 +29,7 @@ export default function MidjourneyPage(props) {
     //const { data, error } = useSWR('/api/drafts?action=get_all', fetcher)
 
     const { isDark } = useTheme();
-    const { lang, setLang, isMobile, isTablet, isLaptop } = props;
+    const { lang, setLang, langage, setLangage, isMobile, isTablet, isLaptop } = props;
     const { t } = useTranslation(TAB_NAMEPACES);
 
 
@@ -42,13 +42,16 @@ export default function MidjourneyPage(props) {
           }}>
               {t('menuTutorialMidjourney', {ns:NAMESPACE_LANGAGE_COMMON})}
           </Text>}
-      lang={lang} setLang={setLang}>
+      lang={lang} setLang={setLang}
+      langage={langage} setLangage={setLangage}
+      >
         <Head>
         <title>{`${t('menuTutorialMidjourney', { ns: NAMESPACE_LANGAGE_COMMON })}`}</title>
     </Head>
         <MidjourneyComponent
 lang={lang}
 setLang={setLang}
+langage={langage} setLangage={setLangage}
 isMobile={isMobile}
 isTablet={isTablet}
 isLaptop={isLaptop}

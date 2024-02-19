@@ -30,11 +30,11 @@ function getRandomPicture(_pictures) {
 }
 
 export default function ContainerPageWithoutHeaderComponent(props) {
-  const { children, pages, lang, setLang, sizes,  } = props;
+  const { children, pages, lang, setLang, sizes, langage, setLangage  } = props;
 
 
   return (
-    <Layout padding={15} lang={lang} setLang={setLang}  >
+    <Layout padding={15} lang={lang} setLang={setLang} langage={langage} setLangage={setLangage}  >
       
       <Container>
       {children}
