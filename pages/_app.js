@@ -33,11 +33,11 @@ const MyApp = ({ Component, pageProps }) => {
   const desktop = useMediaQuery(1440);
   const tv = useMediaQuery(5000);
   const sizes = {
-    mobile:mobile,
-    tablet:tablet,
-    laptop:laptop,
-    desktop:desktop,
-    tv:tv,
+    mobile: mobile,
+    tablet: tablet,
+    laptop: laptop,
+    desktop: desktop,
+    tv: tv,
   }
 
   const onChangeLanguage = (language) => {
@@ -59,30 +59,8 @@ const MyApp = ({ Component, pageProps }) => {
       lang = window.localStorage.getItem(STORAGE_LANGAGE);
     }
     setLang(lang);
-      //console.log("LAAANG MAIN", _lang)
+    //console.log("LAAANG MAIN", _lang)
   }, [])
-
-  useEffect(() => {
-    //console.log("ACTUAL locale website address DEFAULT lang", router.defaultLocale);
-    //console.log("ACTUAL locale website address", router.locale);
-    /*
-    if (router.locale) {
-      setLang(router.locale);
-      //moment.locale(lang);
-    }
-    */
-  }, [])
-
-  useEffect(() => {
-    //setLangage(langMode);
-    /*
-    document.documentElement.setAttribute(STORAGE_LANGAGE, lang);
-    //i18n.changeLanguage(lang);
-    window.localStorage.setItem(STORAGE_LANGAGE, lang);
-    router.replace(router.asPath, router.asPath, { locale: lang })
-    moment.locale(lang);
-    */
-}, [lang]);
 
   useEffect(() => {
     // you can use any storage
@@ -109,62 +87,120 @@ const MyApp = ({ Component, pageProps }) => {
   }, []);
 
   useEffect(() => {
-    /*
-    if (typeof window !== 'undefined') {
-      // You now have access to `window`
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments)
+    function adjustIframeLayout(isOpen) {
+      const widgetIframe = document.getElementById("xeko-ai-widget");
+      if (!widgetIframe) return;
+
+      const isMobile = window.innerWidth < 768;
+
+      if (isMobile) {
+        if (isOpen) {
+          widgetIframe.style.position = "fixed";
+          widgetIframe.style.top = 0;
+          widgetIframe.style.bottom = 0;
+          widgetIframe.style.left = 0;
+          widgetIframe.style.right = 0;
+          widgetIframe.style.width = "100%";
+          widgetIframe.style.height = "100%";
+          //widgetIframe.style.transform = "";
+        } else {
+          widgetIframe.style.position = "fixed";
+          widgetIframe.style.bottom = 0;
+          widgetIframe.style.right = 0;
+          widgetIframe.style.top = "auto";
+          widgetIframe.style.left = "auto";
+          widgetIframe.style.width = "200px";
+          widgetIframe.style.height = "160px";
+          //widgetIframe.style.transform = "";
+        }
+      } else {
+        if (isOpen) {
+          widgetIframe.style.position = "fixed";
+          widgetIframe.style.bottom = 0;
+          widgetIframe.style.right = 0;
+          widgetIframe.style.top = 0;
+          //widgetIframe.style.left = "auto";
+          widgetIframe.style.width = "450px";
+          widgetIframe.style.height = "100%";
+          //widgetIframe.style.transform = "";
+        } else {
+          widgetIframe.style.position = "fixed";
+          //widgetIframe.style.right = "0";
+          widgetIframe.style.top = "auto";
+          //widgetIframe.style.bottom = "0";
+          widgetIframe.style.left = "auto";
+          widgetIframe.style.width = "210px";
+          widgetIframe.style.height = "160px";
+          //widgetIframe.style.transform = "translateY(-50%)";
+
+          widgetIframe.style.right = 0;
+          widgetIframe.style.bottom = 0;
+          //widgetIframe.style.border= '5px solid cyan';
+          //widgetIframe.style.width= '210px';
+          //widgetIframe.style.maxWidth: '250px';
+        }
       }
-      gtag('js', new Date());
-      gtag('config', 'G-MJ6X1M1YRR');
     }
 
-    var ads = document.getElementsByClassName("adsbygoogle").length;
-    for (var i = 0; i < ads; i++) {
-      try {
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      } catch (e) { }
-    }
-    */
+    const handleResize = () => {
+      const currentState = window.xekoWidgetState !== undefined ? window.xekoWidgetState : false;
+      adjustIframeLayout(currentState);
+    };
+
+    const handleMessage = (event) => {
+      if (event.data?.type === "resize_widget") {
+        window.xekoWidgetState = event.data.isOpen;
+        adjustIframeLayout(event.data.isOpen);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("message", handleMessage);
+
+    adjustIframeLayout(false);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("message", handleMessage);
+    };
   }, []);
-
   return (
     isBrowser && <SSRProvider>
-
-
-    <ThemeModeProvider screenMode={screenMode}>
-    <Head>
-    <meta name="description" content={'Drill Dev'} />
-    <meta name="twitter:description" content={"Taan & Daan"} />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    </Head>
-{
-  /*
-              <Script async src="https://www.googletagmanager.com/gtag/js?id=G-MJ6X1M1YRR" />
-<Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2953886510697247"
-crossOrigin="anonymous" />
-  */
-}
- <DeviceModeProvider>
- <LangageProvider langageMode={lang}>
- <NextUIProvider theme={isDark ? darkTheme : lightTheme}>
-    <Component
-    {...pageProps}
-    langage={lang} setLangage={onChangeLanguage}
-    lang={lang}
-    setLang={onChangeLanguage}
-    sizes={sizes}
-    isMobile={isMobile}
-    isTablet={isTablet}
-    isLaptop={isLaptop}
-     />
-  </NextUIProvider>
- </LangageProvider>
- </DeviceModeProvider>
-    </ThemeModeProvider>
-
-  </SSRProvider>
+      <ThemeModeProvider screenMode={screenMode}>
+        <Head>
+          <meta name="description" content={'Drill Dev'} />
+          <meta name="twitter:description" content={"Taan & Daan"} />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+        </Head>
+        <DeviceModeProvider>
+          <LangageProvider langageMode={lang}>
+          <iframe
+            id="xeko-ai-widget"
+            src="https://assistant.xeko.ai?assistant_id=67ec4bd73d81dc6b55905a46"
+            style={{
+              position: 'fixed',
+              right: 0, bottom: 0,
+              border: 'none',
+              //margin: 0, padding: 0, 
+              zIndex: 9999
+            }}
+            scrolling="no"></iframe>
+            <NextUIProvider theme={isDark ? darkTheme : lightTheme}>
+              <Component
+                {...pageProps}
+                langage={lang} setLangage={onChangeLanguage}
+                lang={lang}
+                setLang={onChangeLanguage}
+                sizes={sizes}
+                isMobile={isMobile}
+                isTablet={isTablet}
+                isLaptop={isLaptop}
+              />
+            </NextUIProvider>
+          </LangageProvider>
+        </DeviceModeProvider>
+      </ThemeModeProvider>
+    </SSRProvider>
   );
 }
 
